@@ -8,8 +8,8 @@ public class DBCon {
 	public Connection getCon(){
 		Connection con=null;
 		try {
-			Class.forName("com.mysql.jdbc.Driver");
-			con=DriverManager.getConnection("jdbc:mysql://115.159.1.55:3306/News?characterEncoding=utf-8","root","MYsql6062..");
+			Class.forName("com.mysql.cj.jdbc.Driver");
+			con=DriverManager.getConnection("jdbc:mysql://115.159.1.55:3306/News?serverTimezone=UTC","root","MYsql6062..");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

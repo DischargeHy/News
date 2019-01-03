@@ -35,7 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				ArrayList list = nm.showNewsType();
 				int NewsTypeId=1;
 				for (int i = 0; i < list.size(); i++) {
-					NewsType newstype = new NewsType();
+					NewsType newstype = (NewsType)list.get(i);
+					
   			 %>
 			<li>
 				<a href="index.jsp?NewsTypeId=<%=newstype.getNewsTypeId() %>"><%=newstype.getNewsTypeName() %></a>

@@ -26,8 +26,8 @@ public class NewsManage {
 			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
 			while (rs.next()) {
-				int newsTypeId = rs.getInt("newsTypeId");
-				String newsTypeName = rs.getString("newsTypeName");
+				int newsTypeId = rs.getInt("NewsTypeId");
+				String newsTypeName = rs.getString("NewsTypeName");
 				NewsType newstype = new NewsType();
 				newstype.setNewsTypeId(newsTypeId);
 				newstype.setNewsTypeName(newsTypeName);
