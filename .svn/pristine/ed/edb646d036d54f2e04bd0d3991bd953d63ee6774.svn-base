@@ -1,0 +1,9 @@
+package db;
+
+public class NewsManage {
+	DBCon conn = null;
+
+	public NewsManage() {
+		conn = new DBCon();
+	}
+}
