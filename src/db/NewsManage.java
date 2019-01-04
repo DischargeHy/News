@@ -213,11 +213,11 @@ public class NewsManage {
 		return list;
 	}
 	
-	//插入新用户信息---TBL_USER表
+	//插入新用户信息---USER表
 	public int insertUser(User user) {
 		int i = 0;
 		Connection con = conn.getCon();
-		String sqlString = "insert into TBL_USER(UserAccount,UserPass,UserName,UserEMail,UserType,UserHead,UserAge,UserSex) values(?,?,?,?,?,?,?,?)";
+		String sqlString = "insert into User(UserAccount,UserPass,UserName,UserEMail,UserType,UserHead,UserAge,UserSex) values(?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pre = con.prepareStatement(sqlString);
 			pre.setString(1, user.getUserAccount());

@@ -20,7 +20,7 @@
   				<td align="center">密码：<input name="txt_uPass" type="password" /></td>
 		  	</tr>
  		 	<tr>
- 		   		<td align="center">重复密码：<input name="txt_RuPass" type="password" /></td>
+ 		   		<td align="center">重复密码：<input name="txt_ReuPass" type="password" /></td>
 		  	</tr>
  		 	<tr>
   		  		<td align="center">邮箱：<input name="txt_uemail" type="text" /></td>

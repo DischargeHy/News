@@ -47,7 +47,7 @@ public class RegisterServlet extends HttpServlet {
 		String userAccount=request.getParameter("txt_uAccount");	
 		String userName=request.getParameter("txt_uName");	
 		String userPass=request.getParameter("txt_uPass");
-		String ReuserPass=request.getParameter("txt_RuPass");
+		String ReuserPass=request.getParameter("txt_ReuPass");
 		String userEMail=request.getParameter("txt_uemail");
 		int userAge=0;
 		int userSex=0;

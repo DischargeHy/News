@@ -13,16 +13,16 @@
 			<tr>
 				<td align="center">
 
-    			<span class="input-group-text">用&nbsp;&nbsp;户&nbsp;&nbsp;名</span> 
+    			<span>用&nbsp;&nbsp;户&nbsp;&nbsp;名</span> 
 
-    			<input class="form-control" placeholder="UserName" name="txt_uName" type="text" />
+    			<input name="txt_uAccount" type="text" /><br/>
 
 
-    			<span class="input-group-text">密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span> 
+    			<span >密&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;码</span> 
 
-    			<input class="form-control" placeholder="Password" name="txt_uPass" type="password" />
+    			<input name="txt_uPass" type="password" /><br/>
    
-				<input class="btn btn-primary" name="" type="submit" value="登录" />	
+				<input type="submit" value="登录" />	
 				</td>
 			</tr>
 		</table>

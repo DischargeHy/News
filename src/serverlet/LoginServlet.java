@@ -45,30 +45,30 @@ public class LoginServlet extends HttpServlet {
 		request.setCharacterEncoding("utf-8");
 		PrintWriter out = response.getWriter();
 		
-		String UserAccount=request.getParameter("txt_uName");		
-		String uPass=request.getParameter("txt_uPass");
-		if(request.getParameter("txt_uName").equals("")||request.getParameter("txt_uPass").equals("")){
-			out.println("<script>alert('UserName or Pass is null');window.location.href='Login.jsp'</script>");
+		String UserAccount=request.getParameter("txt_uAccount");		
+		String UserPass=request.getParameter("txt_uPass");
+		if(request.getParameter("txt_uAccount").equals("")||request.getParameter("txt_uPass").equals("")){
+			out.println("<script>alert('UserAccount or Pass is null');window.location.href='Login.jsp'</script>");
 		}
 		
 		NewsManage nm=new NewsManage();
 		ArrayList list=nm.showUser();
 		if (list.size()==0) {
-			out.println("<script>alert('无该用户');window.location.href='Login.jsp'</script>");
+			out.println("<script>alert('this User is not exist!');window.location.href='Login.jsp'</script>");
 		} else {
 			int k=0;
-			String RealuPass=null;
+			String RealUserPass=null;
 			User user=null;
 			for (int i = 0; i < list.size(); i++) {
 				user = (User) list.get(i);
 				if (user.getUserAccount().equals(UserAccount)){
 					k=1;
-					RealuPass=user.getUserPass();
+					RealUserPass=user.getUserPass();
 					break;
 				}
 			}
 			if (k==1) {
-				if(uPass.equals(RealuPass)){
+				if(UserPass.equals(RealUserPass)){
 					HttpSession session=request.getSession();
 					session.setAttribute("UserAccount", UserAccount);
 					session.setAttribute("UserType", user.getUserType());
