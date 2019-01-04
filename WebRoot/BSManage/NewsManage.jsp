@@ -1,3 +1,4 @@
+<%@page import="entity.News"%>
 <%@page import="entity.NewsType"%>
 <%@page import="db.NewsManage"%>
 <%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
@@ -31,14 +32,27 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<p><a href="#">新闻发布</a></p>
 		</div>
 		<div style="float: left;border: 1px solid;"><!-- 新闻列表开始 -->
-			<table>
+			<table style="border: 1px solid;">
+			<tr>
+				<td>标题</td>
+				<td>类型</td>
+				<td>作者</td>
+				<td>发表时间</td>
+			</tr>
 			<%
 				NewsManage nm = new NewsManage();
-				ArrayList list = nm.showNewsType();
+				int UserId1 = 1;
+				String NewsPage = "1";
+				ArrayList list = nm.showNewsList(UserId1, NewsPage);/*通过用户ID查询文章（小编）  */
 				for (int i = 0; i < list.size(); i++) {
-				NewsType newstype = (NewsType)list.get(i);
+				News news = (News)list.get(i);
 			%>
-				
+				<tr>
+					<td><%=news.getNewsTitle() %></td>
+					<td><%=news.getNewsTypeName()%></td>
+					<td><%=news.getUserName()%></td>
+					<td><%=news.getCreateTime()%></td>
+				</tr>
 			<%} %>
 			</table>
 		</div><!-- 新闻列表结束 -->

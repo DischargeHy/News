@@ -2,14 +2,14 @@ package entity;
 
 public class News {
 	private int NewsId;
-	private String NewsName;
+	private String NewsTitle;
 	private String UserName;
 	private String CreateTime;
 	private String NewsTypeName;
-	public News(int newsId, String newsName, String userName, String createTime, String newsTypeName) {
+	public News(int newsId, String newsTitle, String userName, String createTime, String newsTypeName) {
 		super();
 		NewsId = newsId;
-		NewsName = newsName;
+		NewsTitle = newsTitle;
 		UserName = userName;
 		CreateTime = createTime;
 		NewsTypeName = newsTypeName;
@@ -17,8 +17,8 @@ public class News {
 	public int getNewsId() {
 		return NewsId;
 	}
-	public String getNewsName() {
-		return NewsName;
+	public String getNewsTitle() {
+		return NewsTitle;
 	}
 	public String getUserName() {
 		return UserName;
