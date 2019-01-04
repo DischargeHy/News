@@ -42,22 +42,22 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			%>
 				<tr>
 					<td>
-						<div id="Type" style="display:"><%=newstype.getNewsTypeName() %></div>
+						<div id="Type<%=newstype.getNewsTypeId() %>" style="display:"><%=newstype.getNewsTypeName() %></div>
 						
-						<div id="updateType" style="display: none"><!-- 点击修改才出现 -->
+						<div id="updateType<%=newstype.getNewsTypeId() %>" style="display: none"><!-- 点击修改才出现 -->
 							<form action="updateType" method="post">
 								<input type="text" value="<%=newstype.getNewsTypeName() %>" name="NewsTypeName">
 								<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
 								<input type="hidden" name="edit" value="update"><br>
 								<centetr>
 									<input id="yes" type="submit" value="确认" style="width: 75px;text-indent:0px;margin-top: 0px;">
-    	    						<input id="no" type="button" value="取消" style="width: 75px;text-indent:0px;margin-top: 0px;"onclick="hidden_updateType()">
+    	    						<input id="no" type="button" value="取消" style="width: 75px;text-indent:0px;margin-top: 0px;"onclick="hidden_updateType(<%=newstype.getNewsTypeId()%>)">
     	    					</centetr>
 							</form>
 						</div><!-- 点击修改才出现结束 -->
 						
 					</td>
-					<td><input id="submit" type="submit" name="修改" value="修改" class="submit_button"onclick="show_updateType()"/></td>
+					<td><input id="submit" type="submit" name="修改" value="修改" class="submit_button"onclick="show_updateType(<%=newstype.getNewsTypeId()%>)"/></td>
 					<form action="updateType" method="post"><td>
 						<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
 						<input type="hidden" name="edit" value="delete">

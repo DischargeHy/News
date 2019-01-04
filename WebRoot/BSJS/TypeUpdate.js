@@ -1,8 +1,8 @@
-function show_updateType(){
-	document.getElementById("Type").style.display="none";
-	document.getElementById("updateType").style.display="";
+function show_updateType(id){
+	document.getElementById("Type"+id).style.display="none";
+	document.getElementById("updateType"+id).style.display="inline";
 }
-function hidden_updateType(){
-	document.getElementById("Type").style.display="";
-	document.getElementById("updateType").style.display="none";
+function hidden_updateType(id){
+	document.getElementById("Type"+id).style.display="inline";
+	document.getElementById("updateType"+id).style.display="none";
 }
