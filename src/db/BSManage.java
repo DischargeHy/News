@@ -50,6 +50,19 @@ public class BSManage {
 		}
 		return count;
 	}
-	
+	public int deleteNews(int NewsId) throws SQLException {
+		int count = 0;
+		Connection con = dbcon.getCon();
+		String sqlString = "delete from News where NewsId=" + NewsId;
+		try {
+			PreparedStatement ps = con.prepareStatement(sqlString);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			con.close();
+		}
+		return count;
+	}
 }
 

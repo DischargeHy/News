@@ -34,4 +34,14 @@
     <servlet-name>RegisterServlet</servlet-name>
     <url-pattern>/RegisterServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>updateNewsServlet</display-name>
+    <servlet-name>updateNewsServlet</servlet-name>
+    <servlet-class>serverlet.updateNewsServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateNewsServlet</servlet-name>
+    <url-pattern>/updateNewsServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
