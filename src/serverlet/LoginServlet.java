@@ -73,7 +73,11 @@ public class LoginServlet extends HttpServlet {
 					HttpSession session=request.getSession();
 					session.setAttribute("UserAccount", UserAccount);
 					session.setAttribute("UserType", user.getUserType());
-					response.sendRedirect("index.jsp");
+					if(user.getUserType()==1||user.getUserType()==2) {
+						response.sendRedirect("index.jsp");}
+					else {
+						response.sendRedirect("BSManage/NewsManage.jsp?page=1");
+					}
 				}else{
 					out.println("<script>alert('Password error');window.location.href='Login.jsp'</script>");
 				}
