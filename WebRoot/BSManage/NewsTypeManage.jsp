@@ -27,7 +27,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
-			<p><a href="#">新闻查询管理</a></p>
+			<p><a href="BSManage/NewsManage.jsp?page=1">新闻查询管理</a></p>
 			<p><a>分类管理</a></p>
 			<p><a href="#">新闻发布</a></p>
 		</div>
