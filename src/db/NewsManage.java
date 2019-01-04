@@ -17,13 +17,36 @@ public class NewsManage {
 	}
 	
 	
-	//²éÑ¯ÐÂÎÅÀà±ðÐÅÏ¢---NewsType±í
+	//ï¿½ï¿½Ñ¯ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ï¢---NewsTypeï¿½ï¿½
 	public ArrayList showNewsType() {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
 		String sqlString = "select * from NewsType";
 		try {
 			PreparedStatement pre = con.prepareStatement(sqlString);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				int newsTypeId = rs.getInt("NewsTypeId");
+				String newsTypeName = rs.getString("NewsTypeName");
+				NewsType newstype = new NewsType();
+				newstype.setNewsTypeId(newsTypeId);
+				newstype.setNewsTypeName(newsTypeName);
+				list.add(newstype);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return list;
+	}
+	public ArrayList showNewsByTitle(String title) {
+		ArrayList list = new ArrayList();
+		Connection con = conn.getCon();
+		String sqlString = "select * from news where NewsTitle like '%" + title + "%'";
+		try {
+ 			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
 			while (rs.next()) {
 				int newsTypeId = rs.getInt("NewsTypeId");
