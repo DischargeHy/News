@@ -40,6 +40,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>发表时间</td>
 				<td>操作</td>
 			</tr>
+			<div><form method="post" action="BSManage/NewsManage.jsp"><!-- 搜索框 -->
+					<input type="hidden" value="1" name="page">
+					<input type="text" name="search" value="<%=request.getParameter("search")%>">
+					<input type="submit" value="搜索">
+			</form></div>
 			<%
 				NewsManage nm = new NewsManage();
 				int userId =(Integer)session.getAttribute("UserId");
@@ -48,14 +53,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				ArrayList list = null;
 				int page_num = 0;
 				int allPage = 0;
+				String search = request.getParameter("search");
 				if(userType==2){
-					list = nm.showNewsList(userId, NewsPage);/*通过用户ID查询文章（小编）  */
-					allPage = nm.getNewsPage(userId);
-					
+					if(search==null||search.equals("null")){
+						list = nm.showNewsList(userId, NewsPage);/*通过用户ID查询文章（小编）  */
+						allPage = nm.getNewsPage(userId);
+					}
+					else{
+						String NewsTitle = request.getParameter("search");
+						list = nm.showNewsList(userId, NewsTitle, NewsPage);
+						allPage = nm.getNewsPage(userId, NewsTitle);
+					}
 				}
 				else if(userType==3){
-					list = nm.showNewsList(NewsPage);
-					allPage = nm.getNewsPage();
+					if(search==null||search.equals("null")){
+						list = nm.showNewsList(NewsPage);
+						allPage = nm.getNewsPage();
+					}
+					else{
+						String NewsTitle = request.getParameter("search");
+						list = nm.showNewsList(NewsTitle, NewsPage);
+						allPage = nm.getNewsPage(NewsTitle);
+					}
 				}
 				page_num = allPage/6;
 				if(allPage%6!=0){
@@ -64,6 +83,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				for (int i = 0; i < list.size(); i++) {
 				News news = (News)list.get(i);
 			%>
+				
 				<tr>
 					<td><%=news.getNewsTitle()%></td>
 					<td><%=news.getNewsTypeName()%></td>
@@ -92,18 +112,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <tr>
 		        	<td colspan="4">
 		        	<%if(p1>=1){ %>
-		        		<a id="up" href="BSManage/NewsManage.jsp?page=<%=p1%>">上一页</a>
+		        		<a id="up" href="BSManage/NewsManage.jsp?page=<%=p1%>&search=<%=search%>">上一页</a>
 		        	<%} %>
 		        		<%for(int i = 1 ; i <= page_num ; i++){%>
-		        			<%if(Integer.parseInt(request.getParameter("page"))!=i){%>
-		        				<a href="BSManage/NewsManage.jsp?page=<%=i%>"><%=i %></a>
+		        			<%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
+		        				<a href="BSManage/NewsManage.jsp?page=<%=i%>&search=<%=search%>"><%=i %></a>
 		        			<%}
 		        			else{%>
 		        				<a><%=i %></a>
 		        			<%}%>
 		        		<%}%>
 		        		<%if(p2<=page_num){ %>
-		        	 	<a id="down" href="BSManage/NewsManage.jsp?page=<%=p2 %>">下一页</a>
+		        	 	<a id="down" href="BSManage/NewsManage.jsp?page=<%=p2 %>&search=<%=search%>">下一页</a>
 		        	 	<%} %>
 		        	</td>
 		        </tr>

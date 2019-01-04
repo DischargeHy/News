@@ -22,8 +22,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div style="width: 100%;border: 1px solid;">
-		<a href="#">新闻管理模块</a>
-		<a href="#">用户管理模块</a>
+		<a href="BSManage/NewsManage.jsp?page=1">新闻管理模块</a>
+		<a href="BSManage/UserManage.jsp?page=1">用户管理模块</a>
 		<a href="#">留言管理模块</a>
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->

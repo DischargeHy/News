@@ -101,6 +101,53 @@ public class NewsManage {
 		}
 		return list;
 	}
+	//通过UserId和Title查找
+	public ArrayList showNewsList(int UserId1,String NewsTitle,String page) {
+		ArrayList list = new ArrayList();
+		Connection con = conn.getCon();
+		int limit = 0;
+		int page_int = Integer.parseInt(page);
+		limit+= (page_int-1)*6;
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%' limit " + limit + ",6";
+		try {
+ 			PreparedStatement pre = con.prepareStatement(sqlString);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				int newsId = rs.getInt("NewsId");
+				String newsTitle = rs.getString("NewsTitle");
+				String createTime = rs.getString("CreateTime");
+				String newsTypeName = rs.getString("NewsTypeName");
+				String userName = rs.getString("UserName");
+				News news = new News(newsId, newsTitle, userName, createTime, newsTypeName);
+				list.add(news);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return list;
+	}
+	//小编的新闻搜索
+	public int getNewsPage(int UserId1,String NewsTitle) {
+		ArrayList list = new ArrayList();
+		Connection con = conn.getCon();
+		int i = 0;
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%'";
+		try {
+ 			PreparedStatement pre = con.prepareStatement(sqlString);
+			ResultSet rs = pre.executeQuery();
+			rs.last();
+			i = rs.getRow();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return i;
+	}
 	//显示所有新闻
 	public ArrayList showNewsList(String page) {
 		ArrayList list = new ArrayList();
@@ -213,13 +260,14 @@ public class NewsManage {
 		}
 		return list;
 	}
+	//通过页数筛选用户
 	public ArrayList showUser(String page) {
 		ArrayList list = new ArrayList();
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
-		limit+= (page_int-1)*6;
+		limit+= (page_int-1)*10;
 		Connection con = conn.getCon();
-		String sqlString = "select * from User  ORDER BY UserType limit " + limit +",6";
+		String sqlString = "select * from User  ORDER BY UserType limit " + limit +",10";
 		try {
 			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
