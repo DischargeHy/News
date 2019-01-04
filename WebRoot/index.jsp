@@ -23,11 +23,32 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
   <body>
-  	<div id="head">
+
+  	<div id="head" class="table-info">
+	<%
+		request.setCharacterEncoding("utf-8");
+		if(request.getParameter("logout")!=null){//如果进入页面logout有值传入
+			session.removeAttribute("UserAccount");//清空session	
+			session.removeAttribute("UserType");
+		}
+    	if (session.getAttribute("UserAccount") != null) {	
+    		String UserAccount=(String)session.getAttribute("UserAccount"); 
+    		String UserType=session.getAttribute("UserType").toString();
+    %>   		
+    		<label>&nbsp;您好：</label><%=UserAccount %>
+    		<a class="text-primary" href="index.jsp?logout=1">登出</a>
+    		<label>&nbsp;&nbsp;|</label>
+    		<label>您的用户类型是：</label><%=UserType %>
+    <%
+    	}else{
+    %>
 		<a href="Login.jsp">登陆</a> 
 		<label>&nbsp;|&nbsp;</label>
 		<a href="Register.jsp">注册</a>
-  	</div>
+    <%		
+    	}
+    %>
+    </div>
   	<div id="NewsType">
   		<ul>
   			<%
