@@ -5,6 +5,7 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import entity.News;
@@ -145,7 +146,8 @@ public class NewsManage {
 				int userType = rs.getInt("UserType");
 				String userHead = rs.getString("UserHead");
 				int userAge = rs.getInt("UserAge");
-				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userAge);
+				int userSex = rs.getInt("UserSex");
+				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userAge, userSex);
 				list.add(user);
 			}
 			rs.close();
@@ -155,5 +157,32 @@ public class NewsManage {
 			conn.closeAll(con);
 		}
 		return list;
+	}
+	
+	//插入新用户信息---TBL_USER表
+	public int insertUser(User user) {
+		int i = 0;
+		Connection con = conn.getCon();
+		String sqlString = "insert into TBL_USER(UserAccount,UserPass,UserName,UserEMail,UserType,UserHead,UserAge,UserSex) values(?,?,?,?,?,?,?,?)";
+		try {
+			PreparedStatement pre = con.prepareStatement(sqlString);
+			pre.setString(1, user.getUserAccount());
+			pre.setString(2, user.getUserPass());
+			pre.setString(3, user.getUserName());
+			pre.setString(4, user.getUserEMail());
+			pre.setInt(5, user.getUserType());
+			pre.setString(6, user.getUserHead());
+			pre.setInt(7, user.getUserAge());
+			pre.setInt(8, user.getUserSex());
+			//pre.setTimestamp(5, new Timestamp(new java.util.Date().getTime()));
+//			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+//			pre.setString(5, df.format(new java.sql.Date(System.currentTimeMillis())));
+			i = pre.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return i;
 	}
 }
