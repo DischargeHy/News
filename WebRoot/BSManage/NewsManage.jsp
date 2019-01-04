@@ -31,7 +31,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<p><a href="BSManage/NewsTypeManage.jsp">分类管理</a></p>
 			<p><a href="#">新闻发布</a></p>
 		</div>
-		<div style="float: left;border: 1px solid; width:100%"><!-- 新闻列表开始 -->
+		<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
 			<table style="border: 1px solid;width: 100%">
 			<tr>
 				<td>标题</td>
