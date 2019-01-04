@@ -6,7 +6,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
+import entity.News;
 import entity.NewsType;
 
 public class NewsManage {
@@ -41,19 +41,21 @@ public class NewsManage {
 		}
 		return list;
 	}
-	public ArrayList showNewsByTitle(String title) {
+	//通过标题查询新闻列表
+	public ArrayList showNewsListByTitle(News news) {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
-		String sqlString = "select * from news where NewsTitle like '%" + title + "%'";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName \n" + 
+				"from News,NewsType,`User` \n" + 
+				"WHERE News.NewsTypeId=NewsType.NewsTypeId \n" + 
+				"and News.UserId=`User`.UserId";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
 			while (rs.next()) {
-				int newsTypeId = rs.getInt("NewsTypeId");
-				String newsTypeName = rs.getString("NewsTypeName");
+				int NewsId = rs.getInt("NewsId");
+				String NewsName = rs.getString("NewsName");
 				NewsType newstype = new NewsType();
-				newstype.setNewsTypeId(newsTypeId);
-				newstype.setNewsTypeName(newsTypeName);
 				list.add(newstype);
 			}
 			rs.close();
