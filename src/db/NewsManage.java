@@ -19,6 +19,7 @@ public class NewsManage {
 		conn = new DBCon();
 	}
 	
+	int indexPageSize=6;//主页面每页要放的个数
 	
 	//��ѯ���������Ϣ---NewsType��
 	public ArrayList showNewsType() {
@@ -238,5 +239,87 @@ public class NewsManage {
 			conn.closeAll(con);
 		}
 		return i;
+	}		
+	
+	//通过NewsTypeId查询新闻列表（带分页）
+	public ArrayList showNewsListByNewsTypeId(int NewsTypeId,int Page) {
+		ArrayList list = new ArrayList();
+		Connection con = conn.getCon();
+		String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsTypeId=? and NewsStatus=1";
+		try {
+			PreparedStatement pre = con.prepareStatement(sqlString);
+			pre.setInt(1, NewsTypeId);
+			ResultSet rs = pre.executeQuery();
+
+			rs.absolute((Page-1)*indexPageSize+1);//指针指向对应页的第一个数据
+			int count = 0;
+			do{
+				if(count>=indexPageSize){
+					break;//当计数大于定义的每页个数时跳出循环
+				}
+				String createTime = rs.getString("CreateTime");
+				
+				int newsId = rs.getInt("NewsId");
+				String newsTitle = rs.getString("NewsTitle");
+				String userName = rs.getString("UserName");
+				int browse=rs.getInt("browse");
+				String updateTime = rs.getString("updateTime");
+				String newsCover=rs.getString("newsCover");
+				int newsContentNum=showContentNum(newsId);//调用方法查询回复数
+				News news = new News(newsId, newsTitle, userName, browse, updateTime, newsCover, newsContentNum);
+				list.add(news);
+				count++;
+			}while (rs.next());
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return list;
 	}
+	
+	//根据NewsId查询回复数---Comment表
+		public int showContentNum(int newsId) {
+			int count = 0;
+			Connection con = conn.getCon();
+			String sqlString = "select * from `Comment` where newsId=?";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				pre.setInt(1, newsId);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				count = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return count;
+		}
+		
+		//根据newstypeid决定主页面(List.jsp)要分多少页
+		public int ShowPageCountBynewstypeid(int newstypeid){
+			int pageCount=0;
+			Connection con = conn.getCon();
+			String sqlString = "select COUNT(*) as allLine from News where newstypeid=?";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				pre.setInt(1, newstypeid);
+				ResultSet rs = pre.executeQuery();
+				
+				while (rs.next()) {
+					int allLine = rs.getInt("allLine");//获得查询的总行数
+					//确定要分的页数(总页码)
+					pageCount = (allLine%indexPageSize==0)?(allLine/indexPageSize):(allLine/indexPageSize+1);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return pageCount;
+		}
 }
