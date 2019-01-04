@@ -34,11 +34,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<table>
 			<%
 				NewsManage nm = new NewsManage();
-				ArrayList list = nm.showNewsType();
+				int UserId1 = 1;
+				String NewsPage = "1";
+				ArrayList list = nm.showNewsList(UserId1, NewsPage);
 				for (int i = 0; i < list.size(); i++) {
-				NewsType newstype = (NewsType)list.get(i);
+				News news = (News)list.get(i);
 			%>
-				
+				<tr>
+					<td></td>
+				</tr>
 			<%} %>
 			</table>
 		</div><!-- 新闻列表结束 -->
