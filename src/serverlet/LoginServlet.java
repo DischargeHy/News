@@ -48,7 +48,7 @@ public class LoginServlet extends HttpServlet {
 		String uName=request.getParameter("txt_uName");		
 		String uPass=request.getParameter("txt_uPass");
 		if(request.getParameter("txt_uName").equals("")||request.getParameter("txt_uPass").equals("")){
-			out.println("<script>alert('用户名或密码为空');window.location.href='Login.jsp'</script>");
+			out.println("<script>alert('UserName or Pass is null');window.location.href='Login.jsp'</script>");
 		}
 		
 		NewsManage nm=new NewsManage();
@@ -61,7 +61,7 @@ public class LoginServlet extends HttpServlet {
 			User user=null;
 			for (int i = 0; i < list.size(); i++) {
 				user = (User) list.get(i);
-				if (user.getUserName().equals(uName)){
+				if (user.getUserAccount().equals(uName)){
 					k=1;
 					RealuPass=user.getUserPass();
 					break;
@@ -74,10 +74,10 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("UserType", user.getUserType());
 					response.sendRedirect("index.jsp");
 				}else{
-					out.println("<script>alert('�������');window.location.href='Login.jsp'</script>");
+					out.println("<script>alert('Password error');window.location.href='Login.jsp'</script>");
 				}
 			} else {
-				out.println("<script>alert('�޸��û�����');window.location.href='Login.jsp'</script>");
+				out.println("<script>alert('this User is not exist');window.location.href='Login.jsp'</script>");
 			}
 		}
 	}
