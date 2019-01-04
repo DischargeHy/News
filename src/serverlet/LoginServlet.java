@@ -76,7 +76,7 @@ public class LoginServlet extends HttpServlet {
 						response.sendRedirect("index.jsp");
 					}
 					else {
-						response.sendRedirect("");
+						response.sendRedirect("BSManage/NewsManage.jsp");
 					}
 				}else{
 					out.println("<script>alert('Password error');window.location.href='Login.jsp'</script>");
