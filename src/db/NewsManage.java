@@ -127,7 +127,61 @@ public class NewsManage {
 		}
 		return list;
 	}
-	
+	//总页数查询
+		public int getNewsPage() {
+			Connection con = conn.getCon();
+			int i = 0;
+			String sqlString = "select * from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId ORDER BY CreateTime";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
+		}
+		//根据用户Id的总页数查询
+		public int getNewsPage(int UserId1) {
+			Connection con = conn.getCon();
+			int i = 0;
+			String sqlString = "select * from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId = " + UserId1 + " ORDER BY CreateTime";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
+		}
+		//根据Title的总页数查询
+		public int getNewsPage(String NewsTitle1) {
+			Connection con = conn.getCon();
+			int i = 0;
+			String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
+		}	
+
 	//查询用户---User表
 	public ArrayList showUser() {
 		ArrayList list = new ArrayList();
