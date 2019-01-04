@@ -30,10 +30,6 @@ public class updateType extends HttpServlet {
 		System.out.println(NewsTypeId);
 		System.out.println(NewsTypeName);
 		PrintWriter out = response.getWriter();  
-		out.println("<HTML>");
-		out.println("  <HEAD><meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\">\r\n" + 
-				"</HEAD>");
-		out.println("  <BODY>");
 		if(edit.equals("update")){
 			try {
 				num = bs.updateNewsType(NewsTypeId, NewsTypeName);

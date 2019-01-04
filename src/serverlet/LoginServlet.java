@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 			if (k==1) {
 				if(UserPass.equals(RealUserPass)){
 					HttpSession session=request.getSession();
-					session.setAttribute("userId", user.getUserId());
+					session.setAttribute("UserId", user.getUserId());
 					session.setAttribute("UserAccount", UserAccount);
 					session.setAttribute("UserType", user.getUserType());
 					if(user.getUserType()==1||user.getUserType()==2) {

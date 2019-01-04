@@ -213,7 +213,37 @@ public class NewsManage {
 		}
 		return list;
 	}
-	
+	public ArrayList showUser(String page) {
+		ArrayList list = new ArrayList();
+		int limit = 0;
+		int page_int = Integer.parseInt(page);
+		limit+= (page_int-1)*6;
+		Connection con = conn.getCon();
+		String sqlString = "select * from User  ORDER BY UserType limit " + limit +",6";
+		try {
+			PreparedStatement pre = con.prepareStatement(sqlString);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				int userId = rs.getInt("UserId");
+				String userAccount = rs.getString("UserAccount");
+				String userPass = rs.getString("UserPass");
+				String userName = rs.getString("UserName");
+				String userEMail = rs.getString("UserEMail");
+				int userType = rs.getInt("UserType");
+				String userHead = rs.getString("UserHead");
+				int userAge = rs.getInt("UserAge");
+				int userSex = rs.getInt("UserSex");
+				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userAge, userSex);
+				list.add(user);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return list;
+	}
 	//插入新用户信息---USER表
 	public int insertUser(User user) {
 		int i = 0;
