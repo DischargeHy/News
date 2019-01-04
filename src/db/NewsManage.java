@@ -48,10 +48,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName \n" + 
-				"from News,NewsType,`User` \n" + 
-				"WHERE News.NewsTypeId=NewsType.NewsTypeId \n" + 
-				"and News.UserId=`User`.UserId and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime limit" + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -79,10 +76,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName \n" + 
-				"from News,NewsType,`User` \n" + 
-				"WHERE News.NewsTypeId=NewsType.NewsTypeId \n" + 
-				"and News.UserId=`User`.UserId and UserId = " + UserId1 + " ORDER BY CreateTime limit" + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId = " + UserId1 + " ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -110,10 +104,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName \n" + 
-				"from News,NewsType,`User` \n" + 
-				"WHERE News.NewsTypeId=NewsType.NewsTypeId \n" + 
-				"and News.UserId=`User`.UserId ORDER BY CreateTime limit" + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
