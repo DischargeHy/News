@@ -1,6 +1,7 @@
 package db;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,6 +9,7 @@ import java.util.ArrayList;
 
 import entity.News;
 import entity.NewsType;
+import entity.User;
 
 public class NewsManage {
 	DBCon conn = null;
@@ -57,6 +59,35 @@ public class NewsManage {
 				String NewsName = rs.getString("NewsName");
 				NewsType newstype = new NewsType();
 				list.add(newstype);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return list;
+	}
+	
+	//查询用户---User表
+	public ArrayList showUser() {
+		ArrayList list = new ArrayList();
+		Connection con = conn.getCon();
+		String sqlString = "select * from User";
+		try {
+			PreparedStatement pre = con.prepareStatement(sqlString);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				int userId = rs.getInt("UserId");
+				String userAccount = rs.getString("UserAccount");
+				String userPass = rs.getString("UserPass");
+				String userName = rs.getString("UserName");
+				String userEMail = rs.getString("UserEMail");
+				int userType = rs.getInt("UserType");
+				String userHead = rs.getString("UserHead");
+				int userAge = rs.getInt("UserAge");
+				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userAge);
+				list.add(user);
 			}
 			rs.close();
 		} catch (SQLException e) {
