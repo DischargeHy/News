@@ -36,15 +36,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		if(request.getParameter("logout")!=null){//如果进入页面logout有值传入
 			session.removeAttribute("UserAccount");//清空session	
 			session.removeAttribute("UserType");
+			session.removeAttribute("UserId");
 		}
     	if (session.getAttribute("UserAccount") != null) {	
     		String UserAccount=(String)session.getAttribute("UserAccount"); 
     		String UserType=session.getAttribute("UserType").toString();
+    		String UserId=session.getAttribute("UserId").toString();
     %>   		
-    		<label>&nbsp;您好：</label><a href=""><%=UserAccount %></a>
+    		<label>&nbsp;您好：</label><a href="UManage/UserMessageManage.jsp"><%=UserAccount %></a>
     		<a class="text-primary" href="index.jsp?logout=1">登出</a>
     		<label>&nbsp;&nbsp;|</label>
     		<label>您的用户类型是：</label><%=UserType %>
+    		<label>您的用户Id是：</label><%=UserId %>
     <%
     	}else{
     %>
