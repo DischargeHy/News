@@ -674,4 +674,116 @@ public class NewsManage {
 			}
 			return count;
 		}
+		
+		// 根据user对象修改User表（包括密码）
+				public int updateUserIncludePass(User user) {
+					int count = 0;
+					Connection con = conn.getCon();
+					String sqlString = "update User set UserName=?,UserType=?,UserHead=?,UserBirthday=?,UserSex=?,UserPass=? where Userid=?";
+					try {
+						PreparedStatement pre = con.prepareStatement(sqlString);
+						pre.setString(1, user.getUserName());
+						pre.setInt(2, user.getUserType());
+						pre.setString(3, user.getUserHead());
+						pre.setString(4, user.getUserBirthday());
+						pre.setInt(5, user.getUserSex());
+						pre.setString(6, user.getUserPass());
+						pre.setInt(7, user.getUserId());
+						count = pre.executeUpdate();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} finally {
+						conn.closeAll(con);
+					}
+					return count;
+				}
+		
+	// 查询用户(根据UserId和密码)---User表
+	public int showUserByUserIdAndPass(int Userid,String UserPass) {
+		int count=0;
+		Connection con = conn.getCon();
+		String sqlString = "select * from User where UserId=? and UserPass=?";
+		try {
+			PreparedStatement pre = con.prepareStatement(sqlString);
+			pre.setInt(1, Userid);
+			pre.setString(2, UserPass);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				count++;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return count;
+	}
+	
+	//根据newsTitle决定搜索页面(Serach.jsp)要分多少页
+			public int ShowPageCountBynewsTitle(String search){
+				if(search==null) {
+					search="*";
+				}
+				int pageCount=0;
+				Connection con = conn.getCon();
+				String sqlString = "select COUNT(*) as allLine from News where newstitle like '%" + search  + "%'";
+				try {
+					PreparedStatement pre = con.prepareStatement(sqlString);
+					ResultSet rs = pre.executeQuery();
+					
+					while (rs.next()) {
+						int allLine = rs.getInt("allLine");//获得查询的总行数
+						//确定要分的页数(总页码)
+						pageCount = (allLine%indexPageSize==0)?(allLine/indexPageSize):(allLine/indexPageSize+1);
+					}
+					rs.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					conn.closeAll(con);
+				}
+				return pageCount;
+			}
+	
+	//通过NewsTitle查询新闻列表（带分页）
+		public ArrayList showNewsListByNewsTitle(String search,int Page) {
+			ArrayList list = new ArrayList();
+			Connection con = conn.getCon();
+			if(search==null) {
+				search="*";
+			}
+			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsTitle like '%" + search  + "%' and NewsStatus=1";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+
+				rs.absolute((Page-1)*indexPageSize+1);//指针指向对应页的第一个数据
+				int count = 0;
+				do{
+					if(count>=indexPageSize){
+						break;//当计数大于定义的每页个数时跳出循环
+					}
+					String createTime = rs.getString("CreateTime");
+					
+					int newsId = rs.getInt("NewsId");
+					String newsTitle = rs.getString("NewsTitle");
+					String userName = rs.getString("UserName");
+					int browse=rs.getInt("browse");
+					String updateTime = rs.getString("updateTime");
+					String newsCover=rs.getString("newsCover");
+					int newsContentNum=showContentNum(newsId);//调用方法查询回复数
+					News news = new News(newsId, newsTitle, userName, browse, updateTime, newsCover, newsContentNum);
+					list.add(news);
+					count++;
+				}while (rs.next());
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
 }
