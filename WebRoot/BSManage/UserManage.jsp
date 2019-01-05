@@ -105,8 +105,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 		<td><%=user.getUserName() %></td>
 			 		<td><%=user.getUserEMail() %></td>
 			 		<td>
-			 			<form action="updateUserServlet">
-			 				<input type="hidden" value="<%=user.getUserId()%>">
+			 			<form action="updateUserServlet" method="post">
+			 				<input type="hidden" value="<%=user.getUserId()%>" name="UserId">
 			 				<select name="UserType">
 			 					<option value="1" <%if(user.getUserType()==1){ %>selected="selected"<%} %>>普通用户</option>
 			 					<option value="2" <%if(user.getUserType()==2){ %>selected="selected"<%} %>>编辑人员</option>

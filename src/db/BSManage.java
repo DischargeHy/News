@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import entity.User;
+
 public class BSManage {
 	DBCon dbcon = new DBCon();
 	public int updateNewsType(int NewsTypeId,String NewsTypeName) throws SQLException {
@@ -64,17 +66,19 @@ public class BSManage {
 		}
 		return count;
 	}
-	public int changeUserType(int NewsId) throws SQLException {
+	public int changeUserType(String UserId,String type) {
 		int count = 0;
 		Connection con = dbcon.getCon();
-		String sqlString = "delete from News where NewsId=" + NewsId;
+		int UserId1 = Integer.parseInt(UserId);
+		int type1 = Integer.parseInt(type);
+		String sqlString = "update User set UserType="+ type1 +" where UserId=" + UserId1;
 		try {
-			PreparedStatement ps = con.prepareStatement(sqlString);
-			count = ps.executeUpdate();
+			PreparedStatement pre = con.prepareStatement(sqlString);
+			count = pre.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			con.close();
+			dbcon.closeAll(con);
 		}
 		return count;
 	}

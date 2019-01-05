@@ -86,11 +86,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        int p2 = Integer.parseInt(request.getParameter("page")); 
 		        p2=p2+1;
 				for (int i = 0; i < list.size(); i++) {
-				News news = (News)list.get(i);
+				News news = (News)list.get(i);// 有以下NewsId,NewsTitle,CreateTime,NewsTypeName,UserName
 			%>
 				
 				<tr>
-					<td><%=news.getNewsTitle()%></td>
+					<td><a href="#<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a></td>
 					<td><%=news.getNewsTypeName()%></td>
 					<td><%=news.getUserName()%></td>
 					<td><%=news.getCreateTime()%></td>

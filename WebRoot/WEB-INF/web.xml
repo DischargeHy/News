@@ -54,4 +54,14 @@
     <servlet-name>UserMessageUpdateServlet</servlet-name>
     <url-pattern>/UserMessageUpdateServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>updateUserServlet</display-name>
+    <servlet-name>updateUserServlet</servlet-name>
+    <servlet-class>serverlet.updateUserServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateUserServlet</servlet-name>
+    <url-pattern>/updateUserServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
