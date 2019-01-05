@@ -8,6 +8,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import entity.ApplyList;
 import entity.News;
 import entity.NewsType;
 import entity.User;
@@ -243,6 +244,54 @@ public class NewsManage {
 				conn.closeAll(con);
 			}
 			return list;
+		}
+		//按页显示申请
+		public ArrayList showApply(String page) {
+			ArrayList list = new ArrayList();
+			int limit = 0;
+			int page_int = Integer.parseInt(page);
+			limit+= (page_int-1)*10;
+			Connection con = conn.getCon();
+			String sqlString = "select * from `ApplyView` limit " + limit +",10";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int applyId = rs.getInt("applyId");
+					int userId = rs.getInt("userId");
+					String reasons = rs.getString("reasons");
+					String time = rs.getString("time");
+					String userHead = rs.getString("userHead");
+					String userName = rs.getString("userName");
+					String userEMail = rs.getString("UserEMail");
+					ApplyList al = new ApplyList(applyId, userId, reasons, time, userName, userHead, userEMail);
+					list.add(al);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		//总申请页数查询
+		public int getApplyPage() {
+			Connection con = conn.getCon();
+			int i = 0;
+			String sqlString = "select * from ApplyView";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
 		}
 		//总用户页数查询
 		public int getUserPage(String type) {

@@ -64,4 +64,14 @@
     <servlet-name>updateUserServlet</servlet-name>
     <url-pattern>/updateUserServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>updateApplyServlet</display-name>
+    <servlet-name>updateApplyServlet</servlet-name>
+    <servlet-class>serverlet.updateApplyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateApplyServlet</servlet-name>
+    <url-pattern>/updateApplyServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
