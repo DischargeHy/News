@@ -41,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		String UserAccount=(String)session.getAttribute("UserAccount"); 
     		String UserType=session.getAttribute("UserType").toString();
     %>   		
-    		<label>&nbsp;您好：</label><%=UserAccount %>
+    		<label>&nbsp;您好：</label><a href=""><%=UserAccount %></a>
     		<a class="text-primary" href="index.jsp?logout=1">登出</a>
     		<label>&nbsp;&nbsp;|</label>
     		<label>您的用户类型是：</label><%=UserType %>

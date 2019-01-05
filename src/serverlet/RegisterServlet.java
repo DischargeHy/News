@@ -49,7 +49,7 @@ public class RegisterServlet extends HttpServlet {
 		String userPass=request.getParameter("txt_uPass");
 		String ReuserPass=request.getParameter("txt_ReuPass");
 		String userEMail=request.getParameter("txt_uemail");
-		int userAge=0;
+		String userBirthday="2000-01-01";
 		int userSex=0;
 		int userType=1;
 		String userHead=null;
@@ -65,7 +65,7 @@ public class RegisterServlet extends HttpServlet {
 				
 				// 当TBL_USER表为空
 				if (list.size() == 0) {
-					User newUser =new User(userAccount, ReuserPass, userName, userEMail, userType, userHead, userAge, userSex);
+					User newUser =new User(userAccount, ReuserPass, userName, userEMail, userType, userHead, userSex, userBirthday);
 					int j = nm.insertUser(newUser);// 调用新增用户方法
 					if (j > 0) {
 						out.println("<script>alert('Register Success');window.location.href='Login.jsp'</script>");
@@ -84,7 +84,7 @@ public class RegisterServlet extends HttpServlet {
 					if (k == 1) {
 						out.println("<script>alert('This username has been used');window.location.href='Register.jsp'</script>");
 					} else {
-						User newUser =new User(userAccount, ReuserPass, userName, userEMail, userType, userHead, userAge, userSex);
+						User newUser =new User(userAccount, ReuserPass, userName, userEMail, userType, userHead, userSex, userBirthday);
 						int j = nm.insertUser(newUser);
 						if (j > 0) {
 							out.println("<script>alert('Register Success');window.location.href='Login.jsp'</script>");

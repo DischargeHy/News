@@ -24,12 +24,12 @@
     <br>
     <form class="am-form" id="log-form" action="LoginServlet">
       <div class="am-input-group am-radius am-animation-slide-left">       
-        <input type="email" id="doc-vld-email-2-1" name="UserName" class="am-radius" data-validation-message="请输入正确账号" placeholder="账号" required/>
+        <input type="email" id="doc-vld-email-2-1" name="UserName" class="am-radius" data-validation-message="请输入正确用户名" placeholder="用户名" required/>
         <span class="am-input-group-label log-icon am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
       </div>
       <br>
       <div class="am-input-group am-animation-slide-left log-animation-delay">
-        <input type="password" id="log-password" name="UserPass" class="am-form-field am-radius log-input" placeholder="密码" minlength="6" required>
+        <input type="password" id="log-password" name="UserPass" class="am-form-field am-radius log-input" placeholder="密码" minlength="6" data-validation-message="请输入正确密码" required>
         <span class="am-input-group-label log-icon am-radius"><i class="am-icon-lock am-icon-sm am-icon-fw"></i></span>
       </div>
       <br>
