@@ -44,4 +44,14 @@
     <servlet-name>updateNewsServlet</servlet-name>
     <url-pattern>/updateNewsServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserMessageUpdateServlet</display-name>
+    <servlet-name>UserMessageUpdateServlet</servlet-name>
+    <servlet-class>serverlet.UserMessageUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserMessageUpdateServlet</servlet-name>
+    <url-pattern>/UserMessageUpdateServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

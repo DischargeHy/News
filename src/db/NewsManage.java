@@ -213,6 +213,37 @@ public class NewsManage {
 		}
 		return list;
 	}
+	
+	//查询用户(根据UserId)---User表
+		public ArrayList showUserByUserId(String Userid) {
+			ArrayList list = new ArrayList();
+			Connection con = conn.getCon();
+			String sqlString = "select * from User where UserId=?";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				pre.setString(1, Userid);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int userId = rs.getInt("UserId");
+					String userAccount = rs.getString("UserAccount");
+					String userPass = rs.getString("UserPass");
+					String userName = rs.getString("UserName");
+					String userEMail = rs.getString("UserEMail");
+					int userType = rs.getInt("UserType");
+					String userHead = rs.getString("UserHead");
+					String userBirthday = rs.getString("UserBirthday");
+					int userSex = rs.getInt("UserSex");
+					User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userSex, userBirthday);
+					list.add(user);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
 	public ArrayList showUser(String page) {
 		ArrayList list = new ArrayList();
 		int limit = 0;
@@ -351,5 +382,28 @@ public class NewsManage {
 				conn.closeAll(con);
 			}
 			return pageCount;
+		}
+		
+		// 根据user对象修改User表（不包括密码）
+		public int updateUserNoPass(User user) {
+			int count = 0;
+			Connection con = conn.getCon();
+			String sqlString = "update User set UserName=?,UserType=?,UserHead=?,UserBirthday=?,UserSex=? where Userid=?";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				pre.setString(1, user.getUserName());
+				pre.setInt(2, user.getUserType());
+				pre.setString(3, user.getUserHead());
+				pre.setString(4, user.getUserBirthday());
+				pre.setInt(5, user.getUserSex());
+				pre.setInt(6, user.getUserId());
+				count = pre.executeUpdate();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return count;
 		}
 }
