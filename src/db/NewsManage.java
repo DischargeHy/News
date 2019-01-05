@@ -625,4 +625,50 @@ public class NewsManage {
 			}
 			return count;
 		}
+		
+		// 根据user对象修改User表（包括密码）
+				public int updateUserIncludePass(User user) {
+					int count = 0;
+					Connection con = conn.getCon();
+					String sqlString = "update User set UserName=?,UserType=?,UserHead=?,UserBirthday=?,UserSex=?,UserPass=? where Userid=?";
+					try {
+						PreparedStatement pre = con.prepareStatement(sqlString);
+						pre.setString(1, user.getUserName());
+						pre.setInt(2, user.getUserType());
+						pre.setString(3, user.getUserHead());
+						pre.setString(4, user.getUserBirthday());
+						pre.setInt(5, user.getUserSex());
+						pre.setString(6, user.getUserPass());
+						pre.setInt(7, user.getUserId());
+						count = pre.executeUpdate();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					} finally {
+						conn.closeAll(con);
+					}
+					return count;
+				}
+		
+	// 查询用户(根据UserId和密码)---User表
+	public int showUserByUserIdAndPass(int Userid,String UserPass) {
+		int count=0;
+		Connection con = conn.getCon();
+		String sqlString = "select * from User where UserId=? and UserPass=?";
+		try {
+			PreparedStatement pre = con.prepareStatement(sqlString);
+			pre.setInt(1, Userid);
+			pre.setString(2, UserPass);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				count++;
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return count;
+	}
 }

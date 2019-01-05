@@ -83,7 +83,7 @@ public class UserMessageUpdateServlet extends HttpServlet {
 		if(RealUserPass.equals("")&&userPass.equals("")&&ReuserPass.equals("")) {
 			NewsManage nm=new NewsManage();
 			User user=new User(userId, userAccount, ReuserPass, userName, userEMail, userType, userHead, userSex, userBirthday);
-			int j = nm.updateUserNoPass(user);// 调用修改用户信息方法
+			int j = nm.updateUserNoPass(user);// 调用修改用户信息方法(不包括密码)
 			if (j > 0) {
 				out.println("<script>alert('Update Success');window.location.href='UManage/UserMessageManage.jsp'</script>");
 			} else {
@@ -91,6 +91,31 @@ public class UserMessageUpdateServlet extends HttpServlet {
 			}
 		}
 		
+		//修改个人信息（包括密码）
+		if(RealUserPass.equals("")||userPass.equals("")||ReuserPass.equals("")) {
+			out.println("<script>alert('If you want to change your password,Three password options cannot be empty!');window.location.href='UManage/UserMessageManage.jsp'</script>");
+		}else {
+			NewsManage nm=new NewsManage();
+			//验证密码
+			if(nm.showUserByUserIdAndPass(userId, RealUserPass)>0) {
+				//验证两次输入的新密码是否不一致
+				if(userPass.equals(ReuserPass)) {
+					User user=new User(userId, userAccount, ReuserPass, userName, userEMail, userType, userHead, userSex, userBirthday);
+					int j = nm.updateUserIncludePass(user);// 调用修改用户信息方法（包括密码）
+					if (j > 0) {
+						out.println("<script>alert('Update Success');window.location.href='UManage/UserMessageManage.jsp'</script>");
+					} else {
+						out.println("<script>alert('Update Fail');window.location.href='UManage/UserMessageManage.jsp'</script>");
+					}
+				}else {
+					out.println("<script>alert('Entering a new password twice is not the same');window.location.href='UManage/UserMessageManage.jsp'</script>");
+				}
+				
+			}else {
+				out.println("<script>alert('Original password is wrong');window.location.href='UManage/UserMessageManage.jsp'</script>");
+			}
+			
+		}
 		
 		
 	}
