@@ -148,7 +148,7 @@ public class NewsManage {
 		}
 		return i;
 	}
-	//显示所有新闻
+	//按分页显示所有新闻
 	public ArrayList showNewsList(String page) {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
@@ -176,7 +176,7 @@ public class NewsManage {
 		}
 		return list;
 	}
-	//总页数查询
+	//总新闻页数查询
 		public int getNewsPage() {
 			Connection con = conn.getCon();
 			int i = 0;
@@ -194,7 +194,179 @@ public class NewsManage {
 			}
 			return i;
 		}
-		//根据用户Id的总页数查询
+		//通过页数筛选用户
+		public ArrayList showUser(String type,String page) {
+			ArrayList list = new ArrayList();
+			int limit = 0;
+			int page_int = Integer.parseInt(page);
+			limit+= (page_int-1)*10;
+			Connection con = conn.getCon();
+			int searchType = Integer.parseInt(type);
+			String view = null;
+			switch (searchType) {
+			case 0:
+				view = "UserPage";
+				break;
+			case 1:
+				view = "UserType1";
+				break;
+			case 2:
+				view = "UserType2";
+				break;
+			case 3:
+				view = "UserType3";
+				break;
+			default:
+				break;
+			}
+			String sqlString = "select * from `" + view + "` where UserAccount!='admin' limit " + limit +",10";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int userId = rs.getInt("UserId");
+					String userAccount = rs.getString("UserAccount");
+					String userPass = rs.getString("UserPass");
+					String userName = rs.getString("UserName");
+					String userEMail = rs.getString("UserEMail");
+					int userType = rs.getInt("UserType");
+					String userHead = rs.getString("UserHead");
+					String userBirthday = rs.getString("UserBirthday");
+					int userSex = rs.getInt("UserSex");
+					User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userSex, userBirthday);
+					list.add(user);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		//总用户页数查询
+		public int getUserPage(String type) {
+			Connection con = conn.getCon();
+			int i = 0;
+			int searchType = Integer.parseInt(type);
+			String view = null;
+			switch (searchType) {
+			case 0:
+				view = "UserPage";
+				break;
+			case 1:
+				view = "UserType1";
+				break;
+			case 2:
+				view = "UserType2";
+				break;
+			case 3:
+				view = "UserType3";
+				break;
+			default:
+				break;
+			}
+			String sqlString = "select * from `"+view+"`";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i-1;
+		}
+		//总用户页数查询根据搜索条件
+		public int getUserPage(String type,String search) {
+			Connection con = conn.getCon();
+			int i = 0;
+			int searchType = Integer.parseInt(type);
+			String view = null;
+			switch (searchType) {
+			case 0:
+				view = "UserPage";
+				break;
+			case 1:
+				view = "UserType1";
+				break;
+			case 2:
+				view = "UserType2";
+				break;
+			case 3:
+				view = "UserType3";
+				break;
+			default:
+				break;
+			}
+			String sqlString = "select * from `"+view+"` where UserAccount like '%" + search  + "%'" ;
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i-1;
+		}
+		//分页显示用户查询结果
+		public ArrayList showUser(String type,String page,String search) {
+			ArrayList list = new ArrayList();
+			int limit = 0;
+			int page_int = Integer.parseInt(page);
+			limit+= (page_int-1)*10;
+			Connection con = conn.getCon();
+			int searchType = Integer.parseInt(type);
+			String view = null;
+			switch (searchType) {
+			case 0:
+				view = "UserPage";
+				break;
+			case 1:
+				view = "UserType1";
+				break;
+			case 2:
+				view = "UserType2";
+				break;
+			case 3:
+				view = "UserType3";
+				break;
+			default:
+				break;
+			}
+			String sqlString = "select * from `" + view + "` where UserAccount!='admin' and UserAccount like '%" + search + "%' limit " + limit +",10";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int userId = rs.getInt("UserId");
+					String userAccount = rs.getString("UserAccount");
+					String userPass = rs.getString("UserPass");
+					String userName = rs.getString("UserName");
+					String userEMail = rs.getString("UserEMail");
+					int userType = rs.getInt("UserType");
+					String userHead = rs.getString("UserHead");
+					String userBirthday = rs.getString("UserBirthday");
+					int userSex = rs.getInt("UserSex");
+					User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userSex, userBirthday);
+					list.add(user);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		//根据用户Id的总页数查询新闻
 		public int getNewsPage(int UserId1) {
 			Connection con = conn.getCon();
 			int i = 0;
@@ -212,7 +384,7 @@ public class NewsManage {
 			}
 			return i;
 		}
-		//根据Title的总页数查询
+		//根据Title的总页数查询新闻
 		public int getNewsPage(String NewsTitle1) {
 			Connection con = conn.getCon();
 			int i = 0;
@@ -236,38 +408,6 @@ public class NewsManage {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
 		String sqlString = "select * from User";
-		try {
-			PreparedStatement pre = con.prepareStatement(sqlString);
-			ResultSet rs = pre.executeQuery();
-			while (rs.next()) {
-				int userId = rs.getInt("UserId");
-				String userAccount = rs.getString("UserAccount");
-				String userPass = rs.getString("UserPass");
-				String userName = rs.getString("UserName");
-				String userEMail = rs.getString("UserEMail");
-				int userType = rs.getInt("UserType");
-				String userHead = rs.getString("UserHead");
-				String userBirthday = rs.getString("UserBirthday");
-				int userSex = rs.getInt("UserSex");
-				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userSex, userBirthday);
-				list.add(user);
-			}
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			conn.closeAll(con);
-		}
-		return list;
-	}
-	//通过页数筛选用户
-	public ArrayList showUser(String page) {
-		ArrayList list = new ArrayList();
-		int limit = 0;
-		int page_int = Integer.parseInt(page);
-		limit+= (page_int-1)*10;
-		Connection con = conn.getCon();
-		String sqlString = "select * from User  ORDER BY UserType limit " + limit +",10";
 		try {
 			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();

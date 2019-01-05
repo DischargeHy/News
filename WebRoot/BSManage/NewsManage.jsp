@@ -24,6 +24,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="BSManage/NewsManage.jsp?page=1">新闻管理模块</a>
 		<a href="BSManage/UserManage.jsp?page=1">用户管理模块</a>
 		<a href="#">留言管理模块</a>
+		<a href="Login.jsp">登录</a>
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
@@ -51,8 +52,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				int userType = (Integer)session.getAttribute("UserType");
 				String NewsPage = request.getParameter("page");
 				ArrayList list = null;
-				int page_num = 0;
-				int allPage = 0;
+				int page_num = 0;//总页数
+				int allPage = 0;//总行数
 				String search = request.getParameter("search");
 				if(userType==2){
 					if(search==null||search.equals("null")){
@@ -60,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						allPage = nm.getNewsPage(userId);
 					}
 					else{
-						String NewsTitle = request.getParameter("search");
+						String NewsTitle = request.getParameter("search");//通过搜索给出数据
 						list = nm.showNewsList(userId, NewsTitle, NewsPage);
 						allPage = nm.getNewsPage(userId, NewsTitle);
 					}
@@ -71,7 +72,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						allPage = nm.getNewsPage();
 					}
 					else{
-						String NewsTitle = request.getParameter("search");
+						String NewsTitle = request.getParameter("search");//通过搜索给出数据（管理员）
 						list = nm.showNewsList(NewsTitle, NewsPage);
 						allPage = nm.getNewsPage(NewsTitle);
 					}
@@ -80,6 +81,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(allPage%6!=0){
 					page_num+=1;
 				}
+		       	int p1 = Integer.parseInt(request.getParameter("page")); 
+		        p1=p1-1;
+		        int p2 = Integer.parseInt(request.getParameter("page")); 
+		        p2=p2+1;
 				for (int i = 0; i < list.size(); i++) {
 				News news = (News)list.get(i);
 			%>
@@ -102,13 +107,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</td>
 				</tr>
 			<%} %>
-			<%
-				
-		       	int p1 = Integer.parseInt(request.getParameter("page")); 
-		        p1=p1-1;
-		        int p2 = Integer.parseInt(request.getParameter("page")); 
-		        p2=p2+1;
-		    %>
 		        <tr>
 		        	<td colspan="4">
 		        	<%if(p1>=1){ %>

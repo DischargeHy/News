@@ -7,7 +7,19 @@
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
-
+<%
+	NewsManage nm = new NewsManage();
+	int userId =(Integer)session.getAttribute("UserId");
+	int userType = (Integer)session.getAttribute("UserType");
+	String UserPage = request.getParameter("page");
+	String search = request.getParameter("search");
+	int page_num = 0;//总页数
+	int allPage = 0;//总行数
+	String type = "0";
+	if(request.getParameter("type")!=null){
+		type = request.getParameter("type");
+	}
+%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
@@ -34,6 +46,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
 			<table style="border: 1px solid;width: 100%">
 			<tr>
+				<td>用户搜索:</td>
+				<td><form>
+					<input type="text" name="search" value="<%if(search!=null){out.print(search);}else{out.print("");}%>">
+					<input type="hidden" value="1" name="page">
+					<input type="hidden" value="<%=type %>" name="type">
+					<input type="submit" value="搜索">
+				</form></td>
+				<td>用户类别筛选：</td>
+				<td><form action="BSManage/UserManage.jsp" method="post">
+				<input type="hidden" value="1" name="page">
+					<select name="type">
+						<option value="0" <%if(type.equals("0")){ out.print("selected=\"selected\"");} %>>所有用户</option>
+			 			<option value="1" <%if(type.equals("1")){ out.print("selected=\"selected\"");} %>>普通用户</option>
+			 			<option value="2" <%if(type.equals("2")){ out.print("selected=\"selected\"");} %>>编辑人员</option>
+			 			<option value="3" <%if(type.equals("3")){ out.print("selected=\"selected\"");} %>>管理员</option>
+			 		</select>
+			 		<input type="submit" value="确认">
+				</form></td>
+			</tr>
+			<tr>
 				<td>用户头像</td>
 				<td>用户账号</td>
 				<td>用户名</td>
@@ -41,14 +73,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>权限管理</td>
 			</tr>
 			<%
-				NewsManage nm = new NewsManage();
-				int userId =(Integer)session.getAttribute("UserId");
-				int userType = (Integer)session.getAttribute("UserType");
-				String NewsPage = request.getParameter("page");
+				ArrayList list = null;//用户列表
 				if(userType!=3){
 					response.sendRedirect("BSManage/NewsManage.jsp?page=1");
 				}
-				ArrayList list = nm.showUser();/*显示所有用户  */
+				if(search==null||search.equals("null")){//判断是否有进行搜索
+					list = nm.showUser(type,UserPage);//根据用户类型进行筛选
+					allPage = nm.getUserPage(type);
+				}
+				else{
+					list = nm.showUser(type, UserPage, search);
+					allPage = nm.getUserPage(type, search);
+				}
+				page_num = allPage/10;
+				if(allPage%10!=0){
+					page_num+=1;
+				}
+		       	int p1 = Integer.parseInt(request.getParameter("page")); 
+		        p1=p1-1;
+		        int p2 = Integer.parseInt(request.getParameter("page")); 
+		        p2=p2+1;
 				for (int i = 0; i < list.size(); i++) {
 				User user = (User)list.get(i);
 				if(user.getUserAccount().equals("admin")){
@@ -61,7 +105,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 		<td><%=user.getUserName() %></td>
 			 		<td><%=user.getUserEMail() %></td>
 			 		<td>
-			 			<form>
+			 			<form action="updateUserServlet">
 			 				<input type="hidden" value="<%=user.getUserId()%>">
 			 				<select name="UserType">
 			 					<option value="1" <%if(user.getUserType()==1){ %>selected="selected"<%} %>>普通用户</option>
@@ -73,36 +117,26 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 		</td>
 			 	</tr>
 			<%} %>
-			<%
-				int page_num = nm.getNewsPage(userId)/6;
-				if(nm.getNewsPage(userId)%6!=0){
-					page_num+=1;
-				}
-		       	int p1 = Integer.parseInt(request.getParameter("page")); 
-		        p1=p1-1;
-		        int p2 = Integer.parseInt(request.getParameter("page")); 
-		        p2=p2+1;
-		    %>
 		        <tr>
 		        	<td colspan="4">
 		        	<%if(p1>=1){ %>
-		        		<a id="up" href="BSManage/NewsManage.jsp?page=<%=p1%>">上一页</a>
+		        		<a id="up" href="BSManage/UserManage.jsp?page=<%=p1%>&search=<%=search%>&type=<%=type%>">上一页</a>
 		        	<%} %>
 		        		<%for(int i = 1 ; i <= page_num ; i++){%>
-		        		if(i!=Integer.parseInt(request.getParameter("page")){
-		        			<a href="BSManage/NewsManage.jsp?page=<%=i%>"><%=i %></a>
-		        		}
-		        		else{
-		        			<a><%=i %></a>
-		        		}
+		        			<%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
+		        				<a href="BSManage/UserManage.jsp?page=<%=i%>&search=<%=search%>&type=<%=type%>"><%=i %></a>
+		        			<%}
+		        			else{%>
+		        				<a><%=i %></a>
+		        			<%}%>
 		        		<%}%>
 		        		<%if(p2<=page_num){ %>
-		        	 	<a id="down" href="BSManage/NewsManage.jsp?page=<%=p2 %>">下一页</a>
+		        	 	<a id="down" href="BSManage/UserManage.jsp?page=<%=p2 %>&search=<%=search%>&type=<%=type%>">下一页</a>
 		        	 	<%} %>
 		        	</td>
 		        </tr>
 			</table>
-		</div><!-- 新闻列表结束 -->
+		</div><!-- 用户列表结束 -->
 	</div><!-- 主体外部DIV结束 -->
 </body>
 </html>
