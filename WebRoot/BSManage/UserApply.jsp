@@ -38,6 +38,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<a href="BSManage/NewsManage.jsp?page=1">新闻管理模块</a>
 		<a href="BSManage/UserManage.jsp?page=1">用户管理模块</a>
 		<a href="#">留言管理模块</a>
+		<%if (session.getAttribute("UserAccount") != null) {	
+    		String UserAccount=(String)session.getAttribute("UserAccount"); 
+    		String UserType=session.getAttribute("UserType").toString();
+    		String UserId=session.getAttribute("UserId").toString();
+	    %>   		
+	    		<label>&nbsp;您好：</label><a href="UManage/UserMessageManage.jsp"><%=UserAccount %></a>
+	    		<a class="text-primary" href="index.jsp?logout=1">登出</a>
+	    <%
+	    	}else{
+	    %>
+			<a href="Login.jsp">登陆</a> 
+	    <%		
+	    	}
+	    %>
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
