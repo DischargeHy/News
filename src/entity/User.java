@@ -8,9 +8,15 @@ public class User {
 	private String UserEMail;
 	private int UserType;
 	private String UserHead;
-	private int UserAge;
 	private int UserSex;
+	private String UserBirthday;
 	
+	public String getUserBirthday() {
+		return UserBirthday;
+	}
+	public void setUserBirthday(String userBirthday) {
+		UserBirthday = userBirthday;
+	}
 	public int getUserId() {
 		return UserId;
 	}
@@ -59,18 +65,13 @@ public class User {
 	public void setUserHead(String userHead) {
 		UserHead = userHead;
 	}
-	public int getUserAge() {
-		return UserAge;
-	}
-	public void setUserAge(int userAge) {
-		UserAge = userAge;
-	}
+
 	
 	public User() {}
 	
 	//全参数构造方法
 	public User(int userId, String userAccount, String userPass, String userName, String userEMail, int userType,
-			String userHead, int userAge, int userSex) {
+			String userHead, int userSex, String userBirthday) {
 		super();
 		UserId = userId;
 		UserAccount = userAccount;
@@ -79,24 +80,23 @@ public class User {
 		UserEMail = userEMail;
 		UserType = userType;
 		UserHead = userHead;
-		UserAge = userAge;
 		UserSex = userSex;
+		UserBirthday = userBirthday;
 	}
+
 	
-	//无id构造方法
-	public User(String userAccount, String userPass, String userName, String userEMail, int userType,
-			String userHead, int userAge, int userSex) {
-		super();
-		UserAccount = userAccount;
-		UserPass = userPass;
-		UserName = userName;
-		UserEMail = userEMail;
-		UserType = userType;
-		UserHead = userHead;
-		UserAge = userAge;
-		UserSex = userSex;
-	}
-	
-	
-	
+	//无Id构造方法
+		public User(String userAccount, String userPass, String userName, String userEMail, int userType,
+				String userHead, int userSex, String userBirthday) {
+			super();
+			UserAccount = userAccount;
+			UserPass = userPass;
+			UserName = userName;
+			UserEMail = userEMail;
+			UserType = userType;
+			UserHead = userHead;
+			UserSex = userSex;
+			UserBirthday = userBirthday;
+		}
+
 }

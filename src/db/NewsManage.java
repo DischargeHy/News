@@ -200,9 +200,9 @@ public class NewsManage {
 				String userEMail = rs.getString("UserEMail");
 				int userType = rs.getInt("UserType");
 				String userHead = rs.getString("UserHead");
-				int userAge = rs.getInt("UserAge");
+				String userBirthday = rs.getString("UserBirthday");
 				int userSex = rs.getInt("UserSex");
-				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userAge, userSex);
+				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userSex, userBirthday);
 				list.add(user);
 			}
 			rs.close();
@@ -231,9 +231,9 @@ public class NewsManage {
 				String userEMail = rs.getString("UserEMail");
 				int userType = rs.getInt("UserType");
 				String userHead = rs.getString("UserHead");
-				int userAge = rs.getInt("UserAge");
+				String userBirthday = rs.getString("UserBirthday");
 				int userSex = rs.getInt("UserSex");
-				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userAge, userSex);
+				User user=new User(userId, userAccount, userPass, userName, userEMail, userType, userHead, userSex, userBirthday);
 				list.add(user);
 			}
 			rs.close();
@@ -248,7 +248,7 @@ public class NewsManage {
 	public int insertUser(User user) {
 		int i = 0;
 		Connection con = conn.getCon();
-		String sqlString = "insert into User(UserAccount,UserPass,UserName,UserEMail,UserType,UserHead,UserAge,UserSex) values(?,?,?,?,?,?,?,?)";
+		String sqlString = "insert into User(UserAccount,UserPass,UserName,UserEMail,UserType,UserHead,UserBirthday,UserSex) values(?,?,?,?,?,?,?,?)";
 		try {
 			PreparedStatement pre = con.prepareStatement(sqlString);
 			pre.setString(1, user.getUserAccount());
@@ -257,7 +257,7 @@ public class NewsManage {
 			pre.setString(4, user.getUserEMail());
 			pre.setInt(5, user.getUserType());
 			pre.setString(6, user.getUserHead());
-			pre.setInt(7, user.getUserAge());
+			pre.setString(7, user.getUserBirthday());
 			pre.setInt(8, user.getUserSex());
 			//pre.setTimestamp(5, new Timestamp(new java.util.Date().getTime()));
 //			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
