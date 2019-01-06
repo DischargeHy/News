@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>编辑</title>
+<title>Insert title here</title>
 </head>
 <body>
-<jsp:include page="/template/ck5.jsp"></jsp:include>
+<jsp:include page="/template/newsContent.jsp"></jsp:include>
 </body>
 </html>
