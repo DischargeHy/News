@@ -21,6 +21,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div style="width: 100%;border: 1px solid;">
+<<<<<<< HEAD
+		<a href="#">新闻管理模块</a>
+		<a href="#">用户管理模块</a>
+		<a href="#">留言管理模块</a>
+		<a href="/Login.jsp">登录</a>
+=======
 		<a>新闻管理</a>
 		<a href="BSManage/UserManage.jsp?page=1">用户管理</a>
 		<a href="BSManage/commentManage.jsp?page=1">留言管理</a>
@@ -38,6 +44,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <%		
 	    	}
 	    %>
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">

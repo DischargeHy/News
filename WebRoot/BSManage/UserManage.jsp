@@ -34,6 +34,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div style="width: 100%;border: 1px solid;">
+<<<<<<< HEAD
+		<a href="BSManage/NewsManage.jsp?page=1">新闻管理模块</a>
+		<a href="BSManage/UserManage.jsp?page=1">用户管理模块</a>
+		<a href="#">留言管理模块</a>
+=======
 		<a href="BSManage/NewsManage.jsp?page=1">新闻管理</a>
 		<a>用户管理</a>
 		<a href="BSManage/commentManage.jsp?page=1">留言管理</a>
@@ -51,11 +56,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <%		
 	    	}
 	    %>
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
 			<p><a>用户权限管理</a></p>
-			<p><a href="BSManage/UserApply.jsp?page=1">用户职位申请</a></p>
+			<p><a href="#"></a></p>
 		</div>
 		<div style="float: left;border: 1px solid; width:70%"><!-- 用户列表开始 -->
 			<table style="border: 1px solid;width: 100%">
@@ -70,7 +76,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>用户类别筛选：</td>
 				<td><form action="BSManage/UserManage.jsp" method="post">
 				<input type="hidden" value="1" name="page">
-				<input type="hidden" value="<%=search%>" name="search">
 					<select name="type">
 						<option value="0" <%if(type.equals("0")){ out.print("selected=\"selected\"");} %>>所有用户</option>
 			 			<option value="1" <%if(type.equals("1")){ out.print("selected=\"selected\"");} %>>普通用户</option>
