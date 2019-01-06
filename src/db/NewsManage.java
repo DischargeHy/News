@@ -763,16 +763,11 @@ public class NewsManage {
 				public int updateUserIncludePass(User user) {
 					int count = 0;
 					Connection con = conn.getCon();
-					String sqlString = "update User set UserName=?,UserType=?,UserHead=?,UserBirthday=?,UserSex=?,UserPass=? where Userid=?";
+					String sqlString = "update User set UserPass=? where Userid=?";
 					try {
 						PreparedStatement pre = con.prepareStatement(sqlString);
-						pre.setString(1, user.getUserName());
-						pre.setInt(2, user.getUserType());
-						pre.setString(3, user.getUserHead());
-						pre.setString(4, user.getUserBirthday());
-						pre.setInt(5, user.getUserSex());
-						pre.setString(6, user.getUserPass());
-						pre.setInt(7, user.getUserId());
+						pre.setString(1, user.getUserPass());
+						pre.setInt(2, user.getUserId());
 						count = pre.executeUpdate();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
