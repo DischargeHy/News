@@ -1,6 +1,13 @@
 /serverlet/
 /db/
+<<<<<<< HEAD
+=======
 /entity/
 /serverlet/
+<<<<<<< HEAD
+=======
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
+/dao/
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
 /servlet/
 /util/
