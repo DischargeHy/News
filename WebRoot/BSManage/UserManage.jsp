@@ -34,11 +34,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div style="width: 100%;border: 1px solid;">
-<<<<<<< HEAD
-		<a href="BSManage/NewsManage.jsp?page=1">新闻管理模块</a>
-		<a href="BSManage/UserManage.jsp?page=1">用户管理模块</a>
-		<a href="#">留言管理模块</a>
-=======
 		<a href="BSManage/NewsManage.jsp?page=1">新闻管理</a>
 		<a>用户管理</a>
 		<a href="BSManage/commentManage.jsp?page=1">留言管理</a>
@@ -56,7 +51,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <%		
 	    	}
 	    %>
->>>>>>> branch 'master' of https://github.com/DischargeHy/News
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
@@ -95,7 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<%
 				ArrayList list = null;//用户列表
 				if(userType!=3){
-					response.sendRedirect("BSManage/NewsManage.jsp?page=1");
+					response.sendRedirect("NewsManage.jsp?page=1");
 				}
 				if(search==null||search.equals("null")){//判断是否有进行搜索
 					list = nm.showUser(type,UserPage);//根据用户类型进行筛选

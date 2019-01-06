@@ -36,7 +36,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<div style="width: 100%;border: 1px solid;">
 		<a href="BSManage/NewsManage.jsp?page=1">新闻管理</a>
+		<%if(session.getAttribute("UserType").toString().equals("3")){ %>
 		<a href="BSManage/UserManage.jsp?page=1">用户管理</a>
+		<%} %>
 		<a>留言管理</a>
 		<%if (session.getAttribute("UserAccount") != null) {	
     		String UserAccount=(String)session.getAttribute("UserAccount"); 

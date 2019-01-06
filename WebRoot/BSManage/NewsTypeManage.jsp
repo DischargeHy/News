@@ -21,14 +21,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div style="width: 100%;border: 1px solid;">
-<<<<<<< HEAD
-		<a href="#">新闻管理模块</a>
-		<a href="#">用户管理模块</a>
-		<a href="#">留言管理模块</a>
-		<a href="/Login.jsp">登录</a>
-=======
 		<a>新闻管理</a>
+		<%if(session.getAttribute("UserType").toString().equals("3")){ %>
 		<a href="BSManage/UserManage.jsp?page=1">用户管理</a>
+		<%} %>
 		<a href="BSManage/commentManage.jsp?page=1">留言管理</a>
 		<%if (session.getAttribute("UserAccount") != null) {	
     		String UserAccount=(String)session.getAttribute("UserAccount"); 
@@ -44,13 +40,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    <%		
 	    	}
 	    %>
->>>>>>> branch 'master' of https://github.com/DischargeHy/News
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
 			<p><a href="BSManage/NewsManage.jsp?page=1">新闻查询管理</a></p>
 			<p><a>分类管理</a></p>
-			<p><a href="#">新闻发布</a></p>
+			<p><a href="#">新闻审核</a></p>
 		</div>
 		<div style="float: left;border: 1px solid;"><!-- 新闻类型列表开始 -->
 			<table>
