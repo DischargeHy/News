@@ -14,7 +14,7 @@
   <div class="log-header">
   </div>    
   <div class="log-re">
-    <button type="button" class="am-btn am-btn-default am-radius log-button"><a href="Register2.jsp">注 册</a></button>
+    <button type="button" class="am-btn am-btn-default am-radius log-button"><a href="Register.jsp">注 册</a></button>
     <button type="button" class="am-btn am-btn-default am-radius log-button"><a href="">首 页 </a></button>
   </div> 
 </header>
