@@ -22,7 +22,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <body>
 	<div style="width: 100%;border: 1px solid;">
 		<a>新闻管理</a>
+		<%if(session.getAttribute("UserType").toString().equals("3")){ %>
 		<a href="BSManage/UserManage.jsp?page=1">用户管理</a>
+		<%} %>
 		<a href="BSManage/commentManage.jsp?page=1">留言管理</a>
 	<%if (session.getAttribute("UserAccount") != null) {	
     		String UserAccount=(String)session.getAttribute("UserAccount"); 
@@ -43,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;border: 1px solid;">
 			<p><a>新闻查询管理</a></p>
 			<p><a href="BSManage/NewsTypeManage.jsp">分类管理</a></p>
-			<p><a href="#">新闻发布</a></p>
+			<p><a href="#">新闻审核</a></p>
 		</div>
 		<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
 			<table style="border: 1px solid;width: 100%">
