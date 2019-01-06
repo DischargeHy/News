@@ -47,7 +47,7 @@
   	<div id="NewsType">
   		<ul>
   			<li>
-				<a href="index.jsp">热门</a>
+				<a href="index.jsp">首页</a>
 			</li>
   			<%
   				NewsManage nm = new NewsManage();

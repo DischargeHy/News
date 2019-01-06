@@ -26,9 +26,10 @@
 				<div class="left fl">
 					<ul>
 						<li>
-							<a href="" target="_blank" style="margin-left: -75px;">米窝首页</a>
+							<a href="index.jsp"  style="margin-left: -75px;">首页</a>
 						</li>
 						<li>|</li>
+						
 						<li>
 							<a href="">米聊</a>
 						</li>
@@ -49,22 +50,43 @@
 				</div>
 				<div class="right fr">
 
-					<div class="fr">
-						<ul>
-							<li>
-								<a href="./Login.jsp" target="_blank">登录</a>
-							</li>
-							<li>|</li>
-							<li>
-								<a href="./Register.jsp" target="_blank">注册</a>
-							</li>
-							<li>|</li>
-							<li>
-								<a href="">消息通知</a>
-							</li>
-						</ul>
-					</div>
-					<div class="clear"></div>
+				<div class="fr">
+					<%
+						request.setCharacterEncoding("utf-8");
+						int Page = 1;
+						if (request.getParameter("page") != null) {
+							Page = Integer.parseInt(request.getParameter("page"));
+						}
+
+						if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
+							session.removeAttribute("UserAccount");//清空session	
+							session.removeAttribute("UserType");
+							session.removeAttribute("UserId");
+						}
+						if (session.getAttribute("UserAccount") != null) {
+							String UserAccount = (String) session.getAttribute("UserAccount");
+							String UserType = session.getAttribute("UserType").toString();
+							String UserId = session.getAttribute("UserId").toString();
+					%>
+					<ul>
+						<li><a href="UManage/UserMessageManage.jsp"><%=UserAccount%></a></li>
+						<li>|</li>
+						<li><a href="index.jsp?logout=1">登出</a></li>
+					</ul>
+					<%
+						} else {
+					%>
+					<ul>
+						<li><a href="./Login.jsp">登录</a></li>
+						<li>|</li>
+						<li><a href="./Register.jsp">注册</a></li>
+					</ul>
+					<%
+						}
+					%>
+					
+				</div>
+				<div class="clear"></div>
 				</div>
 				<div class="clear"></div>
 			</div>
@@ -75,36 +97,39 @@
 		<div class="banner_x center">
 
 			<div class="nav left">
-				<ul >
-					<li><img src="./assets1/i/tubiao.png" style="width: 45px;height: 45px;margin-left:-70px;margin-right: 10px;" /></li>
-					<li>
-						<a href="" target="_blank">推荐</a>
-					</li>
-					<li>
-						<a href="">热点</a>
-					</li>
-					<li>
-						<a href="">科技</a>
-					</li>
-					<li>
-						<a href="">娱乐</a>
-					</li>
-					<li>
-						<a href="">游戏</a>
-					</li>
-					<li>
-						<a href="">体育</a>
-					</li>
-					<li>
-						<a href="">汽车</a>
-					</li>
-					<li>
-						<a href="">财经</a>
-					</li>
-				</ul>
-			</div>
+			<ul>
+				<li><img src="./assets1/i/tubiao.png"
+					style="width: 45px; height: 45px; margin-left: -70px; margin-right: 10px;" /></li>
+				<li><a href="index.jsp">热点</a></li>
+				<%
+					NewsManage nm = new NewsManage();
+
+					ArrayList list = nm.showNewsType();
+					int NewsTypeId = 1;
+					if (request.getParameter("NewsTypeId") != null) {
+						NewsTypeId = Integer.parseInt(request.getParameter("NewsTypeId"));
+					}
+
+					int pageCount = nm.ShowPageCountBynewstypeid(NewsTypeId);//总分页数
+					if (Page < 1)
+						Page = 1;//如果页码小于1，则页码置为第1页
+					if (Page >= pageCount)
+						Page = pageCount;//如果当前页码大于总分的页数，就将当前页码置为最后一页
+
+					for (int i = 0; i < list.size(); i++) {
+						NewsType newstype = (NewsType) list.get(i);
+				%>
+				<li>
+					<a href="NewsTypeBoard.jsp?NewsTypeId=<%=newstype.getNewsTypeId()%>"><%=newstype.getNewsTypeName()%></a>
+				</li>
+				<%
+					}
+				%>
+
+			</ul>
+		</div>
 			<div class="search fr " >
-				<form action="" method="post">
+				<form action="Search.jsp" method="post">
 					<div class="text fl"> <input type="text" class="shuru" placeholder="请输入搜索内容">
 					</div>
 					<div class="submit fl">
@@ -125,24 +150,32 @@
 		<div class="am-g am-g-fixed blog-fixed center">
 			<div class="am-u-md-8 am-u-sm-12">
 
-				<article class="am-g blog-entry-article">
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-						<img src="assets1/i/f10.jpg" alt="" class="am-u-sm-12">
-					</div>
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-						<span><a href="" class="blog-color">article &nbsp;</a></span>
-						<span> @amazeUI &nbsp;</span>
-						<span>2015/10/9</span>
-						<h1><a href="">我本楚狂人，凤歌笑孔丘</a></h1>
-						<p>我们一直在坚持着，不是为了改变这个世界，而是希望不被这个世界所改变。
-						</p>
-						<p>
-							<a href="" class="blog-continue">continue reading</a>
-						</p>
-					</div>
-				</article>
+			<article class="am-g blog-entry-article">
+				<%
+					ArrayList list2 = nm.showNewsListByNewsTypeId(NewsTypeId, Page);/*通过新闻类型Id查询新闻内容  */
+					for (int i = 0; i < list2.size(); i++) {
+						News news = (News) list2.get(i);
+				%>
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
+					<img src=<%=news.getNewsCover() %> alt="" class="am-u-sm-12">
+				</div>
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+					<span><a href="" class="blog-color">article &nbsp;</a></span> <span>
+						@<%=news.getUserName() %> &nbsp;</span> <span><%=news.getUpdateTime() %></span>
+					<h1>
+						<a href=""></a>
+					</h1>
+					<p><%= %></p>
+					<p>
+						<a href="" class="blog-continue">continue reading</a>
+					</p>
+				</div>
+			</article>
+			<%
+				}
+			%>
 
-				<article class="am-g blog-entry-article">
+			<article class="am-g blog-entry-article">
 					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
 						<img src="assets1/i/f6.jpg" alt="" class="am-u-sm-12">
 					</div>
