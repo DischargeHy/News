@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import entity.ApplyList;
 import entity.CommentReport;
 import entity.News;
+import entity.NewsExamineList;
 import entity.NewsType;
 import entity.User;
 
@@ -54,7 +55,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 +" and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -82,7 +83,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId = " + UserId1 + " ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + "  and `User`.UserId = " + UserId1 + " ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -110,7 +111,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%' limit " + limit + ",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + "  and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%' limit " + limit + ",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -157,7 +158,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -275,6 +276,54 @@ public class NewsManage {
 				conn.closeAll(con);
 			}
 			return list;
+		}
+		//按页显示审核
+		public ArrayList showNewsExamine(String page) {
+			ArrayList list = new ArrayList();
+			int limit = 0;
+			int page_int = Integer.parseInt(page);
+			limit+= (page_int-1)*10;
+			Connection con = conn.getCon();
+			String sqlString = "select * from `NewsExamineView` limit " + limit +",10";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int newsId = rs.getInt("newsId");
+					String userName = rs.getString("userName");
+					String userEMail = rs.getString("userEMail");
+					String newsTitle = rs.getString("newsTitle");
+					String createTime = rs.getString("createTime");
+					String newsTypeName = rs.getString("newsTypeName");
+					String updateTime = rs.getString("updateTime");
+					NewsExamineList nel = new NewsExamineList(newsId, userName, userEMail, newsTitle, createTime, newsTypeName, updateTime);
+					list.add(nel);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		//返回审核页数
+		public int getNewsExaminePage() {
+			Connection con = conn.getCon();
+			int i = 0;
+			String sqlString = "select * from `NewsExamineView`";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
 		}
 		//按页显示所有举报信息
 		public ArrayList showReport(String page) {
@@ -514,7 +563,7 @@ public class NewsManage {
 			}
 			return i;
 		}
-		//根据Title的总页数查询新闻
+		//根据Title查询新闻总页数
 		public int getNewsPage(String NewsTitle1) {
 			Connection con = conn.getCon();
 			int i = 0;
@@ -857,6 +906,88 @@ public class NewsManage {
 					list.add(news);
 					count++;
 				}while (rs.next());
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		
+		//插申请小编信息---ApplyList表
+		public int insertApply(ApplyList al) {
+			int i = 0;
+			Connection con = conn.getCon();
+			String sqlString = "insert into Apply(UserId,Reasons,Time,state) values(?,?,?,?)";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				pre.setInt(1, al.getUserId());
+				pre.setString(2, al.getReasons());
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+				pre.setString(3, df.format(new java.sql.Date(System.currentTimeMillis())));
+				pre.setString(4, al.getState());
+				i = pre.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
+		}
+		
+		//通过UserId查询小编申请表---ApplyList表
+		public ApplyList showApplyListByUserId(int userid) {
+			ApplyList al=null;
+			Connection con = conn.getCon();
+			String sqlString = "select * from Apply WHERE UserId=?";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+	 			pre.setInt(1,userid);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int applyId = rs.getInt("applyId");
+					int userId = rs.getInt("UserId");
+					String reasons = rs.getString("reasons");
+					String time = rs.getString("time");
+					String state = rs.getString("state");
+					al=new ApplyList(applyId, userId, reasons, time, state);
+					break;
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return al;
+		}
+		
+		//通过浏览数查询新闻列表
+		public ArrayList showHotNews() {
+			ArrayList list = new ArrayList();
+			Connection con = conn.getCon();
+			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsStatus=1 order by Browse desc limit 10";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					String createTime = rs.getString("CreateTime");
+					
+					int newsId = rs.getInt("NewsId");
+					String newsTitle = rs.getString("NewsTitle");
+					String userName = rs.getString("UserName");
+					int browse=rs.getInt("browse");
+					String updateTime = rs.getString("updateTime");
+					String newsCover=rs.getString("newsCover");
+					String newsContent=rs.getString("newsContent");
+					int userId = rs.getInt("UserId");
+					int newsStatus = rs.getInt("NewsStatus");
+					int newsContentNum=showContentNum(newsId);//调用方法查询回复数
+					News news = new News(newsId, newsTitle, userName, createTime,userId, browse, updateTime, newsStatus, newsCover, newsContentNum, newsContent);
+					list.add(news);
+				}
+				
 				rs.close();
 			} catch (SQLException e) {
 				e.printStackTrace();

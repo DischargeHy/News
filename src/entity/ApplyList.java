@@ -8,6 +8,7 @@ public class ApplyList {
 	private String UserName;
 	private String UserHead;
 	private String UserEMail;
+	private String State;
 	public int getApplyId() {
 		return applyId;
 	}
@@ -23,6 +24,17 @@ public class ApplyList {
 	public String getUserName() {
 		return UserName;
 	}
+	
+	public String getState() {
+		return State;
+	}
+	
+	public String getUserHead() {
+		return UserHead;
+	}
+	public String getUserEMail() {
+		return UserEMail;
+	}
 	public ApplyList(int applyId, int userId, String reasons, String time, String userName, String userHead,
 			String userEMail) {
 		super();
@@ -34,11 +46,23 @@ public class ApplyList {
 		UserHead = userHead;
 		UserEMail = userEMail;
 	}
-	public String getUserHead() {
-		return UserHead;
+	//插入申请表所使用的构造方法
+	public ApplyList(int userId, String reasons, String state) {
+		super();
+		UserId = userId;
+		Reasons = reasons;
+		State = state;
 	}
-	public String getUserEMail() {
-		return UserEMail;
+	//查询申请表主要内容
+	public ApplyList(int applyId, int userId, String reasons, String time, String state) {
+		super();
+		this.applyId = applyId;
+		UserId = userId;
+		Reasons = reasons;
+		Time = time;
+		State = state;
 	}
+	
+	
 	
 }

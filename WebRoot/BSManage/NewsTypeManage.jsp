@@ -45,7 +45,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;border: 1px solid;">
 			<p><a href="BSManage/NewsManage.jsp?page=1">新闻查询管理</a></p>
 			<p><a>分类管理</a></p>
-			<p><a href="#">新闻审核</a></p>
+			<%if(session.getAttribute("UserType").equals(3)){ %><!-- 管理员才能进入审核界面 -->
+			<p><a href="BSManage/NewsExamine.jsp?page=1">新闻审核</a></p>
+			<%} %>
 		</div>
 		<div style="float: left;border: 1px solid;"><!-- 新闻类型列表开始 -->
 			<table>

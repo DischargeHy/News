@@ -130,7 +130,7 @@
 		</div>
 			<div class="search fr " >
 				<form action="Search.jsp" method="post">
-					<div class="text fl"> <input type="text" class="shuru" placeholder="请输入搜索内容">
+					<div class="text fl"> <input type="text" name="Search" class="shuru" placeholder="请输入搜索内容">
 					</div>
 					<div class="submit fl">
 						<input type="submit" class="sousuo" value="搜索" />
@@ -149,13 +149,13 @@
 		<!-- content srart -->
 		<div class="am-g am-g-fixed blog-fixed center">
 			<div class="am-u-md-8 am-u-sm-12">
-
-			<article class="am-g blog-entry-article">
 				<%
 					ArrayList list2 = nm.showNewsListByNewsTypeId(NewsTypeId, Page);/*通过新闻类型Id查询新闻内容  */
 					for (int i = 0; i < list2.size(); i++) {
 						News news = (News) list2.get(i);
 				%>
+			<article class="am-g blog-entry-article">
+				
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
 					<img src=<%=news.getNewsCover() %> alt="" class="am-u-sm-12">
 				</div>
@@ -163,17 +163,18 @@
 					<span><a href="" class="blog-color">article &nbsp;</a></span> <span>
 						@<%=news.getUserName() %> &nbsp;</span> <span><%=news.getUpdateTime() %></span>
 					<h1>
-						<a href=href="NewsDetail.jsp?NewsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a>
+						<a href="NewsDetail.jsp?NewsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a>
 					</h1>
 					<p><%=news.getNewsContent().substring(0,1) %></p>
 					<p>
 						<a href="" class="blog-continue">continue reading</a>
 					</p>
 				</div>
+				
 			</article>
 			<%
-				}
-			%>
+					}
+				%>
 
 			
 
