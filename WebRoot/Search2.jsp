@@ -7,19 +7,19 @@
 <title>搜索</title>
 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
 
-		<link href="AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-		<link href="AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+		<link href="assets3/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+		<link href="assets3/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
-		<link href="css/personal.css" rel="stylesheet" type="text/css">
-		<link href="css/stepstyle.css" rel="stylesheet" type="text/css">
+		<link href="assets3/css/personal.css" rel="stylesheet" type="text/css">
+		<link href="assets3/css/stepstyle.css" rel="stylesheet" type="text/css">
 
-		<script src="../AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
-		<script src="../AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
+		<script src="assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+		<script src="assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
         
        	<link rel="icon" type="image/png" href="assets/i/tubiao.png">
-		<link rel="stylesheet" href="assets/css/amazeui.min.css">
-		<link rel="stylesheet" href="assets/css/app.css">
-		<link rel="stylesheet" href="assets/css/style.css">
+		<link rel="stylesheet" href="assets3/assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="assets3/assets/css/app.css">
+		<link rel="stylesheet" href="assets3/assets/css/style.css">
 		<style>
 	body{
 		width:100%;
