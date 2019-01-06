@@ -14,6 +14,7 @@
   </div>    
   <div class="log-re">
     <button type="button" class="am-btn am-btn-default am-radius log-button"><a href="Login2.jsp">登 录</a></button>
+    <button type="button" class="am-btn am-btn-default am-radius log-button"><a href="">首 页</a></button>
   </div> 
 </header>
 
