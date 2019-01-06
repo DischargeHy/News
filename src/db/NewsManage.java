@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import entity.ApplyList;
 import entity.CommentReport;
 import entity.News;
+import entity.NewsExamineList;
 import entity.NewsType;
 import entity.User;
 
@@ -54,7 +55,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 +" and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -82,7 +83,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId = " + UserId1 + " ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + "  and `User`.UserId = " + UserId1 + " ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -110,7 +111,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%' limit " + limit + ",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + "  and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%' limit " + limit + ",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -157,7 +158,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -275,6 +276,54 @@ public class NewsManage {
 				conn.closeAll(con);
 			}
 			return list;
+		}
+		//按页显示审核
+		public ArrayList showNewsExamine(String page) {
+			ArrayList list = new ArrayList();
+			int limit = 0;
+			int page_int = Integer.parseInt(page);
+			limit+= (page_int-1)*10;
+			Connection con = conn.getCon();
+			String sqlString = "select * from `NewsExamineView` limit " + limit +",10";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int newsId = rs.getInt("newsId");
+					String userName = rs.getString("userName");
+					String userEMail = rs.getString("userEMail");
+					String newsTitle = rs.getString("newsTitle");
+					String createTime = rs.getString("createTime");
+					String newsTypeName = rs.getString("newsTypeName");
+					String updateTime = rs.getString("updateTime");
+					NewsExamineList nel = new NewsExamineList(newsId, userName, userEMail, newsTitle, createTime, newsTypeName, updateTime);
+					list.add(nel);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		//返回审核页数
+		public int getNewsExaminePage() {
+			Connection con = conn.getCon();
+			int i = 0;
+			String sqlString = "select * from `NewsExamineView`";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
 		}
 		//按页显示所有举报信息
 		public ArrayList showReport(String page) {

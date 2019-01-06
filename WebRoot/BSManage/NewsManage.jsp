@@ -44,8 +44,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
 			<p><a>新闻查询管理</a></p>
-			<p><a href="BSManage/NewsTypeManage.jsp">分类管理</a></p>
-			<p><a href="#">新闻审核</a></p>
+			<p><a href="BSManage/NewsTypeManage.jsp?page=1">分类管理</a></p>
+			<%if(session.getAttribute("UserType").equals(3)){ %><!-- 管理员才能进入审核界面 -->
+			<p><a href="BSManage/NewsExamine.jsp?page=1">新闻审核</a></p>
+			<%} %>
 		</div>
 		<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
 			<table style="border: 1px solid;width: 100%">
@@ -110,10 +112,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td><%=news.getUserName()%></td>
 					<td><%=news.getCreateTime()%></td>
 					<td>
+						<%if(userType!=3){ %>
 						<form action="BSManage/NewsEdit.jsp" method="post">
-							<input type="hidden" name="<%=news.getNewsId()%>">
+							<input type="hidden" value="<%=news.getNewsId()%>" name="NewsId">
 							<input type="submit" value="编辑">
 						</form>
+						<%} 
+						else{
+						%>
+						<form action="updateNewsExamine" method="post">
+							<input type="hidden" name="News" value="News">
+							<input type="hidden" name="state" value="2">
+							<input type="hidden" name="search" value="<%=search%>">
+							<input type="hidden" name="page" value="<%=NewsPage%>">
+							<input type="hidden" value="<%=news.getNewsId()%>" name="NewsId">
+							<input type="submit" value="重审">
+						</form>
+						<%}%>
 						<form action="updateNewsServlet" method="post">
 							<input type="hidden" value="<%=news.getNewsId()%>" name="NewsId">
 							<input type="hidden" value="delete" name="edit">

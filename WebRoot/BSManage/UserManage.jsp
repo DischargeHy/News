@@ -55,7 +55,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
 			<p><a>用户权限管理</a></p>
-			<p><a href="#"></a></p>
+			<p><a href="BSManage/UserApply.jsp?page=1">用户权限申请管理</a></p>
 		</div>
 		<div style="float: left;border: 1px solid; width:70%"><!-- 用户列表开始 -->
 			<table style="border: 1px solid;width: 100%">
