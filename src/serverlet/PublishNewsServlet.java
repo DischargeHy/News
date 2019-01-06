@@ -44,6 +44,9 @@ public class PublishNewsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		System.out.println("-----------------PublishNews-----------------");
+		if (!request.getSession().getAttribute("UserType").equals("2")) {
+			response.sendError(3, "你不是小编！！！");
+		}
 		String newsContent=request.getParameter("newsContent");
 		String newsCover=request.getParameter("newsCover");
 		String newsTitle=request.getParameter("newsTitle");
@@ -60,13 +63,13 @@ public class PublishNewsServlet extends HttpServlet {
 //		System.out.println(userId);
 
 		Connection connection=new DBCon().getCon();
-		NewsImpl newsImpl=new NewsImpl();
+		NewsImpl newsImpl=new NewsImpl(connection);
 //		News news=new News(newsTitle, newsContent, newsTypeId, 5, newsCover);
 		News news=new News(newsTitle, newsContent, newsTypeId, userId, newsCover);
 		String newsId=null;
 		try {
-			newsImpl.insertNews(news, connection);
-			newsId=""+newsImpl.getLastInsertId(connection);
+			newsImpl.insertNews(news);
+			newsId=""+newsImpl.getLastInsertId();
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

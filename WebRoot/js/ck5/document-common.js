@@ -31,7 +31,7 @@ function publish(message){
 	var newsContent=editor.getData();
 
 
-	alert(newsContent);
+//	alert(newsContent);
 
 	var xmlhttp = createXmlHttp();
 
@@ -70,7 +70,7 @@ function publish(message){
 	        if(result == null || result == " "){
 	        	console.log(result);
 	        }else{
-//	        	window.location.href=result;
+	        	window.location.href=result;
 	        }
 	    }else{
 	    	//发布失败

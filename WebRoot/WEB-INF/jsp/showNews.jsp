@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-
+<jsp:include page="/template/newsContent.jsp"></jsp:include>
 </body>
 </html>
