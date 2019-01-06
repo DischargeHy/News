@@ -139,5 +139,22 @@ public class BSManage {
 		}
 		return count;
 	}
+	public int changeNewsStatus(String NewsId,String state) throws SQLException {
+		int count = 0;
+		Connection con = dbcon.getCon();
+		int NewsId1 = Integer.parseInt(NewsId);
+		int state1 = Integer.parseInt(state);
+		String sqlString = null;
+			sqlString = "update News set NewsStatus="+ state1 +" where NewsId=" + NewsId1;
+		try {
+			PreparedStatement ps = con.prepareStatement(sqlString);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			con.close();
+		}
+		return count;
+	}
 }
 

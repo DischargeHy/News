@@ -165,7 +165,7 @@
 					<h1>
 						<a href=href="NewsDetail.jsp?NewsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a>
 					</h1>
-					<p><%=news.getNewsContent().substring(0, 1) %></p>
+					<p><%=news.getNewsContent().substring(0,1) %></p>
 					<p>
 						<a href="" class="blog-continue">continue reading</a>
 					</p>

@@ -72,10 +72,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				if(request.getParameter("NewsTypeId")!=null){
 					NewsTypeId=Integer.parseInt(request.getParameter("NewsTypeId"));
 				}
-				
-				int pageCount=nm.ShowPageCountBynewstypeid(NewsTypeId);//总分页数
-  	    		if(Page<1) Page = 1;//如果页码小于1，则页码置为第1页
-  	    		if(Page>=pageCount) Page = pageCount;//如果当前页码大于总分的页数，就将当前页码置为最后一页
   	    		
 				for (int i = 0; i < list.size(); i++) {
 					NewsType newstype = (NewsType)list.get(i);
@@ -114,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			</tr>
 			<%
 				
-				ArrayList list2 = nm.showNewsListByNewsTypeId(NewsTypeId, Page);/*通过新闻类型Id查询新闻内容  */
+				ArrayList list2 = nm.showHotNews();/*查询热门新闻内容  */
 				for (int i = 0; i < list2.size(); i++) {
 				News news = (News)list2.get(i);
 			%>
