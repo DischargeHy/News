@@ -29,7 +29,7 @@ public class updateType extends HttpServlet {
 		int num = 0;
 		System.out.println(NewsTypeId);
 		System.out.println(NewsTypeName);
-		PrintWriter out = response.getWriter();
+		PrintWriter out = response.getWriter();  
 		if(edit.equals("update")){
 			try {
 				num = bs.updateNewsType(NewsTypeId, NewsTypeName);

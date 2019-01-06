@@ -2,7 +2,6 @@ package serverlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -29,12 +28,6 @@ public class updateUserServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();  
 		BSManage bsm = new BSManage();
 		int i = bsm.changeUserType(UserId, type);
-		try {
-			bsm.deleteApply(UserId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		if(i!=0) {
 			out.print("<script>alert('change success!');location.href='BSManage/UserManage.jsp?page=1';</script>");
 		}
