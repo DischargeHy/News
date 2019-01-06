@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.News;
 import dao.NewsImpl;
 import db.DBCon;
+import util.Url;
 
 /**
  * Servlet implementation class PulishNews
@@ -62,12 +63,23 @@ public class PublishNewsServlet extends HttpServlet {
 		NewsImpl newsImpl=new NewsImpl();
 //		News news=new News(newsTitle, newsContent, newsTypeId, 5, newsCover);
 		News news=new News(newsTitle, newsContent, newsTypeId, userId, newsCover);
+		String newsId=null;
 		try {
 			newsImpl.insertNews(news, connection);
+			newsId=""+newsImpl.getLastInsertId(connection);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		if (newsId!=null) {
+			String strJson="{\"url\": \""+Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId+"\",\"uploaded\": 1}";
+			response.setContentType("application/json;charset=utf-8;");
+			response.getWriter().print(strJson);
+		}
+		
+		
+		
+		
 	}
 
 }

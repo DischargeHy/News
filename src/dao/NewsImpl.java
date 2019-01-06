@@ -2,12 +2,13 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 
 public class NewsImpl {
 	
-	
+	//
 	public boolean insertNews(News news,Connection conn) throws SQLException {
 
 		PreparedStatement preparedStatement=conn.prepareStatement("INSERT INTO `News` (`newsTitle`, `newsContent`,`newsTypeId`,`userId`,`newsCover`) "
@@ -21,4 +22,15 @@ public class NewsImpl {
 
 		return true;
 	}
+	
+	public int getLastInsertId(Connection conn) throws SQLException {
+		PreparedStatement ps=conn.prepareStatement("SELECT LAST_INSERT_ID()");
+		ResultSet resultset=ps.executeQuery();
+		if (resultset.next()) {
+			return resultset.getInt(1);
+		}else {
+			return -1;
+		}
+	}
+	
 }
