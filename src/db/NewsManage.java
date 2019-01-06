@@ -514,7 +514,7 @@ public class NewsManage {
 			}
 			return i;
 		}
-		//根据Title的总页数查询新闻
+		//根据Title查询新闻总页数
 		public int getNewsPage(String NewsTitle1) {
 			Connection con = conn.getCon();
 			int i = 0;
@@ -864,5 +864,53 @@ public class NewsManage {
 				conn.closeAll(con);
 			}
 			return list;
+		}
+		
+		//插申请小编信息---ApplyList表
+		public int insertApply(ApplyList al) {
+			int i = 0;
+			Connection con = conn.getCon();
+			String sqlString = "insert into Apply(UserId,Reasons,Time,state) values(?,?,?,?)";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				pre.setInt(1, al.getUserId());
+				pre.setString(2, al.getReasons());
+				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+				pre.setString(3, df.format(new java.sql.Date(System.currentTimeMillis())));
+				pre.setString(4, al.getState());
+				i = pre.executeUpdate();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
+		}
+		
+		//通过UserId查询小编申请表---ApplyList表
+		public ApplyList showApplyListByUserId(int userid) {
+			ApplyList al=null;
+			Connection con = conn.getCon();
+			String sqlString = "select * from Apply WHERE UserId=?";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+	 			pre.setInt(1,userid);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int applyId = rs.getInt("applyId");
+					int userId = rs.getInt("UserId");
+					String reasons = rs.getString("reasons");
+					String time = rs.getString("time");
+					String state = rs.getString("state");
+					al=new ApplyList(applyId, userId, reasons, time, state);
+					break;
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return al;
 		}
 }
