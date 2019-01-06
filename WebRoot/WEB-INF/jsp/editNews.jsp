@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>编辑</title>
 </head>
 <body>
 <jsp:include page="/template/ck5.jsp"></jsp:include>
