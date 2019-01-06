@@ -913,4 +913,38 @@ public class NewsManage {
 			}
 			return al;
 		}
+		
+		//通过浏览数查询新闻列表
+		public ArrayList showHotNews() {
+			ArrayList list = new ArrayList();
+			Connection con = conn.getCon();
+			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsStatus=1 order by Browse desc limit 6";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					String createTime = rs.getString("CreateTime");
+					
+					int newsId = rs.getInt("NewsId");
+					String newsTitle = rs.getString("NewsTitle");
+					String userName = rs.getString("UserName");
+					int browse=rs.getInt("browse");
+					String updateTime = rs.getString("updateTime");
+					String newsCover=rs.getString("newsCover");
+					String newsContent=rs.getString("newsContent");
+					int userId = rs.getInt("UserId");
+					int newsStatus = rs.getInt("NewsStatus");
+					int newsContentNum=showContentNum(newsId);//调用方法查询回复数
+					News news = new News(newsId, newsTitle, userName, createTime,userId, browse, updateTime, newsStatus, newsCover, newsContentNum, newsContent);
+					list.add(news);
+				}
+				
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
 }
