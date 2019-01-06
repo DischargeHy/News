@@ -1,3 +1,4 @@
+<%@page import="entity.ApplyList"%>
 <%@page import="entity.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="db.NewsManage"%>
@@ -56,8 +57,10 @@
 		<!-- 主体外部DIV开始 -->
 		<div style="float: left; border: 1px solid;">
 			<p><a>个人信息管理（普通用户/小编）</a></p>
+			<p><a href="UserPassManage.jsp">密码管理（普通用户/小编）</a></p>
 			<p><a href="#">查看回复（普通用户/小编）</a></p>
 			<p><a href="#">发帖（小编）</a></p>
+			
 			<%
 				//当小编打开个人中心时才显示评论管理选项
 				if(UserType.equals("2")){
@@ -186,17 +189,25 @@
 						<label> 
 						<% if(UserType.equals("1")){%>
 							<input type="text" name="usertypeName" value="普通用户" readonly="readonly">
-							<input id="submit" type="button" value="申请成为小编" class="submit_button" onclick="show_apply()"/></td>
-							<div id="apply" style="display: none"><!-- 点击申请成为小编才出现 -->
-								<form action="" method="post">
-									<input type="text" value="你确定要申请成为小编吗？" name="txt_apply">
-									<centetr>
-										<input id="yes" type="submit" value="确认" style="width: 75px;text-indent:0px;margin-top: 0px;">
-    	    							<input id="no" type="button" value="取消" style="width: 75px;text-indent:0px;margin-top: 0px;"onclick="hidden_apply()">
-    	    						</centetr>
-								</form>
-							</div><!-- 申请成为小编结束 -->
-						<%} %>
+						<%
+							ApplyList al=nm.showApplyListByUserId(user.getUserId());
+							if(al==null){
+						%>
+							<input id="submit" type="button" value="申请成为小编" class="submit_button" onclick="show_apply()"/></td>	
+						<%	
+							}else{
+								if(al.getState().equals("申请中")){
+						%>
+							<label>小编申请审核中...</label>
+						<%
+								}else if(al.getState().equals("申请失败")){
+						%>
+							<label>小编申请失败...</label>
+							<input id="submit" type="button" value="重新申请" class="submit_button" onclick="show_apply()"/></td>
+						<%		
+								}else{	}
+							}
+						} %>
 						<% if(UserType.equals("2")){%>
 							<input type="text" name="usertypeName" value="小编" readonly="readonly">
 						<%} %>
@@ -235,21 +246,6 @@
 						</label></td>
 					</tr>
 					<tr>
-						<td>原密码:</td>
-						<td><label> <input type="text" name="txt_uRealPass" value="" placeholder="若不修改密码请勿输入内容">
-						</label></td>
-					</tr>
-					<tr>
-						<td>新密码:</td>
-						<td><label> <input type="text" name="txt_uPass" value="" placeholder="若不修改密码请勿输入内容">
-						</label></td>
-					</tr>
-					<tr>
-						<td>在次输入新密码:</td>
-						<td><label> <input type="text" name="txt_ReuPass" value="" placeholder="若不修改密码请勿输入内容">
-						</label></td>
-					</tr>
-					<tr>
 						<td>&nbsp;</td>
 						<td><label> <input type="submit" name="Submit" value="修改"> 
 								<input type="hidden" name="userId" value="<%=user.getUserId()%>">
@@ -258,6 +254,17 @@
 					</tr>
 				</table>
 			</form>
+			<div id="apply" style="display: none"><!-- 点击申请成为小编才出现 -->
+								<form action="../AuthorApplyServlet" method="post" id="applyform">
+									<input type="text" placeholder="请输入申请理由"  name="txt_apply" form="applyform">
+									<input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
+									<centetr>
+										
+										<input id="yes" type="submit" value="确认" style="width: 75px;text-indent:0px;margin-top: 0px;" form="applyform" >
+    	    							<input id="no" type="button" value="取消" style="width: 75px;text-indent:0px;margin-top: 0px;"onclick="hidden_apply()">
+    	    						</centetr>
+								</form>
+							</div><!-- 申请成为小编结束 -->
 		</div>
 		<!-- 个人信息列表结束 -->
 	</div>

@@ -83,6 +83,20 @@ public class User {
 		UserSex = userSex;
 		UserBirthday = userBirthday;
 	}
+	
+	//无密码构造方法
+		public User(int userId, String userAccount,String userName, String userEMail, int userType,
+				String userHead, int userSex, String userBirthday) {
+			super();
+			UserId = userId;
+			UserAccount = userAccount;
+			UserName = userName;
+			UserEMail = userEMail;
+			UserType = userType;
+			UserHead = userHead;
+			UserSex = userSex;
+			UserBirthday = userBirthday;
+		}
 
 	
 	//无Id构造方法
@@ -98,5 +112,12 @@ public class User {
 			UserSex = userSex;
 			UserBirthday = userBirthday;
 		}
+	//Id+密码构造方法
+		public User(int userId, String userPass) {
+			super();
+			UserId = userId;
+			UserPass = userPass;
+		}
+	
 
 }

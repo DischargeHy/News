@@ -52,9 +52,6 @@ public class UserMessageUpdateServlet extends HttpServlet {
 		int userId=Integer.parseInt(request.getParameter("userId"));
 		String userAccount=request.getParameter("txt_uAccount");	
 		String userName=request.getParameter("txt_uName");	
-		String RealUserPass=request.getParameter("txt_uRealPass");//原密码
-		String userPass=request.getParameter("txt_uPass");//新密码
-		String ReuserPass=request.getParameter("txt_ReuPass");//在次输入新密码
 		String userEMail=request.getParameter("txt_uemail");
 		String userBirthday=Year+"-"+Month+"-"+Day;
 		int userSex=Integer.parseInt(request.getParameter("rdo_gender"));
@@ -80,43 +77,14 @@ public class UserMessageUpdateServlet extends HttpServlet {
 		 */
 		
 		//修改个人信息（不包括密码）
-		if(RealUserPass.equals("")&&userPass.equals("")&&ReuserPass.equals("")) {
 			NewsManage nm=new NewsManage();
-			User user=new User(userId, userAccount, ReuserPass, userName, userEMail, userType, userHead, userSex, userBirthday);
+			User user=new User(userId, userAccount, userName, userEMail, userType, userHead, userSex, userBirthday);
 			int j = nm.updateUserNoPass(user);// 调用修改用户信息方法(不包括密码)
 			if (j > 0) {
 				out.println("<script>alert('Update Success');window.location.href='UManage/UserMessageManage.jsp'</script>");
 			} else {
 				out.println("<script>alert('Update Fail');window.location.href='UManage/UserMessageManage.jsp'</script>");
 			}
-		}
-		
-		//修改个人信息（包括密码）
-		if(RealUserPass.equals("")||userPass.equals("")||ReuserPass.equals("")) {
-			out.println("<script>alert('If you want to change your password,Three password options cannot be empty!');window.location.href='UManage/UserMessageManage.jsp'</script>");
-		}else {
-			NewsManage nm=new NewsManage();
-			//验证密码
-			if(nm.showUserByUserIdAndPass(userId, RealUserPass)>0) {
-				//验证两次输入的新密码是否不一致
-				if(userPass.equals(ReuserPass)) {
-					User user=new User(userId, userAccount, ReuserPass, userName, userEMail, userType, userHead, userSex, userBirthday);
-					int j = nm.updateUserIncludePass(user);// 调用修改用户信息方法（包括密码）
-					if (j > 0) {
-						out.println("<script>alert('Update Success');window.location.href='UManage/UserMessageManage.jsp'</script>");
-					} else {
-						out.println("<script>alert('Update Fail');window.location.href='UManage/UserMessageManage.jsp'</script>");
-					}
-				}else {
-					out.println("<script>alert('Entering a new password twice is not the same');window.location.href='UManage/UserMessageManage.jsp'</script>");
-				}
-				
-			}else {
-				out.println("<script>alert('Original password is wrong');window.location.href='UManage/UserMessageManage.jsp'</script>");
-			}
-			
-		}
-		
 		
 	}
 
