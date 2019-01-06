@@ -84,4 +84,14 @@
     <servlet-name>updateCommentServlet</servlet-name>
     <url-pattern>/updateCommentServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserPassUpdateServlet</display-name>
+    <servlet-name>UserPassUpdateServlet</servlet-name>
+    <servlet-class>serverlet.UserPassUpdateServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserPassUpdateServlet</servlet-name>
+    <url-pattern>/UserPassUpdateServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

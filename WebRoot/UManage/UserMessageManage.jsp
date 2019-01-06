@@ -56,8 +56,10 @@
 		<!-- 主体外部DIV开始 -->
 		<div style="float: left; border: 1px solid;">
 			<p><a>个人信息管理（普通用户/小编）</a></p>
+			<p><a href="UserPassManage.jsp">密码管理（普通用户/小编）</a></p>
 			<p><a href="#">查看回复（普通用户/小编）</a></p>
 			<p><a href="#">发帖（小编）</a></p>
+			
 			<%
 				//当小编打开个人中心时才显示评论管理选项
 				if(UserType.equals("2")){
@@ -232,21 +234,6 @@
 					<tr>
 						<td>用户头像:</td>
 						<td><label> <input type="file" name="userHead" />
-						</label></td>
-					</tr>
-					<tr>
-						<td>原密码:</td>
-						<td><label> <input type="text" name="txt_uRealPass" value="" placeholder="若不修改密码请勿输入内容">
-						</label></td>
-					</tr>
-					<tr>
-						<td>新密码:</td>
-						<td><label> <input type="text" name="txt_uPass" value="" placeholder="若不修改密码请勿输入内容">
-						</label></td>
-					</tr>
-					<tr>
-						<td>在次输入新密码:</td>
-						<td><label> <input type="text" name="txt_ReuPass" value="" placeholder="若不修改密码请勿输入内容">
 						</label></td>
 					</tr>
 					<tr>
