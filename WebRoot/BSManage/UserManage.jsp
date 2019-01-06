@@ -34,16 +34,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div style="width: 100%;border: 1px solid;">
+<<<<<<< HEAD
 		<a href="BSManage/NewsManage.jsp?page=1">新闻管理模块</a>
 		<a href="BSManage/UserManage.jsp?page=1">用户管理模块</a>
 		<a href="#">留言管理模块</a>
+=======
+		<a href="BSManage/NewsManage.jsp?page=1">新闻管理</a>
+		<a>用户管理</a>
+		<a href="BSManage/commentManage.jsp?page=1">留言管理</a>
+		<%if (session.getAttribute("UserAccount") != null) {	
+    		String UserAccount=(String)session.getAttribute("UserAccount"); 
+    		String UserType=session.getAttribute("UserType").toString();
+    		String UserId=session.getAttribute("UserId").toString();
+	    %>   		
+	    	<label>&nbsp;您好：</label><a href="UManage/UserMessageManage.jsp"><%=UserAccount %></a>
+	    	<a class="text-primary" href="index.jsp?logout=1">登出</a>
+	    <%
+	    	}else{
+	    %>
+			<a href="Login.jsp">登陆</a> 
+	    <%		
+	    	}
+	    %>
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
 	</div>
 	<div style="margin-top: 30px; width: 100%"><!-- 主体外部DIV开始 -->
 		<div style="float: left;border: 1px solid;">
 			<p><a>用户权限管理</a></p>
 			<p><a href="#"></a></p>
 		</div>
-		<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
+		<div style="float: left;border: 1px solid; width:70%"><!-- 用户列表开始 -->
 			<table style="border: 1px solid;width: 100%">
 			<tr>
 				<td>用户搜索:</td>
