@@ -104,4 +104,14 @@
     <servlet-name>updateNewsExamine</servlet-name>
     <url-pattern>/updateNewsExamine</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AuthorApplyServlet</display-name>
+    <servlet-name>AuthorApplyServlet</servlet-name>
+    <servlet-class>serverlet.AuthorApplyServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AuthorApplyServlet</servlet-name>
+    <url-pattern>/AuthorApplyServlet</url-pattern>
+  </servlet-mapping>
 </web-app>
