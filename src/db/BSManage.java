@@ -82,5 +82,36 @@ public class BSManage {
 		}
 		return count;
 	}
+	public int upadateApply(String ApplyId,String state) {
+		int count = 0;
+		Connection con = dbcon.getCon();
+		int ApplyId1 = Integer.parseInt(ApplyId);
+		System.out.println(ApplyId1);
+		String sqlString = "update Apply set state='"+ state +"' where ApplyId=" + ApplyId1;
+		try {
+			PreparedStatement pre = con.prepareStatement(sqlString);
+			count = pre.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			dbcon.closeAll(con);
+		}
+		return count;
+	}
+	public int deleteApply(String UserId) throws SQLException {
+		int count = 0;
+		Connection con = dbcon.getCon();
+		int UserId1 = Integer.parseInt(UserId);
+		String sqlString = "delete from Apply where UserId=" + UserId1;
+		try {
+			PreparedStatement ps = con.prepareStatement(sqlString);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			con.close();
+		}
+		return count;
+	}
 }
 
