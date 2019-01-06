@@ -60,6 +60,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
   	<div id="NewsType">
   		<ul>
+  			<li>
+				<a href="index.jsp">热门</a>
+			</li>
   			<%
   				NewsManage nm = new NewsManage();
   				
@@ -79,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
   			 %>
 			<li>
-				<a href="index.jsp?NewsTypeId=<%=newstype.getNewsTypeId() %>"><%=newstype.getNewsTypeName() %></a>
+				<a href="NewsTypeBoard.jsp?NewsTypeId=<%=newstype.getNewsTypeId() %>"><%=newstype.getNewsTypeName() %></a>
 			</li>
 			<%
   				}
@@ -88,6 +91,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	</div>
   	
   	
+  	<div id="Search"><!--搜索部分开始  -->
+  	<form action="Search.jsp" method="post">
+		<table width="600" border="1" align="center" cellspacing="0">
+  			<tr>
+    			<td align="center"><input name="Search" type="text" /></td>
+    			<td align="center"><input name="" type="submit" value="搜索" /></td>
+ 			</tr>
+		</table>
+	</form>
+  	</div><!--搜索部分结束  -->
   	
   	<div id="main">
   	<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
@@ -107,35 +120,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			%>
 				<tr>
 					<td><img src="<%=news.getNewsCover()%>"></td>
-					<td><%=news.getNewsTitle()%></td>
+					<td><a href="NewsDetail.jsp?NewsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a></td>
 					<td><%=news.getUserName()%></td>
 					<td><%=news.getUpdateTime()%></td>
 					<td><%=news.getNewsContentNum() %></td>
 				</tr>
 			<%} %>
-		        <tr>
-		        	<td colspan="4">
-		        		<div id="Page">
-							<a href = "index.jsp?NewsTypeId=<%=NewsTypeId %>&page=1" >首页</a>
-							<a href = "index.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>" >上一页</a>
-							<%for(int i=1;i<=pageCount;i++){ 
-								if(i==Page){		
-							%>
-								<%=i %>
-							<%	
-								}
-								else{
-							%>
-								<a href = "index.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=i%>" ><%=i%></a>
-							<%
-								}	
-							} 
-							%>
-							<a href = "index.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page+1%>" >下一页</a>
-							<a href = "index.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=pageCount%>" >尾页</a>
-						</div>
-		        	</td>
-		        </tr>
 			</table>
 		</div><!-- 新闻列表结束 -->
   	</div>

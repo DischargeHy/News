@@ -13,6 +13,7 @@ public class News {
 	private int NewsStatus;//新闻状态
 	private String NewsCover;//新闻封面
 	private int NewsContentNum;//新闻评论数
+	private String NewsContent;//新闻内容
 	
 	
 	public News(int newsId, String newsTitle, String userName, String createTime, String newsTypeName) {
@@ -36,6 +37,47 @@ public class News {
 		UpdateTime = updateTime;
 		NewsCover = newsCover;
 		NewsContentNum = newsContentNum;
+	}
+
+	//111111111111
+	public News(int newsId, String newsTitle, String userName, String createTime, int userId,
+			int browse, String updateTime, int newsStatus, String newsCover, int newsContentNum, String newsContent) {
+		super();
+		NewsId = newsId;
+		NewsTitle = newsTitle;
+		UserName = userName;
+		CreateTime = createTime;
+		UserId = userId;
+		Browse = browse;
+		UpdateTime = updateTime;
+		NewsStatus = newsStatus;
+		NewsCover = newsCover;
+		NewsContentNum = newsContentNum;
+		NewsContent = newsContent;
+	}
+
+
+	public News(int newsId, String newsTitle, String userName, String createTime, String newsTypeName, int userId,
+			int browse, String updateTime, int newsStatus, String newsCover, int newsContentNum, String newsContent) {
+		super();
+		NewsId = newsId;
+		NewsTitle = newsTitle;
+		UserName = userName;
+		CreateTime = createTime;
+		NewsTypeName = newsTypeName;
+		UserId = userId;
+		Browse = browse;
+		UpdateTime = updateTime;
+		NewsStatus = newsStatus;
+		NewsCover = newsCover;
+		NewsContentNum = newsContentNum;
+		NewsContent = newsContent;
+	}
+
+
+
+	public String getNewsContent() {
+		return NewsContent;
 	}
 
 
