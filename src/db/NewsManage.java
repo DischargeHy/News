@@ -967,7 +967,7 @@ public class NewsManage {
 		public ArrayList showHotNews() {
 			ArrayList list = new ArrayList();
 			Connection con = conn.getCon();
-			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsStatus=1 order by Browse desc limit 6";
+			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsStatus=1 order by Browse desc limit 10";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();

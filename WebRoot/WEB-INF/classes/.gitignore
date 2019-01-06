@@ -2,3 +2,5 @@
 /db/
 /entity/
 /serverlet/
+/servlet/
+/util/
