@@ -7,10 +7,15 @@ public class CommentReport {
 	private String NewsTitle;
 	private String UserName;
 	private String state;
+	private String CommentContent;
 	private String CommentTime;
 	private String UserAccount;
+	
+	public String getCommentContent() {
+		return CommentContent;
+	}
 	public CommentReport(int commentId, int replyId, int newsId, String newsTitle, String userName, String state,
-			String commentTime, String userAccount) {
+			String commentContent, String commentTime, String userAccount) {
 		super();
 		CommentId = commentId;
 		ReplyId = replyId;
@@ -18,6 +23,7 @@ public class CommentReport {
 		NewsTitle = newsTitle;
 		UserName = userName;
 		this.state = state;
+		CommentContent = commentContent;
 		CommentTime = commentTime;
 		UserAccount = userAccount;
 	}

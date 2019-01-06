@@ -344,8 +344,9 @@ public class NewsManage {
 					String userName = rs.getString("userName");
 					String state = rs.getString("state");
 					String commentTime = rs.getString("commentTime");
+					String commentContent = rs.getString("commentContent");
 					String userAccount = rs.getString("userAccount");
-					CommentReport cr = new CommentReport(commentId, replyId, newsId, newsTitle, userName, state, commentTime, userAccount);
+					CommentReport cr = new CommentReport(commentId, replyId, newsId, newsTitle, userName, state, commentContent, commentTime, userAccount);
 					list.add(cr);
 				}
 				rs.close();
@@ -376,7 +377,8 @@ public class NewsManage {
 					String state = rs.getString("state");
 					String commentTime = rs.getString("commentTime");
 					String userAccount = rs.getString("userAccount");
-					CommentReport cr = new CommentReport(commentId, replyId, newsId, newsTitle, userName, state, commentTime, userAccount);
+					String commentContent = rs.getString("commentContent");
+					CommentReport cr = new CommentReport(commentId, replyId, newsId, newsTitle, userName, state, commentContent, commentTime, userAccount);
 					list.add(cr);
 				}
 				rs.close();

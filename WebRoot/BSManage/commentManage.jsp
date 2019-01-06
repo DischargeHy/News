@@ -61,6 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<tr>
 				<td>新闻标题</td>
 				<td>评论用户</td>
+				<td>评论内容</td>
 				<td>评论时间</td>
 				<td>操作</td>
 				<td colspan="2">操作</td>
@@ -88,6 +89,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<tr>
 					<td><a href="<%=cr.getNewsId()%>"><%=cr.getNewsTitle() %></a></td>
 					<td><%=cr.getUserName() %></td>
+					<td><%=cr.getCommentContent() %></td>
 					<td><%=cr.getCommentTime() %></td>
 					<td><form action="updateCommentServlet" method="Post">
 						<input type="hidden" value="<%=cr.getCommentId()%>" name="CommentId">

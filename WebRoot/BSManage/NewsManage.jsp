@@ -52,17 +52,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
 			<table style="border: 1px solid;width: 100%">
 			<tr>
+				<td>搜索：</td>
+				<td><div><form method="post" action="BSManage/NewsManage.jsp"><!-- 搜索框 -->
+						<input type="hidden" value="1" name="page">
+						<input type="text" name="search" value="<%=request.getParameter("search")%>">
+						<input type="submit" value="搜索">
+				</form></div>
+			</tr>
+			<tr>
 				<td>标题</td>
 				<td>类型</td>
 				<td>作者</td>
 				<td>发表时间</td>
 				<td>操作</td>
 			</tr>
-			<div><form method="post" action="BSManage/NewsManage.jsp"><!-- 搜索框 -->
-					<input type="hidden" value="1" name="page">
-					<input type="text" name="search" value="<%=request.getParameter("search")%>">
-					<input type="submit" value="搜索">
-			</form></div>
 			<%
 				NewsManage nm = new NewsManage();
 				int userId =(Integer)session.getAttribute("UserId");
