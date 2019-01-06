@@ -98,6 +98,32 @@ public class BSManage {
 		}
 		return count;
 	}
+	public int changeComment(String CommentId,String operate) throws SQLException {
+		int count = 0;
+		Connection con = dbcon.getCon();
+		int CommentId1 = Integer.parseInt(CommentId);
+		int operate1 = Integer.parseInt(operate);
+		String sqlString = null;
+		switch (operate1) {
+		case 0:
+			sqlString = "update Comment set state='"+ 0 +"' where CommentId=" + CommentId1;
+			break;
+		case 1:
+			sqlString = "delete from Comment where CommentId=" + CommentId1;
+			break;
+		default:
+			break;
+		}
+		try {
+			PreparedStatement ps = con.prepareStatement(sqlString);
+			count = ps.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			con.close();
+		}
+		return count;
+	}
 	public int deleteApply(String UserId) throws SQLException {
 		int count = 0;
 		Connection con = dbcon.getCon();

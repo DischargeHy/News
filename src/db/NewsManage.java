@@ -9,6 +9,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import entity.ApplyList;
+import entity.CommentReport;
 import entity.News;
 import entity.NewsType;
 import entity.User;
@@ -274,6 +275,86 @@ public class NewsManage {
 				conn.closeAll(con);
 			}
 			return list;
+		}
+		//按页显示所有举报信息
+		public ArrayList showReport(String page) {
+			ArrayList list = new ArrayList();
+			int limit = 0;
+			int page_int = Integer.parseInt(page);
+			limit+= (page_int-1)*10;
+			Connection con = conn.getCon();
+			String sqlString = "select * from `CommentReportView` limit " + limit +",10";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int commentId = rs.getInt("commentId");
+					int replyId = rs.getInt("replyId");
+					int newsId = rs.getInt("newsId");
+					String newsTitle = rs.getString("newsTitle");
+					String userName = rs.getString("userName");
+					String state = rs.getString("state");
+					String commentTime = rs.getString("commentTime");
+					String userAccount = rs.getString("userAccount");
+					CommentReport cr = new CommentReport(commentId, replyId, newsId, newsTitle, userName, state, commentTime, userAccount);
+					list.add(cr);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		//按页显示举报信息，根据小编ID
+		public ArrayList showReport(String page,int UserId) {
+			ArrayList list = new ArrayList();
+			int limit = 0;
+			int page_int = Integer.parseInt(page);
+			limit+= (page_int-1)*10;
+			Connection con = conn.getCon();
+			String sqlString = "select * from `CommentReportView` where UserId=" + UserId + " limit " + limit +",10";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int commentId = rs.getInt("commentId");
+					int replyId = rs.getInt("replyId");
+					int newsId = rs.getInt("newsId");
+					String newsTitle = rs.getString("newsTitle");
+					String userName = rs.getString("userName");
+					String state = rs.getString("state");
+					String commentTime = rs.getString("commentTime");
+					String userAccount = rs.getString("userAccount");
+					CommentReport cr = new CommentReport(commentId, replyId, newsId, newsTitle, userName, state, commentTime, userAccount);
+					list.add(cr);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		//返回举报页数
+		public int getReportPage() {
+			Connection con = conn.getCon();
+			int i = 0;
+			String sqlString = "select * from `CommentReportView`";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
 		}
 		//总申请页数查询
 		public int getApplyPage() {
