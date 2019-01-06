@@ -30,7 +30,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<div style="float: left;border: 1px solid;">
 			<p><a>新闻查询管理</a></p>
 			<p><a href="BSManage/NewsTypeManage.jsp">分类管理</a></p>
-			<p><a href="#">新闻发布</a></p>
+			<p><a href="${pageContext.request.contextPath}/editNews">新闻发布</a></p>
 		</div>
 		<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
 			<table style="border: 1px solid;width: 100%">
