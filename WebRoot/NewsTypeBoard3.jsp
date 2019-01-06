@@ -1,31 +1,17 @@
-<%@page import="entity.News"%>
-<%@page import="entity.NewsType"%>
 <%@page import="db.NewsManage"%>
-<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
-<%
-String path = request.getContextPath();
-String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
-%>
-
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<%@page import="entity.NewsType"%>
+<%@page import="entity.News"%>
+<%@page import="java.util.ArrayList"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
 <html>
-  <head>
-    <base href="<%=basePath%>">
-    
-    <title>My JSP 'index.jsp' starting page</title>
-	<meta http-equiv="pragma" content="no-cache">
-	<meta http-equiv="cache-control" content="no-cache">
-	<meta http-equiv="expires" content="0">    
-	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
-  </head>
-  
-  <body>
-
-  	<div id="head" class="table-info">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<div id="head" class="table-info">
 	<%
 		request.setCharacterEncoding("utf-8");
 		int Page=1;
@@ -61,7 +47,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<div id="NewsType">
   		<ul>
   			<li>
-				<a href="index.jsp">热门</a>
+				<a href="index.jsp">首页</a>
 			</li>
   			<%
   				NewsManage nm = new NewsManage();
@@ -82,7 +68,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					
   			 %>
 			<li>
-				<a href="NewsTypeBoard.jsp?NewsTypeId=<%=newstype.getNewsTypeId() %>"><%=newstype.getNewsTypeName() %></a>
+				<a href="NewsTypeBoard3.jsp?NewsTypeId=<%=newstype.getNewsTypeId() %>"><%=newstype.getNewsTypeName() %></a>
 			</li>
 			<%
   				}
@@ -126,10 +112,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td><%=news.getNewsContentNum() %></td>
 				</tr>
 			<%} %>
+		        <tr>
+		        	<td colspan="4">
+		        		<div id="Page">
+							<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=1" >首页</a>
+							<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>" >上一页</a>
+							<%for(int i=1;i<=pageCount;i++){ 
+								if(i==Page){		
+							%>
+								<%=i %>
+							<%	
+								}
+								else{
+							%>
+								<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=i%>" ><%=i%></a>
+							<%
+								}	
+							} 
+							%>
+							<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page+1%>" >下一页</a>
+							<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=pageCount%>" >尾页</a>
+						</div>
+		        	</td>
+		        </tr>
 			</table>
 		</div><!-- 新闻列表结束 -->
   	</div>
-  	
-    		
-  </body>
+</body>
 </html>
