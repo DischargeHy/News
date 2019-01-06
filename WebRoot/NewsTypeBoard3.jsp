@@ -68,7 +68,7 @@
 					
   			 %>
 			<li>
-				<a href="NewsTypeBoard.jsp?NewsTypeId=<%=newstype.getNewsTypeId() %>"><%=newstype.getNewsTypeName() %></a>
+				<a href="NewsTypeBoard3.jsp?NewsTypeId=<%=newstype.getNewsTypeId() %>"><%=newstype.getNewsTypeName() %></a>
 			</li>
 			<%
   				}
@@ -115,8 +115,8 @@
 		        <tr>
 		        	<td colspan="4">
 		        		<div id="Page">
-							<a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=1" >首页</a>
-							<a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>" >上一页</a>
+							<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=1" >首页</a>
+							<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>" >上一页</a>
 							<%for(int i=1;i<=pageCount;i++){ 
 								if(i==Page){		
 							%>
@@ -125,13 +125,13 @@
 								}
 								else{
 							%>
-								<a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=i%>" ><%=i%></a>
+								<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=i%>" ><%=i%></a>
 							<%
 								}	
 							} 
 							%>
-							<a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page+1%>" >下一页</a>
-							<a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=pageCount%>" >尾页</a>
+							<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page+1%>" >下一页</a>
+							<a href = "NewsTypeBoard3.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=pageCount%>" >尾页</a>
 						</div>
 		        	</td>
 		        </tr>
