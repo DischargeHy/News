@@ -74,4 +74,14 @@
     <servlet-name>updateApplyServlet</servlet-name>
     <url-pattern>/updateApplyServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>updateCommentServlet</display-name>
+    <servlet-name>updateCommentServlet</servlet-name>
+    <servlet-class>serverlet.updateCommentServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>updateCommentServlet</servlet-name>
+    <url-pattern>/updateCommentServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

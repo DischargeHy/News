@@ -21,9 +21,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
 <body>
 	<div style="width: 100%;border: 1px solid;">
-		<a href="BSManage/NewsManage.jsp?page=1">新闻管理模块</a>
-		<a href="BSManage/UserManage.jsp?page=1">用户管理模块</a>
-		<a href="#">留言管理模块</a>
+		<a>新闻管理</a>
+		<a href="BSManage/UserManage.jsp?page=1">用户管理</a>
+		<a href="BSManage/commentManage.jsp?page=1">留言管理</a>
 		<%if (session.getAttribute("UserAccount") != null) {	
     		String UserAccount=(String)session.getAttribute("UserAccount"); 
     		String UserType=session.getAttribute("UserType").toString();
