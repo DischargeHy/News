@@ -163,9 +163,9 @@
 					<span><a href="" class="blog-color">article &nbsp;</a></span> <span>
 						@<%=news.getUserName() %> &nbsp;</span> <span><%=news.getUpdateTime() %></span>
 					<h1>
-						<a href=""></a>
+						<a href=href="NewsDetail.jsp?NewsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a>
 					</h1>
-					<p><%= %></p>
+					<p><%=news.getNewsContent().substring(0, 1) %></p>
 					<p>
 						<a href="" class="blog-continue">continue reading</a>
 					</p>
@@ -175,124 +175,37 @@
 				}
 			%>
 
-			<article class="am-g blog-entry-article">
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-						<img src="assets1/i/f6.jpg" alt="" class="am-u-sm-12">
-					</div>
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-						<span><a href="" class="blog-color">article&nbsp;</a></span>
-						<span>@amazeUI &nbsp;</span>
-						<span>2015/10/9</span>
-						<h1><a href="">世间所有的相遇，都是久别重逢。</a></h1>
-						<p>你可以选择在原处不停地跟周遭不解的人解释你为何这么做，让他们理解你，你可以选择什么都不讲，自顾自往前走。
-						</p>
-						<p>
-							<a href="" class="blog-continue">continue</a>
-						</p>
-					</div>
-				</article>
-				<article class="am-g blog-entry-article">
-
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-						<span><a href="" class="blog-color">article&nbsp;</a></span>
-						<span> @amazeUI &nbsp;</span>
-						<span>2015/10/9</span>
-						<h1><a href="">My dear </a></h1>
-						<p>看绿色的邮筒孤独地站在街的对面。
-						</p>
-						<p>
-							<a href="" class="blog-continue">continue reading</a>
-						</p>
-					</div>
-				</article>
-				<article class="am-g blog-entry-article">
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-						<img src="assets1/i/f12.jpg" alt="" class="am-u-sm-12">
-					</div>
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-						<span><a href="" class="blog-color">article&nbsp;</a></span>
-						<span>@amazeUI</span>
-						<span>2015/10/9</span>
-						<h1><a href="">陌上花开，可缓缓归矣。</a></h1>
-						<p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。我们就在骑楼下躲雨，看绿色的邮筒孤独地站在街的对面。
-						</p>
-						<p>
-							<a href="" class="blog-continue">continue</a>
-						</p>
-					</div>
-				</article>
-
-				<article class="am-g blog-entry-article">
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-						<img src="assets1/i/f22.jpg" alt="" class="am-u-sm-12">
-					</div>
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-						<span><a href="" class="blog-color">article&nbsp;</a></span>
-						<span>@amazeUI</span>
-						<span>2015/10/9</span>
-						<h1><a href="">爱自己是终生浪漫的开始</a></h1>
-						<p>the whole of life becomes an act of letting go, but what always hurts the most is not taking a moment to say goodbye
-						</p>
-						<p>
-							<a href="" class="blog-continue">continue</a>
-						</p>
-					</div>
-				</article>
-
-				<article class="am-g blog-entry-article">
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-						<img src="assets1/i/f18.jpg" alt="" class="am-u-sm-12">
-					</div>
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-						<span><a href="" class="blog-color">article&nbsp;</a></span>
-						<span> @amazeUI &nbsp;</span>
-						<span>2015/10/9</span>
-						<h1><a href="">My dear amazeUI, Hello </a></h1>
-						<p>那时候刚好下着雨，柏油路面湿冷冷的，还闪烁着青、黄、红颜色的灯火。我们就在骑楼下躲雨，看绿色的邮筒孤独地站在街的对面。
-						</p>
-						<p>
-							<a href="" class="blog-continue">continue reading</a>
-						</p>
-					</div>
-				</article>
-				<article class="am-g blog-entry-article">
-
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-						<span><a href="" class="blog-color">article&nbsp;</a></span>
-						<span> @amazeUI &nbsp;</span>
-						<span>2015/10/9</span>
-						<h1><a href="">My dear </a></h1>
-						<p>看绿色的邮筒孤独地站在街的对面。
-						</p>
-						<p>
-							<a href="" class="blog-continue">continue reading</a>
-						</p>
-					</div>
-				</article>
-				<article class="am-g blog-entry-article">
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-						<img src="assets1/i/f20.jpg" alt="" class="am-u-sm-12">
-					</div>
-					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-						<span><a href="" class="blog-color">article&nbsp;</a></span>
-						<span> @amazeUI &nbsp;</span>
-						<span>2015/10/9</span>
-						<h1><a href="">My way or the highway</a></h1>
-						<p>A big wind rises， clouds are driven away. Home am Inow the world is under my sway. Where are brave men to guard the four frontiers today！
-						</p>
-						<p>
-							<a href="" class="blog-continue">continue reading</a>
-						</p>
-					</div>
-				</article>
+			
 
 				<ul class="am-pagination">
 					<li class="am-pagination-prev">
-						<a href="">&laquo; Prev</a>
+						<a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=1">首页</a>
+					</li>
+					<li class="am-pagination-prev">
+						<a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>">&laquo; 上一页</a>
+					</li>
+					<%for(int i=1;i<=pageCount;i++){ 
+								if(i==Page){		
+							%>
+								<%=i %>
+							<%	
+								}
+								else{
+							%>
+								<li class="am-pagination-next">
+								<a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=i%>"><%=i%> </a>
+								</li>
+							<%
+								}	
+							} 
+							%>
+					<li class="am-pagination-next">
+						<a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page+1%>">下一页 &raquo;</a>
 					</li>
 					<li class="am-pagination-next">
-						<a href="">Next &raquo;</a>
+						<a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=pageCount%>">尾页 </a>
 					</li>
+					
 				</ul>
 			</div>
 

@@ -594,8 +594,11 @@ public class NewsManage {
 				int browse=rs.getInt("browse");
 				String updateTime = rs.getString("updateTime");
 				String newsCover=rs.getString("newsCover");
+				String newsContent=rs.getString("newsContent");
+				int userId = rs.getInt("UserId");
+				int newsStatus = rs.getInt("NewsStatus");
 				int newsContentNum=showContentNum(newsId);//调用方法查询回复数
-				News news = new News(newsId, newsTitle, userName, browse, updateTime, newsCover, newsContentNum);
+				News news = new News(newsId, newsTitle, userName, createTime,userId, browse, updateTime, newsStatus, newsCover, newsContentNum, newsContent);
 				list.add(news);
 				count++;
 			}while (rs.next());
@@ -632,7 +635,7 @@ public class NewsManage {
 		public int ShowPageCountBynewstypeid(int newstypeid){
 			int pageCount=0;
 			Connection con = conn.getCon();
-			String sqlString = "select COUNT(*) as allLine from News where newstypeid=?";
+			String sqlString = "select COUNT(*) as allLine from News where newstypeid=? and NewsStatus=1";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				pre.setInt(1, newstypeid);
