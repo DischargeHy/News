@@ -48,42 +48,16 @@ public class NewsManage {
 		}
 		return list;
 	}
-	//通过标题查询新闻列表
-	public ArrayList showNewsList(String NewsTitle1,String page) {
-		ArrayList list = new ArrayList();
-		Connection con = conn.getCon();
-		int limit = 0;
-		int page_int = Integer.parseInt(page);
-		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 +" and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime limit " + limit +",6";
-		try {
- 			PreparedStatement pre = con.prepareStatement(sqlString);
-			ResultSet rs = pre.executeQuery();
-			while (rs.next()) {
-				int newsId = rs.getInt("NewsId");
-				String newsTitle = rs.getString("NewsTitle");
-				String createTime = rs.getString("CreateTime");
-				String newsTypeName = rs.getString("NewsTypeName");
-				String userName = rs.getString("UserName");
-				News news = new News(newsId, newsTitle, userName, createTime, newsTypeName);
-				list.add(news);
-			}
-			rs.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		} finally {
-			conn.closeAll(con);
-		}
-		return list;
-	}
 	//通过UseerId查找
-	public ArrayList showNewsList(int UserId1,String page) {
+	public ArrayList showNewsList(int UserId1,String page,String NewsStatus) {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
+		String NewsListTable = "NewsListStatu" + NewsStatus + "View";
+		System.out.println(NewsListTable);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " and `User`.UserId = " + UserId1 + " ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = "select * from " + NewsListTable + " WHERE UserId = " + UserId1 + " limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -105,13 +79,14 @@ public class NewsManage {
 		return list;
 	}
 	//通过UserId和Title查找
-	public ArrayList showNewsList(int UserId1,String NewsTitle,String page) {
+	public ArrayList showNewsList(int UserId1,String NewsTitle,String page,String NewsStatus) {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
+		String NewsListTable = "NewsListStatu" + NewsStatus + "View";
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + "  and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%' limit " + limit + ",6";
+		String sqlString = "select * from " + NewsListTable + " WHERE UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%' limit " + limit + ",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -132,12 +107,12 @@ public class NewsManage {
 		}
 		return list;
 	}
-	//小编的新闻搜索
-	public int getNewsPage(int UserId1,String NewsTitle) {
-		ArrayList list = new ArrayList();
+	//根据用户Id的总页数查询新闻
+	public int getNewsPage(int UserId1,String NewsStatus) {
 		Connection con = conn.getCon();
 		int i = 0;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%'";
+		String NewsListTable = "NewsListStatu" + NewsStatus + "View";
+		String sqlString = "select * from " + NewsListTable + " WHERE UserId = " + UserId1;
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -151,14 +126,64 @@ public class NewsManage {
 		}
 		return i;
 	}
-	//按分页显示所有新闻
-	public ArrayList showNewsList(String page) {
+	//根据Title查询新闻总页数(管理员)
+	public int getNewsPage(String NewsTitle1,String NewsType) {
+		Connection con = conn.getCon();
+		int i = 0;
+		String sqlString = null;
+		if(NewsType.equals("0")) {
+			sqlString = "select * from NewsListStatuView WHERE NewsTitle like '%" + NewsTitle1 + "%'";
+		}
+		else {
+			sqlString = "select * from NewsListStatuView WHERE NewsTypeId=" + NewsType + " and NewsTitle like '%" + NewsTitle1 + "%'";
+		}
+		try {
+ 			PreparedStatement pre = con.prepareStatement(sqlString);
+			ResultSet rs = pre.executeQuery();
+			rs.last();
+			i = rs.getRow();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return i;
+	}	
+	//小编的新闻搜索
+	public int getNewsPage(int UserId1,String NewsTitle,String NewsStatus) {
+		ArrayList list = new ArrayList();
+		Connection con = conn.getCon();
+		String NewsListTable = "NewsListStatu" + NewsStatus + "View";
+		int i = 0;
+		String sqlString = "select * from " + NewsListTable + " WHERE UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%'";
+		try {
+ 			PreparedStatement pre = con.prepareStatement(sqlString);
+			ResultSet rs = pre.executeQuery();
+			rs.last();
+			i = rs.getRow();
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return i;
+	}
+	//通过标题查询新闻列表
+	public ArrayList showNewsList(String NewsTitle1,String page,String NewsType) {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = null;
+		if(NewsType.equals("0")) {
+			sqlString = "select * from NewsListStatuView WHERE NewsTitle like '%" + NewsTitle1 + "%' limit " + limit +",6";
+		}
+		else {
+			sqlString = "select * from NewsListStatuView WHERE NewsTypeId=" + NewsType + " and NewsTitle like '%" + NewsTitle1 + "%' limit " + limit +",6";
+		}
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -179,11 +204,51 @@ public class NewsManage {
 		}
 		return list;
 	}
-	//总新闻页数查询
-		public int getNewsPage() {
+	//按分页显示所有新闻(管理员)
+	public ArrayList showNewsListByType(String page,String NewsType) {
+		ArrayList list = new ArrayList();
+		Connection con = conn.getCon();
+		int limit = 0;
+		int page_int = Integer.parseInt(page);
+		limit+= (page_int-1)*6;
+		String sqlString = null;
+		if(NewsType.equals("0")) {
+			sqlString = "select * from NewsListStatuView limit " + limit +",6";
+		}
+		else {
+			sqlString = "select * from NewsListStatuView where NewsTypeId='" + NewsType + "' limit " + limit +",6";
+		}
+		try {
+ 			PreparedStatement pre = con.prepareStatement(sqlString);
+			ResultSet rs = pre.executeQuery();
+			while (rs.next()) {
+				int newsId = rs.getInt("NewsId");
+				String newsTitle = rs.getString("NewsTitle");
+				String createTime = rs.getString("CreateTime");
+				String newsTypeName = rs.getString("NewsTypeName");
+				String userName = rs.getString("UserName");
+				News news = new News(newsId, newsTitle, userName, createTime, newsTypeName);
+				list.add(news);
+			}
+			rs.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			conn.closeAll(con);
+		}
+		return list;
+	}
+	//总新闻页数查询(管理员)
+		public int getNewsPageAll(String NewsType) {
 			Connection con = conn.getCon();
 			int i = 0;
-			String sqlString = "select * from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " ORDER BY CreateTime";
+			String sqlString = null;
+			if(NewsType.equals("0")) {
+				sqlString = "select * from NewsListStatuView";
+			}
+			else {
+				sqlString = "select * from NewsListStatuView where NewsTypeId='" + NewsType + "'";
+			}
 			try {
 	 			PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();
@@ -552,43 +617,6 @@ public class NewsManage {
 			}
 			return list;
 		}
-		//根据用户Id的总页数查询新闻
-		public int getNewsPage(int UserId1) {
-			Connection con = conn.getCon();
-			int i = 0;
-			String sqlString = "select * from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId = " + UserId1 + " ORDER BY CreateTime";
-			try {
-	 			PreparedStatement pre = con.prepareStatement(sqlString);
-				ResultSet rs = pre.executeQuery();
-				rs.last();
-				i = rs.getRow();
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				conn.closeAll(con);
-			}
-			return i;
-		}
-		//根据Title查询新闻总页数
-		public int getNewsPage(String NewsTitle1) {
-			Connection con = conn.getCon();
-			int i = 0;
-			String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsTitle like '%" + NewsTitle1 + "%' ORDER BY CreateTime";
-			try {
-	 			PreparedStatement pre = con.prepareStatement(sqlString);
-				ResultSet rs = pre.executeQuery();
-				rs.last();
-				i = rs.getRow();
-				rs.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			} finally {
-				conn.closeAll(con);
-			}
-			return i;
-		}	
-
 	//查询用户---User表
 	public ArrayList showUser() {
 		ArrayList list = new ArrayList();

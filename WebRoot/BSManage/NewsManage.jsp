@@ -50,23 +50,88 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<%} %>
 		</div>
 		<div style="float: left;border: 1px solid; width:70%"><!-- 新闻列表开始 -->
+		<%
+			String NewsStatus = ""; 
+			NewsManage nm = new NewsManage();
+			int userId =(Integer)session.getAttribute("UserId");
+			int userType = (Integer)session.getAttribute("UserType");
+			String NewsPage = request.getParameter("page");
+			ArrayList list = null;
+			int page_num = 0;//总页数
+			int allPage = 0;//总行数
+			String NewsType = "0";
+			String search = request.getParameter("search");
+			if(request.getParameter("NewsStatus")!=null){
+				NewsStatus = request.getParameter("NewsStatus");
+			}
+			if(request.getParameter("NewsType")!=null){
+				NewsType = request.getParameter("NewsType");
+			}
+			if(userType==2){
+				if(search==null||search.equals("null")){
+					out.print(userId);
+					list = nm.showNewsList(userId, NewsPage, NewsStatus);/*通过用户ID查询文章（小编）  */
+					allPage = nm.getNewsPage(userId, NewsStatus);
+				}
+				else{
+					String NewsTitle = request.getParameter("search");//通过搜索给出数据
+					list = nm.showNewsList(userId, NewsTitle,NewsPage, NewsStatus);
+					allPage = nm.getNewsPage(userId, NewsTitle,NewsStatus);
+				}
+			}
+			else if(userType==3){
+				if(search==null||search.equals("null")){
+					list = nm.showNewsListByType(NewsPage, NewsType);
+					allPage = nm.getNewsPageAll(NewsType);
+				}
+				else{
+					String NewsTitle = request.getParameter("search");//通过搜索给出数据（管理员）
+					list = nm.showNewsList(NewsTitle, NewsPage, NewsType);
+					allPage = nm.getNewsPage(NewsTitle, NewsType);
+				}
+			}
+		%>
 			<table style="border: 1px solid;width: 100%">
 			<tr>
 				<td>搜索：</td>
 				<td><div><form method="post" action="BSManage/NewsManage.jsp"><!-- 搜索框 -->
 						<input type="hidden" value="1" name="page">
-						<input type="text" name="search" value="<%=request.getParameter("search")%>">
+						<input type="hidden" value="<%=NewsStatus%>" name="NewsStatus">
+						<input type="hidden" value="<%=NewsType%>" name="NewsType">
+						<input type="text" name="search" value="<%if(request.getParameter("search")!=null){out.print("");}else{out.print(request.getParameter("search"));}%>">
 						<input type="submit" value="搜索">
 				</form></div>
-				<td>筛选：</td>
+				<%if(userType!=3){ %>
+				<td>新闻审核状态：</td>
 				<td><div><form method="post" action="BSManage/NewsManage.jsp"><!-- 筛选框 -->
 						<input type="hidden" value="1" name="page">
-						<select name="state">
-							<option value="">审核通过</option>
-							<option>审核失败</option>
+						<input type="hidden" value="<%=search %>" name="search">
+						<select name="NewsStatus">
+							<option value="" <%if(NewsStatus.equals("")){ out.print("selected=\"selected\"");} %>>审核通过</option>
+							<option value="0" <%if(NewsStatus.equals("0")){ out.print("selected=\"selected\"");} %>>审核中</option>
+							<option value="2" <%if(NewsStatus.equals("2")){ out.print("selected=\"selected\"");} %>>审核失败</option>
 						</select>
-						<input type="submit" value="搜索">
+						<input type="submit" value="选择">
 				</form></div>
+				<%} 
+				else{%>
+				<td>新闻板块：</td>
+				<td><div><form method="post" action="BSManage/NewsManage.jsp"><!-- 筛选框 -->
+						<input type="hidden" value="1" name="page">
+						<input type="hidden" value="<%=search %>" name="search">
+						<select name="NewsType">
+						<option value="0" <%if(NewsType.equals("0")){ out.print("selected=\"selected\"");} %>>所有版块</option>
+						<%
+							ArrayList Typelist = nm.showNewsType();
+							for (int i = 0; i < Typelist.size(); i++) {
+								NewsType newstype = (NewsType)Typelist.get(i);
+						%>
+							<option value="<%=newstype.getNewsTypeId() %>" <%if(NewsType.equals(""+newstype.getNewsTypeId())){ out.print("selected=\"selected\"");} %>><%=newstype.getNewsTypeName() %></option>
+						<%} %>
+						</select>
+						<input type="submit" value="选择">
+				</form></div>
+				<%} %>
 				</td>
 			</tr>
 			<tr>
@@ -77,38 +142,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>操作</td>
 			</tr>
 			<%
-				NewsManage nm = new NewsManage();
-				int userId =(Integer)session.getAttribute("UserId");
-				int userType = (Integer)session.getAttribute("UserType");
-				String NewsPage = request.getParameter("page");
-				ArrayList list = null;
-				int page_num = 0;//总页数
-				int allPage = 0;//总行数
-				String search = request.getParameter("search");
-				if(userType==2){
-					if(search==null||search.equals("null")){
-						list = nm.showNewsList(userId, NewsPage);/*通过用户ID查询文章（小编）  */
-						allPage = nm.getNewsPage(userId);
-					}
-					else{
-						String NewsTitle = request.getParameter("search");//通过搜索给出数据
-						list = nm.showNewsList(userId, NewsTitle, NewsPage);
-						allPage = nm.getNewsPage(userId, NewsTitle);
-					}
-				}
-				else if(userType==3){
-					if(search==null||search.equals("null")){
-						list = nm.showNewsList(NewsPage);
-						allPage = nm.getNewsPage();
-					}
-					else{
-						String NewsTitle = request.getParameter("search");//通过搜索给出数据（管理员）
-						list = nm.showNewsList(NewsTitle, NewsPage);
-						allPage = nm.getNewsPage(NewsTitle);
-					}
-				}
 				page_num = allPage/6;
-				out.print(allPage);
 				if(allPage%6!=0){
 					page_num+=1;
 				}
@@ -154,18 +188,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        <tr>
 		        	<td colspan="4">
 		        	<%if(p1>=1){ %>
-		        		<a id="up" href="BSManage/NewsManage.jsp?page=<%=p1%>&search=<%=search%>">上一页</a>
+		        		<a id="up" href="BSManage/NewsManage.jsp?page=<%=p1%>&search=<%=search%>&NewsStatus=<%=NewsStatus%>&NewsType=<%=NewsType%>">上一页</a>
 		        	<%} %>
 		        		<%for(int i = 1 ; i <= page_num ; i++){%>
 		        			<%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
-		        				<a href="BSManage/NewsManage.jsp?page=<%=i%>&search=<%=search%>"><%=i %></a>
+		        				<a href="BSManage/NewsManage.jsp?page=<%=i%>&search=<%=search%>&NewsStatus=<%=NewsStatus%>&NewsType=<%=NewsType%>"><%=i %></a>
 		        			<%}
 		        			else{%>
 		        				<a><%=i %></a>
 		        			<%}%>
 		        		<%}%>
 		        		<%if(p2<=page_num){ %>
-		        	 	<a id="down" href="BSManage/NewsManage.jsp?page=<%=p2 %>&search=<%=search%>">下一页</a>
+		        	 	<a id="down" href="BSManage/NewsManage.jsp?page=<%=p2 %>&search=<%=search%>&NewsStatus=<%=NewsStatus%>&NewsType=<%=NewsType%>">下一页</a>
 		        	 	<%} %>
 		        	</td>
 		        </tr>
