@@ -4,8 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
 <title>搜索</title>
-<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
+     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
 
 		<link href="assets3/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
 		<link href="assets3/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
@@ -16,7 +17,7 @@
 		<script src="assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
 		<script src="assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
         
-       	<link rel="icon" type="image/png" href="assets/i/tubiao.png">
+       	<link rel="icon" type="image/png" href="assets1/i/tubiao.png">
 		<link rel="stylesheet" href="assets3/assets/css/amazeui.min.css">
 		<link rel="stylesheet" href="assets3/assets/css/app.css">
 		<link rel="stylesheet" href="assets3/assets/css/style.css">
@@ -216,16 +217,19 @@
 		    
 			
 		<div class="center">
-			<div class="col-main">
+			<div class="col-main" style="width:980px">
 				<div class="main-wrap">
 
 					<div class="user-info">
 						<!--标题 -->
-						
-					<div class="input-group" style="width:55%;margin-top:20px;margin-left:100px;">
-        <input type="text" class="form-control" name="Search">
-        <span class="input-group-addon">搜索</span>
-    </div>
+					<div >
+                    
+                 <form>
+				<input id="" name="" type="text" placeholder="搜索" autocomplete="off"  style="width:500px ;height:38px;margin-left:150px; 								                margin-top:20px">
+				  <input id="" class="submit am-btn" value="搜索" index="1" type="submit" style="background-color:#999999;margin-top:20px">
+					</form>
+                </div>	
+	
     <div>
     	<ul class="topx">
         	<li><a href="">综合</a></li>
@@ -289,7 +293,7 @@
  </div>
  </div>
 			</div>
-                    <ul class="am-input">
+                    <ul style="margin-left :480px">
 					<li class="am-pagination-prev">
 						<a href="">&laquo; Prev</a>	</li>
 					<li class="am-pagination-next">

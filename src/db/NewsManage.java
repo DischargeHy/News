@@ -83,7 +83,7 @@ public class NewsManage {
 		int limit = 0;
 		int page_int = Integer.parseInt(page);
 		limit+= (page_int-1)*6;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + "  and `User`.UserId = " + UserId1 + " ORDER BY CreateTime limit " + limit +",6";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " and `User`.UserId = " + UserId1 + " ORDER BY CreateTime limit " + limit +",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -137,7 +137,7 @@ public class NewsManage {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
 		int i = 0;
-		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%'";
+		String sqlString = "select NewsId,NewsTitle,CreateTime,NewsTypeName,UserName from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " and `User`.UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%'";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();
@@ -183,7 +183,7 @@ public class NewsManage {
 		public int getNewsPage() {
 			Connection con = conn.getCon();
 			int i = 0;
-			String sqlString = "select * from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId ORDER BY CreateTime";
+			String sqlString = "select * from News,NewsType,`User` WHERE News.NewsTypeId=NewsType.NewsTypeId and News.UserId=`User`.UserId and NewsStatus=" + 1 + " ORDER BY CreateTime";
 			try {
 	 			PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();
@@ -218,6 +218,9 @@ public class NewsManage {
 				break;
 			case 3:
 				view = "UserType3";
+				break;
+			case 4:
+				view = "UserType4";
 				break;
 			default:
 				break;
@@ -339,6 +342,7 @@ public class NewsManage {
 				while (rs.next()) {
 					int commentId = rs.getInt("commentId");
 					int replyId = rs.getInt("replyId");
+					int userId = rs.getInt("userId");
 					int newsId = rs.getInt("newsId");
 					String newsTitle = rs.getString("newsTitle");
 					String userName = rs.getString("userName");
@@ -346,7 +350,7 @@ public class NewsManage {
 					String commentTime = rs.getString("commentTime");
 					String commentContent = rs.getString("commentContent");
 					String userAccount = rs.getString("userAccount");
-					CommentReport cr = new CommentReport(commentId, replyId, newsId, newsTitle, userName, state, commentContent, commentTime, userAccount);
+					CommentReport cr = new CommentReport(commentId, userId, replyId, newsId, newsTitle, userName, state, commentContent, commentTime, userAccount);
 					list.add(cr);
 				}
 				rs.close();
@@ -371,6 +375,7 @@ public class NewsManage {
 				while (rs.next()) {
 					int commentId = rs.getInt("commentId");
 					int replyId = rs.getInt("replyId");
+					int userId = rs.getInt("userId");
 					int newsId = rs.getInt("newsId");
 					String newsTitle = rs.getString("newsTitle");
 					String userName = rs.getString("userName");
@@ -378,7 +383,7 @@ public class NewsManage {
 					String commentTime = rs.getString("commentTime");
 					String userAccount = rs.getString("userAccount");
 					String commentContent = rs.getString("commentContent");
-					CommentReport cr = new CommentReport(commentId, replyId, newsId, newsTitle, userName, state, commentContent, commentTime, userAccount);
+					CommentReport cr = new CommentReport(commentId, userId, replyId, newsId, newsTitle, userName, state, commentContent, commentTime, userAccount);
 					list.add(cr);
 				}
 				rs.close();

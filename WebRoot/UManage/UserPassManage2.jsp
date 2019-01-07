@@ -6,8 +6,8 @@
 <meta charset="utf-8">
 		<meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
-		<title>信息</title>
-		
+		<title>修改</title>
+
 		<link href="../assets3/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
 		<link href="../assets3/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
@@ -18,9 +18,9 @@
 		<script src="../assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
         
         	<link rel="icon" type="image/png" href="assets1/i/tubiao.png">
-			<link rel="stylesheet" href="../assets3/assets/css/amazeui.min.css">
-			<link rel="stylesheet" href="../assets3/assets/css/app.css">
-			<link rel="stylesheet" href="../assets3/assets/css/style.css">
+		<link rel="stylesheet" href="../assets3/assets/css/amazeui.min.css">
+		<link rel="stylesheet" href="../assets3/assets/css/app.css">
+		<link rel="stylesheet" href="../assets3/assets/css/style.css">
 		<style>
 			li{
 				list-style: none;
@@ -30,7 +30,7 @@
 
 	</head>
 
-	<body  id="blog"   style="background-color:#F1F2F3;">
+	<body  id="blog" style="background-color:#F1F2F3;">
 		<!--头 -->
 		<header>
 			<article>
@@ -106,133 +106,57 @@
 			</article>
 		</header>
 
-		    
-			
 		<div class="center">
 			<div class="col-main">
 				<div class="main-wrap">
 
-					<div class="user-info">
-						<!--标题 -->
-						<div class="am-cf am-padding" align="center"  >
-							<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">个人资料</strong> / <small>Personal&nbsp;information</small></div>
-						</div>
-						<hr/>
-
-						<!--头像 -->
-						<div  align="center">
-
-							 <img id='img' src="image/" style="margin-top:20px;width: 60px;" />
-     					 <input id="file" type="file" name="file">
-						<script>
-						var img = document.getElementById('img')
-					file.addEventListener('change',function(){
-			 		   var obj = file.files[0]
-				    var reader = new FileReader();
-			 	   reader.readAsDataURL(obj);
-						    reader.onloadend = function() {
-				 	       img.setAttribute('src',reader.result);
-					    }
-							})
-		</script>
-
-
-						
-						</div>
-
-						<!--个人信息 -->
-						<div class="info-main"  style="	margin-right:100px;" >
-							<form class="am-form am-form-horizontal">
-										<div class="am-form-group">
-									<label for="user-name2" class="am-form-label">账号</label>
-									<div class="am-form-content">
-										<input type="text" id="UserID" placeholder="nickname" readonly="readonly">
-
-									</div>
-								</div>
-								<div class="am-form-group">
-									<label for="user-name2" class="am-form-label">昵称</label>
-									<div class="am-form-content">
-										<input type="text" id="UserAccount" placeholder="nickname">
-
-									</div>
-								</div>
-
-								<div class="am-form-group">
-									<label class="am-form-label">性别</label>
-									<div class="am-form-content sex">
-										
-										<label class="am-radio-inline">
-											<input type="radio" name="UserSex" value="1" data-am-ucheck> 女
-										</label>
-                                        <label class="am-radio-inline">
-											<input type="radio" name="UserSex" value="2" data-am-ucheck  > 男
-										</label>
-                                        <label class="am-radio-inline">
-											<input type="radio" name="UserSex" value="0" data-am-ucheck> 保密
-										</label>
-										
-									</div>
-								</div>
-								<div class="am-form-group" style="width:700px;">
-									<label for="user-birth" class="am-form-label">生日</label>
-									<div class="am-form-content birth">
-										<div class="birth-select">
-											<select data-am-selected>
-												<option value="a">2015</option>
-												<option value="b">1987</option>
-											</select>
-											<em>年</em>
-										</div>
-										<div class="birth-select2">
-											<select data-am-selected>
-												<option value="a">12</option>
-												<option value="b">8</option>
-											</select>
-											<em>月</em></div>
-										<div class="birth-select2">
-											<select data-am-selected>
-												<option value="a">21</option>
-												<option value="b">23</option>
-											</select>
-											<em>日</em></div>
-									</div>
-							
-								</div>
-
-							
-								<div class="am-form-group">
-									<label for="user-phone" class="am-form-label">电话</label>
-									<div class="am-form-content">
-										<input id="user-phone" placeholder="telephonenumber" type="tel">
-
-									</div>
-								</div>
-								<div class="am-form-group">
-									<label for="user-email" class="am-form-label">电子邮件</label>
-									<div class="am-form-content">
-										<input id="user-email" placeholder="Email" type="email">
-
-									</div>
-								</div>
-								<div class="am-form-group address">
-									<label for="user-address" class="am-form-label">用户类型：</label>  
-									<div class="am-form-content">
-										<input id="user-type" placeholder="user-type" type="type" value="普通用户">				
-											<input type="submit" name="button" id="button" value="申请成为小编" />
-									</div>   
-
-								</div>
-                                
-								
-								<div class="info-btn">
-									<div class="am-btn am-btn-danger">保存修改</div>
-								</div>
-
-							</form>
-						</div>
-
+					<div class="am-cf am-padding">
+						<div class="am-fl am-cf"><strong class="am-text-danger am-text-lg">修改密码</strong> / <small>Password</small></div>
 					</div>
+					<hr/>
+					<!--进度条-->
+					<div class="m-progress">
+						<div class="m-progress-list">
+							<span class="step-1 step">
+                                <em class="u-progress-stage-bg"></em>
+                                <i class="u-stage-icon-inner">1<em class="bg"></em></i>
+                            <p class="stage-name">重置密码</p>
+                            </span>
+							<span class="step-2 step">
+                                <em class="u-progress-stage-bg"></em>
+                                <i class="u-stage-icon-inner">2<em class="bg"></em></i>
+                                <p class="stage-name">完成</p>
+                            </span>
+							<span class="u-progress-placeholder"></span>
+						</div>
+					<div class="u-progress-bar total-steps-2">
+							<div class="u-progress-bar-inner"></div>
+					  </div>
+					</div>
+					<form class="am-form am-form-horizontal">
+						<div class="am-form-group">
+							<label for="user-old-password" class="am-form-label">原密码</label>
+							<div class="am-form-content">
+								<input type="password" id="user-old-password" placeholder="请输入原登录密码">
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="user-new-password" class="am-form-label">新密码</label>
+							<div class="am-form-content">
+								<input type="password" id="user-new-password" placeholder="由数字、字母组合">
+							</div>
+						</div>
+						<div class="am-form-group">
+							<label for="user-confirm-password" class="am-form-label">确认密码</label>
+							<div class="am-form-content">
+								<input type="password" id="user-confirm-password" placeholder="请再次输入上面的密码">
+							</div>
+						</div>
+						<div class="info-btn">
+							<div class="am-btn am-btn-danger">保存修改</div>
+						</div>
+
+					</form>
 
 				</div>
 				<!--底部-->

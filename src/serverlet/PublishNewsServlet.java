@@ -44,44 +44,49 @@ public class PublishNewsServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 //		System.out.println("-----------------PublishNews-----------------");
-		if (!request.getSession().getAttribute("UserType").equals("2")) {
+		if ((Integer)request.getSession().getAttribute("UserType")!=2) {
 			response.sendError(3, "你不是小编！！！");
-		}
-		String newsContent=request.getParameter("newsContent");
-		String newsCover=request.getParameter("newsCover");
-		String newsTitle=request.getParameter("newsTitle");
-		int newsTypeId=Integer.parseInt(request.getParameter("newsTypeId"));
-		
-//		String t=request.getParameter("t");
-//		System.out.println("newsContent:"+newsContent);
-//		System.out.println("newsCover:"+newsCover);
-//		System.out.println("newsTitle:"+newsTitle);
-//		System.out.println("NewsTypeId:"+newsTypeId);
-//		System.out.println("t:"+t);
-		int userId=(Integer) request.getSession().getAttribute("UserId");
 
-//		System.out.println(userId);
-
-		Connection connection=new DBCon().getCon();
-		NewsImpl newsImpl=new NewsImpl(connection);
-//		News news=new News(newsTitle, newsContent, newsTypeId, 5, newsCover);
-		News news=new News(newsTitle, newsContent, newsTypeId, userId, newsCover);
-		String newsId=null;
-		try {
-			newsImpl.insertNews(news);
-			newsId=""+newsImpl.getLastInsertId();
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+		}else {
+			String newsContent=request.getParameter("newsContent");
+			String newsCover=request.getParameter("newsCover");
+			String newsTitle=request.getParameter("newsTitle");
+			int newsTypeId=Integer.parseInt(request.getParameter("newsTypeId"));
+			
+	//		String t=request.getParameter("t");
+//			System.out.println("newsContent:"+newsContent);
+	//		System.out.println("newsCover:"+newsCover);
+	//		System.out.println("newsTitle:"+newsTitle);
+	//		System.out.println("NewsTypeId:"+newsTypeId);
+	//		System.out.println("t:"+t);
+			int userId=(Integer) request.getSession().getAttribute("UserId");
+	
+	//		System.out.println(userId);
+	
+			Connection connection=new DBCon().getCon();
+			NewsImpl newsImpl=new NewsImpl(connection);
+	//		News news=new News(newsTitle, newsContent, newsTypeId, 5, newsCover);
+			News news=new News(newsTitle, newsContent, newsTypeId, userId, newsCover);
+			String newsId=null;
+			try {
+				newsImpl.insertNews(news);
+				newsId=""+newsImpl.getLastInsertId();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//			System.out.println(newsId);
+			if (newsId!=null) {
+				String strJson="{\"url\": \""+Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId+"\",\"uploaded\": 1}";
+//				String strJson=Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId;
+//				System.out.println(strJson);
+				response.setContentType("application/json;charset=utf-8;");
+//				response.setContentType("text/plain;");
+				response.getWriter().print(strJson);
+			}
+		
+		
 		}
-		if (newsId!=null) {
-			String strJson="{\"url\": \""+Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId+"\",\"uploaded\": 1}";
-			response.setContentType("application/json;charset=utf-8;");
-			response.getWriter().print(strJson);
-		}
-		
-		
-		
 		
 	}
 

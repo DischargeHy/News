@@ -58,6 +58,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="text" name="search" value="<%=request.getParameter("search")%>">
 						<input type="submit" value="搜索">
 				</form></div>
+				<td>筛选：</td>
+				<td><div><form method="post" action="BSManage/NewsManage.jsp"><!-- 筛选框 -->
+						<input type="hidden" value="1" name="page">
+						<select name="state">
+							<option value="">审核通过</option>
+							<option>审核失败</option>
+						</select>
+						<input type="submit" value="搜索">
+				</form></div>
+				</td>
 			</tr>
 			<tr>
 				<td>标题</td>
@@ -98,6 +108,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					}
 				}
 				page_num = allPage/6;
+				out.print(allPage);
 				if(allPage%6!=0){
 					page_num+=1;
 				}

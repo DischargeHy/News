@@ -63,7 +63,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>评论用户</td>
 				<td>评论内容</td>
 				<td>评论时间</td>
-				<td>操作</td>
+				<td>封号</td>
 				<td colspan="2">操作</td>
 			</tr>
 			<%
@@ -91,16 +91,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					<td><%=cr.getUserName() %></td>
 					<td><%=cr.getCommentContent() %></td>
 					<td><%=cr.getCommentTime() %></td>
-					<td><form action="updateCommentServlet" method="Post">
-						<input type="hidden" value="<%=cr.getCommentId()%>" name="CommentId">
-						<input type="hidden" value="1" name="operate">
-						<input type="submit" value="删除">
-					</form></td>
-					<td><form action="updateCommentServlet" method="Post">
-						<input type="hidden" value="<%=cr.getCommentId()%>" name="CommentId">
-						<input type="hidden" value="0" name="operate">
-						<input type="submit" value="取消举报">
-					</form></td>
+					<form action="updateCommentServlet" method="Post">
+						<input type="hidden" value="<%=cr.getUserId()%>" name="UserId">
+						<td><input type="checkbox" name="dealUser" value="4"></td>
+						<td>
+							<input type="hidden" value="<%=cr.getCommentId()%>" name="CommentId">
+							<input type="submit" value="删除" name="operate">
+						</form></td>
+						<td>
+							<input type="hidden" value="<%=cr.getCommentId()%>" name="CommentId">
+							<input type="submit" value="取消举报" name="operate">
+						</td>
+					</form>
 				</tr>
 			<%} %>
 		        <tr>

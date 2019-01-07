@@ -43,6 +43,7 @@
 </main>
 
 <script src="${pageContext.request.contextPath}/js/ck5/document-common.js"></script>
+<script src="${pageContext.request.contextPath}/js/newsEdit.js"></script>
 <div style="text-align: center;">
 <button onclick="publishConfirm()" >发布新闻</button>
 <span id="publishMessage" style="color: red;"></span>
