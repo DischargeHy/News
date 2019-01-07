@@ -54,7 +54,7 @@ public class PublishNewsServlet extends HttpServlet {
 			int newsTypeId=Integer.parseInt(request.getParameter("newsTypeId"));
 			
 	//		String t=request.getParameter("t");
-	//		System.out.println("newsContent:"+newsContent);
+//			System.out.println("newsContent:"+newsContent);
 	//		System.out.println("newsCover:"+newsCover);
 	//		System.out.println("newsTitle:"+newsTitle);
 	//		System.out.println("NewsTypeId:"+newsTypeId);

@@ -5,6 +5,9 @@
 function publish(message){
 	//获取新闻内容
 	var newsContent=editor.getData();
+	newsContent=newsContent.replace(/[\r\n]/g, " ");
+	newsContent=newsContent.replace(/&/g, "%26");
+	
 
 
 //	alert(newsContent);
@@ -21,14 +24,7 @@ function publish(message){
 	var newsType=document.getElementById("newsType");
 	var index=newsType.selectedIndex;
 	var newsTypeId=newsType.options[index].value; //新闻类型
-//	var formData = new FormData(); 
-//	formData.append("newsContent", newsContent);  //新闻内容
-//	formData.append("newsCover", document.getElementById("fengmian").src);//新闻封面 
-//	formData.append("newsTitle", document.getElementById("newsTitle").value);//新闻标题
-//	var newsTypeName=document.getElementById("newsTypeName");
-//	var index=newsTypeName.selectedIndex;
-//	formData.append("newsTypeName", newsTypeName.options[index].value); //新闻类型
-//	formData.append("t", Math.random()); 
+
 	var postData="";
 	postData+="newsContent="+newsContent;   //新闻内容
 	postData+="&newsCover="+fengmian;	//新闻封面
@@ -59,7 +55,7 @@ function publish(message){
 	xmlhttp.open("POST", url, true);
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
 	xmlhttp.send(postData);
-//	xmlhttp.send(formData);
+
 
 
 }
@@ -114,7 +110,7 @@ function newsCover(){
 	        }else{
 	        	var result_json;
 		        result_json=eval("(" + result + ")");
-		        alert(result_json.url);
+//		        alert(result_json.url);
 		        document.getElementById("fengmian").src = result_json.url;
 	        }
 	    }else{
