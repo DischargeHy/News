@@ -293,7 +293,7 @@
  </div>
  </div>
 			</div>
-                    <ul class="am-input">
+                    <ul style="margin-left :480px">
 					<li class="am-pagination-prev">
 						<a href="">&laquo; Prev</a>	</li>
 					<li class="am-pagination-next">
