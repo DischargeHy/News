@@ -216,9 +216,9 @@
 
 		    
 			
-		<div class="center">
+		<div class="center" style="">
 			<div class="col-main" style="width:980px">
-				<div class="main-wrap">
+				<div class="main-wrap" style="-webkit-box-shadow: #666 0px 0px 10px;moz-box-shadow: #666 0px 0px 10px;box-shadow: #666 0px 0px 10px;">
 
 					<div class="user-info">
 						<!--标题 -->
