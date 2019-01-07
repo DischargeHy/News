@@ -59,12 +59,14 @@
 			<p><a>个人信息管理（普通用户/小编）</a></p>
 			<p><a href="UserPassManage.jsp">密码管理（普通用户/小编）</a></p>
 			<p><a href="#">查看回复（普通用户/小编）</a></p>
-			<p><a href="${pageContext.request.contextPath}/EditNews">发布新闻（小编）</a></p>
+			
 			
 			<%
 				//当小编打开个人中心时才显示评论管理选项
 				if(UserType.equals("2")){
 			%>
+			<p><a href="${pageContext.request.contextPath}/EditNews">发布新闻（小编）</a></p>
+			<p><a href="#">我发布的新闻（小编）</a></p>
 			<p><a href="UManage/UserCommentManage.jsp">评论管理（小编用）</a></p>
 			<%} %>
 		</div>

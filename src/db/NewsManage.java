@@ -891,7 +891,7 @@ public class NewsManage {
 				}
 				int pageCount=0;
 				Connection con = conn.getCon();
-				String sqlString = "select COUNT(*) as allLine from News where newstitle like '%" + search  + "%'";
+				String sqlString = "select COUNT(*) as allLine from News where newstitle like '%" + search  + "%' and NewsStatus=1";
 				try {
 					PreparedStatement pre = con.prepareStatement(sqlString);
 					ResultSet rs = pre.executeQuery();

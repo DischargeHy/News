@@ -1,3 +1,6 @@
+<%@page import="entity.News"%>
+<%@page import="db.NewsManage"%>
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -66,16 +69,17 @@
 		.topx a:hover{
 			color:#F00;}
 		.content{
-			width:730px;
+			width:530px;
 			height:600px;
-			margin-left:200px;
+			margin-left:230px;
 			margin-top:80px;
 			background:#FFF;
 			position:relative;  
-		  right:100px; 
+		 	 right:100px; 
+		 
 		}
 		.content1{
-			width:700px;
+			width:600px;
 			height:110px;
 			}
 		.contentleft{
@@ -83,8 +87,8 @@
 			float:left;
 			}
 		.contentright{
-			margin-right:30px;
-			margin-top:30px;
+			margin-left:90px;
+			margin-top:40px;
 			width:65%;
 			float:right;
 			}
@@ -160,7 +164,11 @@
 					<div class="fr">
 						<%
 						request.setCharacterEncoding("utf-8");
-
+						
+						int Page=1;
+						if(request.getParameter("page")!=null){
+							Page = Integer.parseInt(request.getParameter("page"));
+						}
 						if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
 							session.removeAttribute("UserAccount");//清空session	
 							session.removeAttribute("UserType");
@@ -216,21 +224,21 @@
 
 		    
 			
-		<div class="center">
+		<div class="center" >
 			<div class="col-main" style="width:980px">
-				<div class="main-wrap">
+				<div class="main-wrap" style="-webkit-box-shadow: #666 0px 0px 10px;moz-box-shadow: #666 0px 0px 10px;box-shadow: #666 0px 0px 10px;">
 
 					<div class="user-info">
 						<!--标题 -->
 					<div >
                     
-                 <form>
-				<input id="" name="" type="text" placeholder="搜索" autocomplete="off"  style="width:500px ;height:38px;margin-left:150px; 								                margin-top:20px">
+                 <form  action="Search.jsp" method="post">
+				<input id="" name="Search" type="text" placeholder="搜索" autocomplete="off"  style="width:500px ;height:38px;margin-left:150px; 								                margin-top:20px">
 				  <input id="" class="submit am-btn" value="搜索" index="1" type="submit" style="background-color:#999999;margin-top:20px">
 					</form>
                 </div>	
 	
-    <div>
+    <div style="margin-left :20px;margin-top:20px">
     	<ul class="topx">
         	<li><a href="">综合</a></li>
             <li><a href="">视频</a></li>  
@@ -238,66 +246,69 @@
             <li><a href="">用户</a></li>     
         </ul>
     </div>
-<div class="content">
+<div class="content"><!--新闻列表开始  -->
+<%
+				String Search="";
+				if(request.getParameter("Search")!=null){
+					Search=request.getParameter("Search");
+				}
+				NewsManage nm = new NewsManage();
+				int pageCount=nm.ShowPageCountBynewsTitle(Search);//总分页数
+	    		if(Page<1) Page = 1;//如果页码小于1，则页码置为第1页
+	    		if(Page>=pageCount) Page = pageCount;//如果当前页码大于总分的页数，就将当前页码置为最后一页
+				
+				ArrayList list2 = nm.showNewsListByNewsTitle(Search, Page);/*通过新闻名来模糊查询新闻内容  */
+				for (int i = 0; i < list2.size(); i++) {
+				News news = (News)list2.get(i);
+			%>
     	<div class="content1">
     	<div class="contentleft">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
+        	<img src=<%=news.getNewsCover()%> width="180px" height="105px"/>
         </div>
         <div class="contentright">
-        	<a href="#"><p><strong>贝店刷新社交电商订单量纪录 2018年单季度破1亿</p></a></strong>	
-            <a href="#">i黑马·&nbsp;15条评论·&nbsp;9小时前</a>  
+        	<a href="#"><p><strong><%=news.getNewsTitle()%></p></a></strong>	
+            <a href="#"><%=news.getUserName()%>·&nbsp;<%=news.getNewsContentNum() %>条评论·&nbsp;<%=news.getUpdateTime()%></a>  
         </div>
     </div>
      <hr/>
-<div class="content1">
-    	<div class="contentleft1">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
-        </div>
-        <div class="contentright1">
-        <a href="#">
-          <p><strong>南宁：家政市场再现"用工荒"，订单已经排到元宵节后</strong></p></a>
-          <a href="#">广西新闻频道·&nbsp;1条评论·&nbsp;4小时前</a>  
-        </div>
-    </div>
-     <hr/>
-     <div class="content1">
-    	<div class="contentleft1">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
-        </div>
-        <div class="contentright1">
-        <a href="#"><p><strong>南宁：家政市场再现"用工荒"，订单已经排到元宵节后</strong></p></a>
-            <a href="#">广西新闻频道·&nbsp;1条评论·&nbsp;4小时前</a>  
-        </div>
-    </div>
-     <hr/>
-     <div class="content1">
-    	<div class="contentleft1">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
-        </div>
-        <div class="contentright1">
-        <a href="#"><p><strong>南宁：家政市场再现"用工荒"，订单已经排到元宵节后</strong></p></a>
-            <a href="#">广西新闻频道·&nbsp;1条评论·&nbsp;4小时前</a>  
-        </div>
-    </div>
-     <hr/>
-      <div class="content1">
-    	<div class="contentleft1">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
-        </div>
-        <div class="contentright1">
-        <a href="#"><p><strong>南宁：家政市场再现"用工荒"，订单已经排到元宵节后</strong></p></a>
-            <a href="#">广西新闻频道·&nbsp;1条评论·&nbsp;4小时前</a>  
-        </div>
-    </div>
-     <hr/>
- </div>
+     <%} %>
+ </div><!--新闻列表结束  -->
  </div>
 			</div>
-                    <ul style="margin-left :480px">
-					<li class="am-pagination-prev">
-						<a href="">&laquo; Prev</a>	</li>
+                    <ul style="margin-left :380px">
+                    
+					<li class="am-pagination-prev" >
+						<a href="Search.jsp?Search=<%=Search %>&page=1"> 首页</a>	
+					</li>
+					
 					<li class="am-pagination-next">
-					<a href="">Next &raquo;</a>		</li>
+						<a href="Search.jsp?Search=<%=Search %>&page=<%=Page-1%>">上一页 </a>		
+					</li>
+					<%for(int i=1;i<=pageCount;i++){ 
+								if(i==Page){		
+							%>
+								
+								<li class="am-pagination-next">
+									<a href="Search.jsp?Search=<%=Search %>&page=<%=i%>"><%=i%></a>	
+								</li>
+							<%	
+								}
+								else{
+							%>
+								<li class="am-pagination-next">
+									<a href="Search.jsp?Search=<%=Search %>&page=<%=i%>"><%=i%></a>		
+								</li>
+							<%
+								}	
+							} 
+					%>
+					
+					<li class="am-pagination-next">
+						<a href="Search.jsp?Search=<%=Search %>&page=<%=Page+1%>">下一页 </a>		
+					</li>
+					<li class="am-pagination-next">
+						<a href="Search.jsp?Search=<%=Search %>&page=<%=pageCount%>">尾页 </a>		
+					</li>
 					</ul>
 		  			</div>
 
