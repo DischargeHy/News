@@ -70,14 +70,19 @@ public class LoginServlet extends HttpServlet {
 			}
 			if (k==1) {
 				if(UserPass.equals(RealUserPass)){
-					HttpSession session=request.getSession();
-					session.setAttribute("UserId", user.getUserId());
-					session.setAttribute("UserAccount", UserAccount);
-					session.setAttribute("UserType", user.getUserType());
-					if(user.getUserType()==1||user.getUserType()==2) {
-						response.sendRedirect("index.jsp");}
-					else {
-						response.sendRedirect("BSManage/NewsManage.jsp?page=1");
+					//判断是否为封禁账号
+					if (user.getUserType() == 4) {
+						out.println("<script>alert('Your account is blocked,Cannot log in!');window.location.href='Login.jsp'</script>");
+					} else {
+						HttpSession session = request.getSession();
+						session.setAttribute("UserId", user.getUserId());
+						session.setAttribute("UserAccount", UserAccount);
+						session.setAttribute("UserType", user.getUserType());
+						if (user.getUserType() == 1 || user.getUserType() == 2) {
+							response.sendRedirect("index.jsp");
+						} else {
+							response.sendRedirect("BSManage/NewsManage.jsp?page=1");
+						}
 					}
 				}else{
 					out.println("<script>alert('Password error');window.location.href='Login.jsp'</script>");
