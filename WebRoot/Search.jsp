@@ -1,3 +1,6 @@
+<%@page import="db.NewsManage"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="dao.News"%>
 <%@ page language="java" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
@@ -160,7 +163,11 @@
 					<div class="fr">
 						<%
 						request.setCharacterEncoding("utf-8");
-
+						
+						int Page=1;
+						if(request.getParameter("page")!=null){
+							Page = Integer.parseInt(request.getParameter("page"));
+						}
 						if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
 							session.removeAttribute("UserAccount");//清空session	
 							session.removeAttribute("UserType");
@@ -224,8 +231,8 @@
 						<!--标题 -->
 					<div >
                     
-                 <form>
-				<input id="" name="" type="text" placeholder="搜索" autocomplete="off"  style="width:500px ;height:38px;margin-left:150px; 								                margin-top:20px">
+                 <form  action="Search.jsp" method="post">
+				<input id="" name="name="Search" type="text" placeholder="搜索" autocomplete="off"  style="width:500px ;height:38px;margin-left:150px; 								                margin-top:20px">
 				  <input id="" class="submit am-btn" value="搜索" index="1" type="submit" style="background-color:#999999;margin-top:20px">
 					</form>
                 </div>	
@@ -238,7 +245,21 @@
             <li><a href="">用户</a></li>     
         </ul>
     </div>
-<div class="content">
+<div class="content"><!--新闻列表开始  -->
+<%
+				String Search="";
+				if(request.getParameter("Search")!=null){
+					Search=request.getParameter("Search");
+				}
+				NewsManage nm = new NewsManage();
+				int pageCount=nm.ShowPageCountBynewsTitle(Search);//总分页数
+	    		if(Page<1) Page = 1;//如果页码小于1，则页码置为第1页
+	    		if(Page>=pageCount) Page = pageCount;//如果当前页码大于总分的页数，就将当前页码置为最后一页
+				
+				ArrayList list2 = nm.showNewsListByNewsTitle(Search, Page);/*通过新闻名来模糊查询新闻内容  */
+				for (int i = 0; i < list2.size(); i++) {
+				News news = (News)list2.get(i);
+			%>
     	<div class="content1">
     	<div class="contentleft">
         	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
@@ -249,48 +270,8 @@
         </div>
     </div>
      <hr/>
-<div class="content1">
-    	<div class="contentleft1">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
-        </div>
-        <div class="contentright1">
-        <a href="#">
-          <p><strong>南宁：家政市场再现"用工荒"，订单已经排到元宵节后</strong></p></a>
-          <a href="#">广西新闻频道·&nbsp;1条评论·&nbsp;4小时前</a>  
-        </div>
-    </div>
-     <hr/>
-     <div class="content1">
-    	<div class="contentleft1">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
-        </div>
-        <div class="contentright1">
-        <a href="#"><p><strong>南宁：家政市场再现"用工荒"，订单已经排到元宵节后</strong></p></a>
-            <a href="#">广西新闻频道·&nbsp;1条评论·&nbsp;4小时前</a>  
-        </div>
-    </div>
-     <hr/>
-     <div class="content1">
-    	<div class="contentleft1">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
-        </div>
-        <div class="contentright1">
-        <a href="#"><p><strong>南宁：家政市场再现"用工荒"，订单已经排到元宵节后</strong></p></a>
-            <a href="#">广西新闻频道·&nbsp;1条评论·&nbsp;4小时前</a>  
-        </div>
-    </div>
-     <hr/>
-      <div class="content1">
-    	<div class="contentleft1">
-        	<img src="assets/i/f14.jpg" width="180px" height="105px"/>
-        </div>
-        <div class="contentright1">
-        <a href="#"><p><strong>南宁：家政市场再现"用工荒"，订单已经排到元宵节后</strong></p></a>
-            <a href="#">广西新闻频道·&nbsp;1条评论·&nbsp;4小时前</a>  
-        </div>
-    </div>
-     <hr/>
- </div>
+     <%} %>
+ </div><!--新闻列表结束  -->
  </div>
 			</div>
                     <ul style="margin-left :480px">
