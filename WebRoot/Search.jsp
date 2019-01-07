@@ -17,7 +17,7 @@
 		<script src="assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
 		<script src="assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
         
-       	<link rel="icon" type="image/png" href="assets/i/tubiao.png">
+       	<link rel="icon" type="image/png" href="assets1/i/tubiao.png">
 		<link rel="stylesheet" href="assets3/assets/css/amazeui.min.css">
 		<link rel="stylesheet" href="assets3/assets/css/app.css">
 		<link rel="stylesheet" href="assets3/assets/css/style.css">
