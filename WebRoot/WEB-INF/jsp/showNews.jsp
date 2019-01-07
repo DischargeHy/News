@@ -4,9 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>${news.getNewsTitle()}</title>
+<script src="${pageContext.request.contextPath}/ck5/document/ckeditor.js"></script>
+
 </head>
 <body>
+
+<div>
 <jsp:include page="/template/newsContent.jsp"></jsp:include>
+</div>
+
 </body>
 </html>
