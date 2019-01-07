@@ -221,11 +221,14 @@
 
 					<div class="user-info">
 						<!--标题 -->
-						
-					<div class="input-group" style="width:55%;margin-top:20px;margin-left:100px;">
-        <input type="text" class="form-control" name="Search">
-        <span class="input-group-addon">搜索</span>
-    </div>
+					<div >
+                    
+                 <form>
+				<input id="" name="" type="text" placeholder="搜索" autocomplete="off"  style="width:500px ;height:38px;margin-left:150px; 								                margin-top:20px">
+				  <input id="" class="submit am-btn" value="搜索" index="1" type="submit" style="background-color:#999999;margin-top:20px">
+					</form>
+                </div>	
+	
     <div>
     	<ul class="topx">
         	<li><a href="">综合</a></li>
