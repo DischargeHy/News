@@ -69,16 +69,17 @@
 		.topx a:hover{
 			color:#F00;}
 		.content{
-			width:730px;
+			width:530px;
 			height:600px;
-			margin-left:200px;
+			margin-left:230px;
 			margin-top:80px;
 			background:#FFF;
 			position:relative;  
-		  right:100px; 
+		 	 right:100px; 
+		 
 		}
 		.content1{
-			width:700px;
+			width:600px;
 			height:110px;
 			}
 		.contentleft{
@@ -86,8 +87,8 @@
 			float:left;
 			}
 		.contentright{
-			margin-right:30px;
-			margin-top:30px;
+			margin-left:90px;
+			margin-top:40px;
 			width:65%;
 			float:right;
 			}
@@ -223,7 +224,7 @@
 
 		    
 			
-		<div class="center" style="">
+		<div class="center" >
 			<div class="col-main" style="width:980px">
 				<div class="main-wrap" style="-webkit-box-shadow: #666 0px 0px 10px;moz-box-shadow: #666 0px 0px 10px;box-shadow: #666 0px 0px 10px;">
 
@@ -237,7 +238,7 @@
 					</form>
                 </div>	
 	
-    <div>
+    <div style="margin-left :20px;margin-top:20px">
     	<ul class="topx">
         	<li><a href="">综合</a></li>
             <li><a href="">视频</a></li>  
@@ -274,9 +275,9 @@
  </div><!--新闻列表结束  -->
  </div>
 			</div>
-                    <ul style="margin-left :480px">
+                    <ul style="margin-left :380px">
                     
-					<li class="am-pagination-prev">
+					<li class="am-pagination-prev" >
 						<a href="Search.jsp?Search=<%=Search %>&page=1"> 首页</a>	
 					</li>
 					
@@ -288,7 +289,7 @@
 							%>
 								
 								<li class="am-pagination-next">
-									<%=i%>
+									<a href="Search.jsp?Search=<%=Search %>&page=<%=i%>"><%=i%></a>	
 								</li>
 							<%	
 								}
