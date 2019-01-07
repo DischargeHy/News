@@ -20,8 +20,22 @@ public class updateCommentServlet extends HttpServlet {
 	}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doGet(request, response);
+		request.setCharacterEncoding("UTF-8");
 		String CommentId = request.getParameter("CommentId");
-		String operate = request.getParameter("operate");
+		String operate_submit = request.getParameter("operate");
+		String UserId = request.getParameter("UserId");
+		String operate = null;
+		if(operate_submit.equals("删除")) {
+			operate = "1";
+			if(request.getParameter("dealUser")!=null) {
+				BSManage bsm = new BSManage();
+				System.out.println(UserId);
+				bsm.changeUserType(UserId, "4");
+			}
+		}
+		else {
+			operate = "0";
+		}
 		int i = 0 ; 
 		BSManage bsm = new BSManage();
 		PrintWriter out = response.getWriter();

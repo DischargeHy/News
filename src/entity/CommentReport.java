@@ -2,6 +2,7 @@ package entity;
 
 public class CommentReport {
 	private int CommentId;
+	private int UserId;
 	private int ReplyId;
 	private int NewsId;
 	private String NewsTitle;
@@ -14,10 +15,16 @@ public class CommentReport {
 	public String getCommentContent() {
 		return CommentContent;
 	}
-	public CommentReport(int commentId, int replyId, int newsId, String newsTitle, String userName, String state,
-			String commentContent, String commentTime, String userAccount) {
+	
+	public int getUserId() {
+		return UserId;
+	}
+
+	public CommentReport(int commentId, int userId, int replyId, int newsId, String newsTitle, String userName,
+			String state, String commentContent, String commentTime, String userAccount) {
 		super();
 		CommentId = commentId;
+		UserId = userId;
 		ReplyId = replyId;
 		NewsId = newsId;
 		NewsTitle = newsTitle;
@@ -27,6 +34,7 @@ public class CommentReport {
 		CommentTime = commentTime;
 		UserAccount = userAccount;
 	}
+
 	public int getCommentId() {
 		return CommentId;
 	}

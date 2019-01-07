@@ -75,6 +75,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 			<option value="1" <%if(type.equals("1")){ out.print("selected=\"selected\"");} %>>普通用户</option>
 			 			<option value="2" <%if(type.equals("2")){ out.print("selected=\"selected\"");} %>>编辑人员</option>
 			 			<option value="3" <%if(type.equals("3")){ out.print("selected=\"selected\"");} %>>管理员</option>
+			 			<option value="4" <%if(type.equals("4")){ out.print("selected=\"selected\"");} %>>封号</option>
 			 		</select>
 			 		<input type="submit" value="确认">
 				</form></td>
@@ -125,6 +126,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			 					<option value="1" <%if(user.getUserType()==1){ %>selected="selected"<%} %>>普通用户</option>
 			 					<option value="2" <%if(user.getUserType()==2){ %>selected="selected"<%} %>>编辑人员</option>
 			 					<option value="3" <%if(user.getUserType()==3){ %>selected="selected"<%} %>>管理员</option>
+			 					<option value="4" <%if(user.getUserType()==4){ %>selected="selected"<%} %>>封号</option>
 			 				</select>
 			 				<input type="submit" value="确认">
 			 			</form>
