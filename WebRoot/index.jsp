@@ -141,10 +141,10 @@
 						News news = (News)list2.get(i);
 					%>
 					<li>
-						<img src=<%=news.getNewsCover()%>>
+						<img src=<%=news.getNewsCover()%> width="1188px" height="514px">
 						<div class=" am-slider-desc ">
 							<div class="blog-slider-con">
-								<h1><a href="NewsDetail.jsp?NewsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a></h1>
+								<h1><a href="ShowNews?newsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a></h1>
 								<span>说明字段</span>
 							</div>
 						</div>
@@ -164,13 +164,13 @@
 					%>
 				<article class="am-g blog-entry-article">
 					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
-						<img src=<%=news.getNewsCover()%> alt="" class="am-u-sm-12">
+						<img src=<%=news.getNewsCover()%> alt="" class="am-u-sm-12" width="369px" height="207px">
 					</div>
 					<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
 						<span><a href="" class="blog-color">article &nbsp;</a></span>
 						<span> @<%=news.getUserName()%> &nbsp;</span>
 						<span><%=news.getUpdateTime()%></span>
-						<h1><a href="NewsDetail.jsp?NewsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a></h1>
+						<h1><a href="ShowNews?newsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a></h1>
 						<p>说明字段</p>
 						<p>
 							<a href="" class="blog-continue">continue reading</a>
