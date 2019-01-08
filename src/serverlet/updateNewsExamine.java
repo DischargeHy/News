@@ -40,12 +40,13 @@ public class updateNewsExamine extends HttpServlet {
 			else {
 				String search = request.getParameter("search");
 				String page = request.getParameter("page");
+				String NewsType = request.getParameter("NewsType");
 				i = bsm.changeNewsStatus(NewsId, state);
 				if(i!=0) {
-					out.print("<script>alert('deal success!');location.href='BSManage/NewsManage.jsp?page=" + page + "&search=" + search + "';</script>");
+					out.print("<script>alert('deal success!');location.href='BSManage/NewsManage.jsp?page=" + page + "&search=" + search + "&NewsType=" + NewsType + "';</script>");
 				}
 				else {
-					out.print("<script>alert('deal failed!');location.href='BSManage/NewsManage.jsp?page=" + page + "&search=" + search + "';</script>");
+					out.print("<script>alert('deal failed!');location.href='BSManage/NewsManage.jsp?page=" + page + "&search=" + search + "&NewsType=" + NewsType + "';</script>");
 				}
 			}
 		} catch (SQLException e) {
