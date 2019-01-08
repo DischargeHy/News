@@ -222,19 +222,20 @@ width:100%
 				<!--搜索框开始  -->
 				
 				
-				
-						<div class="am-col col-lg-6" style=" margin-top: 30px; margin-bottom: 30px ;margin-left:200px;" >
+						<center>
+						<div class="am-col " style=" margin-top: 30px; margin-bottom: 30px ;" >
+						<div class="am-input-group" >
 						<form action="Search.jsp" method="post">
-								<div class="am-input-group" >
+								
 									<input type="text" name="Search" placeholder=" 搜一下" class="am-form-field" style="height: 45px; width: 650px;" > 
 									<span class="am-input-group-btn"> 
 										<input class="am-btn am-btn-primary" name="" type="submit" value="搜一下" style="height: 45px; width: 80px" />
 									</span>
-								</div>
+								
 							</form>
-					
 					</div>
-					
+					</div>
+					</center>
 				<!--搜索框结束  -->
 					
 					<div class="main-wrap" 	style="-webkit-box-shadow: #666 0px 0px 10px; margin: 0px auto;margin-top:10px;
