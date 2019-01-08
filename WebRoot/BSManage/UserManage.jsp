@@ -70,6 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>用户类别筛选：</td>
 				<td><form action="BSManage/UserManage.jsp" method="post">
 				<input type="hidden" value="1" name="page">
+				<input type="hidden" value="<%=search %>" name="search">
 					<select name="type">
 						<option value="0" <%if(type.equals("0")){ out.print("selected=\"selected\"");} %>>所有用户</option>
 			 			<option value="1" <%if(type.equals("1")){ out.print("selected=\"selected\"");} %>>普通用户</option>
