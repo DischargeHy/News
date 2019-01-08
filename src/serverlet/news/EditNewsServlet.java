@@ -1,4 +1,4 @@
-package serverlet;
+package serverlet.news;
 
 import java.io.IOException;
 import java.sql.SQLException;

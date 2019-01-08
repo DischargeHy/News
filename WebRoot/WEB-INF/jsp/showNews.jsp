@@ -44,17 +44,10 @@
 </div>
 
 <div>
-<jsp:include page="/template/newsContent.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/template/newsContent.jsp"></jsp:include>
 </div>
-
-
-<div><!--回复主要内容开始 -->
-<form action="ReplyPostServlet" method="post" name="ReplyPost">
-	<table width="100%" border="1" cellspacing="0">
-		
-	</table>
-	
-</form>
-</div><!--回复主要内容结束  -->
+<div style="margin: 0 auto; width: 200px;">
+	<jsp:include page="/WEB-INF/template/comment.jsp"></jsp:include>
+</div>
 </body>
 </html>

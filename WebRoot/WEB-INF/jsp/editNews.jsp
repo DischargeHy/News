@@ -7,6 +7,6 @@
 <title>编辑</title>
 </head>
 <body>
-<jsp:include page="/template/ck5.jsp"></jsp:include>
+<jsp:include page="/WEB-INF/template/ck5.jsp"></jsp:include>
 </body>
 </html>

@@ -11,6 +11,12 @@ public class Comment {
 	Integer replyId;
 	String state;
 	
+	public Comment(String commentContent, Integer userId, Integer newsId) {
+		super();
+		this.commentContent = commentContent;
+		this.userId = userId;
+		this.newsId = newsId;
+	}
 	public Comment(String commentContent, Integer userId, Integer newsId, Integer replyId) {
 		super();
 		this.commentContent = commentContent;

@@ -1,9 +1,6 @@
-package util.wordFilter;
+package servlet.comment;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
-
-import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -11,39 +8,19 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
- * Servlet implementation class WordFilter
+ * Servlet implementation class ShowComments
  */
-@WebServlet(urlPatterns = "/WordFilter",loadOnStartup=1)
-public class WordFilter extends HttpServlet {
+@WebServlet("/ShowComments")
+public class ShowComments extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public WordFilter() {
+    public ShowComments() {
         super();
         // TODO Auto-generated constructor stub
-        
     }
-
-	/**
-	 * @see Servlet#init(ServletConfig)
-	 */
-	public void init(ServletConfig config) throws ServletException {
-		// TODO Auto-generated method stub
-
-//		System.out.println(path);
-		SensitivewordFilter sFilter;
-		try {
-			sFilter = new SensitivewordFilter(WordFilter.class.getResource("SensitiveWord.txt"));
-			config.getServletContext().setAttribute("wordFilter", sFilter);
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			System.out.println("敏感词文件读取失败");
-			e.printStackTrace();
-		}
-		
-	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
