@@ -227,7 +227,7 @@ margin:0 auto;
 	<div class="center" style="margin: 0px auto;">
 			<!--搜索框  -->
 				<form action="Search.jsp" method="post">
-				<div class="am-col col-lg-6"  style="margin-left: 190px; margin-top: 30px;margin-bottom:30px" >
+				<div class="am-col col-lg-6"  style="margin-left: 200px; margin-top: 30px;margin-bottom:30px" >
 				<div class="am-input-group" >
 				<input type="text" placeholder=" 搜索" class="am-form-field"  style="height:45px;width:650px"> <span class="am-input-group-btn">
 				<button class="am-btn am-btn-default" type="button" style="height:45px;width:60px">搜索</button>
