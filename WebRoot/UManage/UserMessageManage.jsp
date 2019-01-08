@@ -44,7 +44,7 @@ li {
 					<div class="top center">
 						<div class="left fl">
 							<ul>
-								<li><a href="" target="_blank" style="margin-left: -30px;">米窝首页</a></li>
+								<li><a href="../index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
 								<li><a href="">米聊</a></li>
 								<li>|</li>
@@ -125,37 +125,28 @@ li {
 	 %>
 	<!--中部开始  -->
 	<div class="center">
-		<div class="col-main">
+		<div class="col-main">			
+			<!-- 菜单栏开始 -->
+			<div style="float: left;">
+				<ul class="am-list am-list-border" style="width: 150px;">
+					<li><a href="../UManage/UserMessageManage.jsp"><i class="am-icon-home am-icon-fw"></i> 个人信息</a></li>
+					<li><a href="../UManage/UserMessageManage.jsp"><i class="am-icon-user am-icon-fw"></i> 个人信息管理</a></li>
+					<li><a href="../UManage/UserPassManage.jsp"> <i class="am-icon-book am-icon-fw"></i> 密码管理</a></li>
+					<li><a href="#"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
+					<%
+						//当小编打开个人中心时才显示评论管理选项
+						if (UserType.equals("2")) {
+					%>
+					<li><a href="${pageContext.request.contextPath}/EditNews"><i class="am-icon-pencil am-icon-fw"></i> 发布新闻</a></li>
+					<li><a href="#"><i class="am-icon-list am-icon-fw"></i> 我发布的新闻</a></li>
+					<li><a href="../UManage/UserCommentManage.jsp"><i class="am-icon-dashcube am-icon-fw"></i> 评论管理</a></li>
+					<%
+						}
+					%>
+				</ul>
+			</div>
+			<!-- 菜单栏结束 -->
 			<div class="main-wrap">
-				<!-- 菜单栏开始 -->
-				<div style="float: left;">
-					<aside class="menu">
-						<ul>
-							<li class="person"><a href="index.html">个人中心</a></li>
-							<li class="person">个人资料
-								<hr>
-								<ul>
-									<li><a href="safety.html">密码修改</a></li>
-									<li><a>个人信息管理（普通用户/小编）</a></li>
-									<li><a href="UserPassManage.jsp">密码管理（普通用户/小编）</a></li>
-									<li><a href="#">查看回复（普通用户/小编）</a></li>
-
-									<%
-										//当小编打开个人中心时才显示评论管理选项
-										if (UserType.equals("2")) {
-									%>
-									<li><a href="${pageContext.request.contextPath}/EditNews">发布新闻（小编）</a></li>
-									<li><a href="#">我发布的新闻（小编）</a></li>
-									<li><a href="UManage/UserCommentManage.jsp">评论管理（小编用）</a></li>
-									<%
-										}
-									%>
-								</ul>
-							</li>
-						</ul>
-					</aside>
-				</div>
-				<!-- 菜单栏结束 -->
 				<div class="user-info">
 					<!--标题开始-->
 					<div class="am-cf am-padding" align="center">
@@ -217,9 +208,8 @@ li {
 							</div>
 							<!-- 性别结束 -->
 
-
+						 	<!-- 生日开始 -->
 							<div class="am-form-group" style="width: 700px;">
-								<!-- 生日开始 -->
 								<label for="user-birth" class="am-form-label">出生日期</label>
 								<div class="am-form-content birth">
 									<%
@@ -227,27 +217,29 @@ li {
 									%>
 									<div class="birth-select">
 										<!-- 数据库无生日开始 -->
-										<select name="year" data-am-selected="{btnWidth: '60px', btnSize: 'sm'}">
+										<select name="year" data-am-selected="{btnWidth: '60px', btnSize: 'sm',maxHeight: 300}">
 											<%
-												for (int i = 1900; i < 2020; i++) {
+												for (int i = 1960; i < 2020; i++) {
 											%>
-											<option><%=i%></option>
+											<option value="<%=i%>"><%=i%></option>
 											<%
 												}
 											%>
-										</select> <em>年</em> <select name="month" data-am-selected="{btnWidth: '50px', btnSize: 'sm'}">
+										</select> <em>年</em> 
+										<select name="month" data-am-selected="{btnWidth: '50px', btnSize: 'sm',maxHeight: 300}">
 											<%
 												for (int i = 1; i < 13; i++) {
 											%>
-											<option><%=i%></option>
+											<option value="<%=i%>"><%=i%></option>
 											<%
 												}
 											%>
-										</select> <em>月</em> <select name="day" data-am-selected="{btnWidth: '50px', btnSize: 'sm'}">
+										</select> <em>月</em> 
+										<select name="day" data-am-selected="{btnWidth: '50px', btnSize: 'sm',maxHeight: 300}">
 											<%
 												for (int i = 1; i < 32; i++) {
 											%>
-											<option><%=i%></option>
+											<option value="<%=i%>"><%=i%></option>
 											<%
 												}
 											%>
@@ -255,7 +247,9 @@ li {
 									</div>
 									<!-- 数据库无生日结束 -->
 									<%
-										} else {
+										} else { 
+									%> 
+									<%
 											String Birthday = user.getUserBirthday();
 											int Year = Integer.parseInt(Birthday.substring(0, 4));
 											int Month = Integer.parseInt(Birthday.substring(5, 7));
@@ -263,44 +257,46 @@ li {
 									%>
 									<div class="birth-select">
 										<!-- 数据库有生日开始 -->
-										<select name="year" data-am-selected="{btnWidth: '60px', btnSize: 'sm'}">
+										<select name="year" data-am-selected="{btnWidth: '60px', btnSize: 'sm',maxHeight: 300}">
 											<%
-												for (int i = 1900; i < 2020; i++) {
+												for (int i = 1950; i < 2020; i++) {
 														if (i == Year) {
 											%>
-											<option selected="selected"><%=i%></option>
+											<option selected="selected" value="<%=i%>"><%=i%></option>
 											<%
 												} else {
 											%>
-											<option><%=i%></option>
+											<option value="<%=i%>"><%=i%></option>
 											<%
 												}
 													}
 											%>
-										</select> <em>年</em> <select name="month" data-am-selected="{btnWidth: '50px', btnSize: 'sm'}">
+										</select> <em>年</em> 
+										<select name="month" data-am-selected="{btnWidth: '50px', btnSize: 'sm',maxHeight: 300}">
 											<%
 												for (int i = 1; i < 13; i++) {
 														if (i == Month) {
 											%>
-											<option selected="selected"><%=i%></option>
+											<option selected="selected" value="<%=i%>"><%=i%></option>
 											<%
 												} else {
 											%>
-											<option><%=i%></option>
+											<option value="<%=i%>"><%=i%></option>
 											<%
 												}
 													}
 											%>
-										</select> <em>月</em> <select name="day" data-am-selected="{btnWidth: '50px', btnSize: 'sm'}">
+										</select> <em>月</em> 
+										<select name="day" data-am-selected="{btnWidth: '50px', btnSize: 'sm',maxHeight: 300}">
 											<%
 												for (int i = 1; i < 32; i++) {
 														if (i == Day) {
 											%>
-											<option selected="selected"><%=i%></option>
+											<option selected="selected" value="<%=i%>"><%=i%></option>
 											<%
 												} else {
 											%>
-											<option><%=i%></option>
+											<option value="<%=i%>"><%=i%></option>
 											<%
 												}
 													}
@@ -313,7 +309,8 @@ li {
 									%>
 								</div>
 							</div>
-							<!-- 生日结束 -->
+							<!-- 生日结束 --> 
+							
 
 							<div class="am-form-group">
 								<label for="user-email" class="am-form-label">电子邮件</label>
@@ -322,9 +319,10 @@ li {
 
 								</div>
 							</div>
-
+							
+							<!--用户类型开始  -->
 							<div class="am-form-group address">
-								<!--用户类型开始  -->
+								
 								<label for="user-address" class="am-form-label">用户类型</label>
 								<div class="am-form-content">
 									<%
@@ -335,7 +333,8 @@ li {
 										ApplyList al = nm.showApplyListByUserId(user.getUserId());
 											if (al == null) {
 									%>
-									<input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;"> <input id="submit" type="button" value="申请成为小编" class="am-btn am-btn-danger am-btn-xs" onclick="show_apply()" style="margin-left: 10px; margin-top: 3px;" />
+									<input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;">
+									<input id="submit" type="button" value="申请成为小编" class="am-btn am-btn-danger am-btn-xs" onclick="show_apply()" style="margin-left: 10px; margin-top: 3px;" />
 
 									<%
 										} else {
@@ -362,7 +361,98 @@ li {
 								</div>
 							</div>
 							<!--用户类型结束  -->
+							
+							<%-- <!--用户类型2开始  -->
+							<div class="am-form-group address">
+								
+								<label for="user-address" class="am-form-label">用户类型</label>
+								<div class="am-form-content">
+									<%
+										if (UserType.equals("1")) {
+									%>
 
+									<%
+										ApplyList al = nm.showApplyListByUserId(user.getUserId());
+											if (al == null) {
+									%>
+									<input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;"> 
+									<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 3px;">申请成为小编</button>
+									<!--弹窗开始  -->
+									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+										<div class="am-modal-dialog">
+											<div class="am-modal-hd">请输入申请理由</div>
+											<form action="../AuthorApplyServlet" method="post" id="applyform">
+											<div class="am-modal-bd">
+													<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> 
+													<input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
+													<centetr> 
+													<input id="yes" type="submit" value="确认" style="width: 75px; text-indent: 0px; margin-top: 0px;" form="applyform" > 
+													<!-- <input id="no" type="button" value="取消" style="width: 75px; text-indent: 0px; margin-top: 0px;" data-am-modal-cancel>  -->
+													</centetr>
+											</div>
+<!-- 											<div class="am-modal-footer">
+												<span class="am-modal-btn" data-am-modal-cancel>取消</span> 
+												<span class="am-modal-btn" data-am-modal-confirm>提交</span>
+											</div> -->
+											</form>
+										</div>
+									</div>
+									<script type="text/javascript">
+									$(function() { $('#doc-prompt-toggle').on('click', function() { $('#my-prompt').modal({ relatedTarget: this, onConfirm: function(e) { alert('你输入的是：' + e.data || '') }, onCancel: function(e) { alert('取消!'); } }); }); });
+									</script>
+									<!-- 弹窗结束 -->
+									<%
+										} else {
+												if (al.getState().equals("申请中")) {
+									%>
+									<input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;">
+									<%
+										} else if (al.getState().equals("申请失败")) {
+									%>
+									<input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;">
+									<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 4px;">重新申请</button>
+									<!--弹窗开始  -->
+									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+										<div class="am-modal-dialog">
+											<div class="am-modal-hd">请输入申请理由</div>
+											<form action="../AuthorApplyServlet" method="post" id="applyform">
+											<div class="am-modal-bd">
+													<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> 
+													<input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
+													<centetr> 
+													<input id="yes" type="submit" value="确认" style="width: 75px; text-indent: 0px; margin-top: 0px;" form="applyform" > 
+													<!-- <input id="no" type="button" value="取消" style="width: 75px; text-indent: 0px; margin-top: 0px;" data-am-modal-cancel>  -->
+													</centetr>
+											</div>
+<!-- 											<div class="am-modal-footer">
+												<span class="am-modal-btn" data-am-modal-cancel>取消</span> 
+												<span class="am-modal-btn" data-am-modal-confirm>提交</span>
+											</div> -->
+											</form>
+										</div>
+									</div>
+									<script type="text/javascript">
+									$(function() { $('#doc-prompt-toggle').on('click', function() { $('#my-prompt').modal({ relatedTarget: this, onConfirm: function(e) { alert('你输入的是：' + e.data || '') }, onCancel: function(e) { alert('取消!'); } }); }); });
+									</script>
+									<!-- 弹窗结束 -->
+									<%
+										} else {
+												}
+											}
+										}
+									%>
+									<%
+										if (UserType.equals("2")) {
+									%>
+									<input type="text" name="usertypeName" value="小编" readonly="readonly">
+									<%
+										}
+									%>
+								</div>
+							</div>
+							<!--用户类型2结束  -->
+ --%>
+ 
 							<div class="am-form-group">
 								<!-- 头像显示开始 -->
 								<label for="user-name2" class="am-form-label">头像</label>
@@ -425,14 +515,15 @@ li {
 								<input class="am-btn am-btn-danger" type="submit" name="Submit" value="保存修改"> <input type="hidden" name="userId" value="<%=user.getUserId()%>">
 							</div>
 						</form>
+						
+					<%-- 	<!-- 点击申请成为小编才出现 -->
 						<div id="apply" style="display: none">
-							<!-- 点击申请成为小编才出现 -->
 							<form action="../AuthorApplyServlet" method="post" id="applyform">
 								<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform"> <input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
 								<centetr> <input id="yes" type="submit" value="确认" style="width: 75px; text-indent: 0px; margin-top: 0px;" form="applyform"> <input id="no" type="button" value="取消" style="width: 75px; text-indent: 0px; margin-top: 0px;" onclick="hidden_apply()"> </centetr>
 							</form>
 						</div>
-						<!-- 申请成为小编结束 -->
+						<!-- 申请成为小编结束 --> --%>
 					</div>
 					<!--个人信息结束  -->
 				</div>
@@ -440,9 +531,8 @@ li {
 		</div>
 	</div>
 	<!--中部结束  -->
-
 	<!-- 底部开始 -->
-	<footer class="blog-footer">
+	<footer class="blog-footer" style="margin-top: 10px;">
 		<div class="am-g am-g-fixed blog-fixed blog-footer-padding center">
 			<div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
 				<h3>工作室简介</h3>
@@ -475,8 +565,8 @@ li {
 		<div class="blog-text-center">Copyright© 2019 米窝工作室 版权所有 All rights reserved</div>
 	</footer>
 	<!-- 底部结束 -->
-	
-	
+
+
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>
 	<!--<![endif]-->

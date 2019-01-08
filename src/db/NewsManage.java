@@ -824,7 +824,7 @@ public class NewsManage {
 		public int updateUserNoPass(User user) {
 			int count = 0;
 			Connection con = conn.getCon();
-			String sqlString = "update User set UserName=?,UserType=?,UserHead=?,UserBirthday=?,UserSex=? where Userid=?";
+			String sqlString = "update User set UserName=?,UserType=?,UserHead=?,UserBirthday=?,UserSex=?,UserEMail=? where Userid=?";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				pre.setString(1, user.getUserName());
@@ -832,7 +832,8 @@ public class NewsManage {
 				pre.setString(3, user.getUserHead());
 				pre.setString(4, user.getUserBirthday());
 				pre.setInt(5, user.getUserSex());
-				pre.setInt(6, user.getUserId());
+				pre.setString(6, user.getUserEMail());
+				pre.setInt(7, user.getUserId());
 				count = pre.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -987,7 +988,6 @@ public class NewsManage {
 					String time = rs.getString("time");
 					String state = rs.getString("state");
 					al=new ApplyList(applyId, userId, reasons, time, state);
-					break;
 				}
 				rs.close();
 			} catch (SQLException e) {
