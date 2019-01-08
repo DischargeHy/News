@@ -21,7 +21,7 @@
 <div class="log"> 
   <div class="am-g">
   <div class="am-u-lg-3 am-u-md-6 am-u-sm-8 am-u-sm-centered log-content">
-    <h1 class="log-title am-animation-slide-top">注册</h1>
+    <h1 class="log-title am-animation-slide-top">注 册</h1>
 	
     <form class="am-form" id="log-form" action="RegisterServlet" method="post">
       <div class="am-input-group am-radius am-animation-slide-left">       

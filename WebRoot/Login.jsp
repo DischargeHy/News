@@ -21,7 +21,7 @@
 <div class="log"> 
   <div class="am-g">
   <div class="am-u-lg-3 am-u-md-6 am-u-sm-8 am-u-sm-centered log-content">
-    <h1 class="log-title am-animation-slide-top">登录</h1>
+    <h1 class="log-title am-animation-slide-top">登 录</h1>
     <br>
     <form class="am-form" id="log-form" action="LoginServlet" method="post">
       <div class="am-input-group am-radius am-animation-slide-left">       
