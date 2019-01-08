@@ -220,6 +220,7 @@ width:100%
 	<!--页面  -->
 					<div  class="center" style="margin:0px auto">
 				<!--搜索框开始  -->
+<<<<<<< HEAD
 				
 				
 						<center>
@@ -227,15 +228,32 @@ width:100%
 						<div class="am-input-group" >
 						<form action="Search.jsp" method="post">
 								
+=======
+				<center>
+						<div class="am-col " style="margin-top: 30px; margin-bottom: 30px " >
+						
+								<div class="am-input-group" >
+								<form action="Search.jsp" method="post">
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News.git
 									<input type="text" name="Search" placeholder=" 搜一下" class="am-form-field" style="height: 45px; width: 650px;" > 
 									<span class="am-input-group-btn"> 
 										<input class="am-btn am-btn-primary" name="" type="submit" value="搜一下" style="height: 45px; width: 80px" />
 									</span>
+<<<<<<< HEAD
 								
 							</form>
+=======
+									</form>
+								</div>
+							
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News.git
 					</div>
+<<<<<<< HEAD
 					</div>
 					</center>
+=======
+				</center>
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News.git
 				<!--搜索框结束  -->
 					
 					<div class="main-wrap" 	style="-webkit-box-shadow: #666 0px 0px 10px; margin: 0px auto;margin-top:10px;
