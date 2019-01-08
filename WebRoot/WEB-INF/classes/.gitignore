@@ -2,3 +2,6 @@
 /db/
 /entity/
 /dao/
+/util/
+/test/
+/SensitiveWord.txt
