@@ -141,7 +141,7 @@
 					</div>
 					<hr/>
 					<!--进度条-->
-					<div class="m-progress">
+					<!-- <div class="m-progress">
 						<div class="m-progress-list">
 							<span class="step-1 step">
                                 <em class="u-progress-stage-bg"></em>
@@ -158,7 +158,8 @@
 					<div class="u-progress-bar total-steps-2">
 							<div class="u-progress-bar-inner"></div>
 					  </div>
-					</div>
+					</div> -->
+					<div style="height: 100px;"></div>
 					<%
 						NewsManage nm=new NewsManage();
 						ArrayList list=nm.showUserByUserId(UserId);

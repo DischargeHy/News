@@ -81,6 +81,7 @@
 		.content1{
 			width:600px;
 			height:110px;
+			 text-align:center;
 			}
 		.contentleft{
 			width:20%;
@@ -224,17 +225,19 @@
 
 		    
 			
-		<div class="center" >
-			<div class="col-main" style="width:980px">
-				<div class="main-wrap" style="-webkit-box-shadow: #666 0px 0px 10px;moz-box-shadow: #666 0px 0px 10px;box-shadow: #666 0px 0px 10px;">
+		<div class="center" style="margin: 0px auto;" >
+			<div class="col-main" style="width:980px;" >
+				<div class="main-wrap" style="-webkit-box-shadow: #666 0px 0px 10px;moz-box-shadow: #666 0px 0px 10px;box-shadow: #666 0px 0px 10px;
+				   ;" align="center" >
 
-					<div class="user-info">
+					<div class="user-info" style="margin-right:100px;" >
 						<!--标题 -->
-					<div >
+					<div  >
                     
-                 <form  action="Search.jsp" method="post">
-				<input id="" name="Search" type="text" placeholder="搜索" autocomplete="off"  style="width:500px ;height:38px;margin-left:150px; 								                margin-top:20px">
-				  <input id="" class="submit am-btn" value="搜索" index="1" type="submit" style="background-color:#999999;margin-top:20px">
+                 <form  action="Search.jsp" method="post" >
+				<input id="" name="Search" type="text" placeholder=" 搜索" autocomplete="off"  style="width:500px;
+				height:38px; margin-left:120px; margin-top:30px">
+				  <input id="" class="submit am-btn" value="搜索" index="1" type="submit" style="background-color:#999999;margin-top:30px">
 					</form>
                 </div>	
 	
@@ -270,13 +273,15 @@
             <a href="#"><%=news.getUserName()%>·&nbsp;<%=news.getNewsContentNum() %>条评论·&nbsp;<%=news.getUpdateTime()%></a>  
         </div>
     </div>
-     <hr/>
+     <hr width="600" />
      <%} %>
  </div><!--新闻列表结束  -->
+ 
  </div>
-			</div>
-                    <ul style="margin-left :380px">
-                    
+		</div>	
+                </div>
+	 			<div style="clear: both;width: 400px;margin:0px auto;height: 40px;margin-top: 100px">
+                	 <ul>
 					<li class="am-pagination-prev" >
 						<a href="Search.jsp?Search=<%=Search %>&page=1"> 首页</a>	
 					</li>
@@ -302,7 +307,6 @@
 								}	
 							} 
 					%>
-					
 					<li class="am-pagination-next">
 						<a href="Search.jsp?Search=<%=Search %>&page=<%=Page+1%>">下一页 </a>		
 					</li>
@@ -310,20 +314,13 @@
 						<a href="Search.jsp?Search=<%=Search %>&page=<%=pageCount%>">尾页 </a>		
 					</li>
 					</ul>
-		  			</div>
-
-				</div>
-                
+                </div>
 				<!--底部-->
-				 <div class="footer">
+				</div>
+		 <div class="footer">
 							<div align="center"></div>
-							
-						
 					</div>
 			</div>
-
-			
-		</div>
 				<footer class="blog-footer">
 			<div class="am-g am-g-fixed blog-fixed blog-footer-padding center">
 				<div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
