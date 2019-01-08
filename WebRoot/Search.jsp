@@ -224,7 +224,7 @@ margin:0 auto;
 						
 		</article>
 	</header>
-	<div class="center" align="center">
+	<div align="center" align="center">
 				<!--搜索框开始  -->
 
 		<div class="am-col col-lg-6" style="margin-top: 30px; margin-bottom: 30px" align="center">
