@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						<input type="hidden" value="1" name="page">
 						<input type="hidden" value="<%=NewsStatus%>" name="NewsStatus">
 						<input type="hidden" value="<%=NewsType%>" name="NewsType">
-						<input type="text" name="search" value="<%if(request.getParameter("search")!=null){out.print("");}else{out.print(request.getParameter("search"));}%>">
+						<input type="text" name="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(request.getParameter("search"));}%>">
 						<input type="submit" value="搜索">
 				</form></div>
 				<%if(userType!=3){ %>
@@ -139,7 +139,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<td>类型</td>
 				<td>作者</td>
 				<td>发表时间</td>
-				<td>操作</td>
+				<td>选定</td>
 			</tr>
 			<%
 				page_num = allPage/6;
@@ -173,6 +173,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							<input type="hidden" name="state" value="2">
 							<input type="hidden" name="search" value="<%=search%>">
 							<input type="hidden" name="page" value="<%=NewsPage%>">
+							<input type="hidden" name="NewsType" value="<%=NewsType%>">
 							<input type="hidden" value="<%=news.getNewsId()%>" name="NewsId">
 							<input type="submit" value="重审">
 						</form>
