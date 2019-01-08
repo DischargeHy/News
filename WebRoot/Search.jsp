@@ -220,20 +220,22 @@ width:100%
 	<!--页面  -->
 					<div  class="center" style="margin:0px auto">
 				<!--搜索框开始  -->
+				
+				
 				<center>
-						<div class="am-col " style="margin-top: 30px; margin-bottom: 30px " >
-						
-								<div class="am-input-group" >
-								<form action="Search.jsp" method="post">
+						<div class="am-col" style=" margin-top: 30px; margin-bottom: 30px ;" >
+						<div class="am-input-group" >
+						<form action="Search.jsp" method="post">
+								
 									<input type="text" name="Search" placeholder=" 搜一下" class="am-form-field" style="height: 45px; width: 650px;" > 
 									<span class="am-input-group-btn"> 
 										<input class="am-btn am-btn-primary" name="" type="submit" value="搜一下" style="height: 45px; width: 80px" />
 									</span>
-									</form>
-								</div>
-							
+								
+							</form>
 					</div>
-				</center>
+					</div>
+					</center>
 				<!--搜索框结束  -->
 					
 					<div class="main-wrap" 	style="-webkit-box-shadow: #666 0px 0px 10px; margin: 0px auto;margin-top:10px;
@@ -277,8 +279,10 @@ width:100%
 					
 					<!--新闻列表结束  -->
 	      <!--序列123  -->
-  			<div style="clear: both; width: 500px; margin: 0px auto; height: 20px; margin-top: 20px;margin-bottom: 20px">
-			   <ul>
+	      <center>
+  			<div style="clear: both; width: 100%;  height: 20px; margin-top: 20px;margin-bottom: 20px" >
+			   
+			   <ul class="am-input-group">
 				<li class="am-pagination-prev"><a
 					href="Search.jsp?Search=<%=Search%>&page=1"> 首页</a></li>
 
@@ -305,7 +309,9 @@ width:100%
 				<li class="am-pagination-next"><a
 					href="Search.jsp?Search=<%=Search%>&page=<%=pageCount%>">尾页 </a></li>
 			</ul>
+			
 			</div>
+			</center>
 	      <!--序列123結束  -->
 	</div>	
 	<!-- 頁面結束 -->
