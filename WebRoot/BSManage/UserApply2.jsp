@@ -110,7 +110,7 @@
                                         <th width="100" style="word-break:break-all">用户头像</th>
                                         <th width="230" style="word-break:break-all">用户名</th>
                                         <th width="230" style="word-break:break-all">用户邮箱</th>
-                                        <th width="190" style="word-break:break-all">申请时间</th>
+                                        <th width="200" style="word-break:break-all">申请时间</th>
                                         <th>操作</th>
                                        
                                         
@@ -121,7 +121,7 @@
                                         <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
                                         <td width="230" style="word-break:break-all">username</td>
                                         <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="190" style="word-break:break-all">applytime</td>
+                                        <td width="200" style="word-break:break-all">applytime</td>
                                         <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
                                        
                                         
@@ -130,7 +130,7 @@
                                       <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
                                         <td width="230" style="word-break:break-all">username</td>
                                         <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="190" style="word-break:break-all">applytime</td>
+                                        <td width="200" style="word-break:break-all">applytime</td>
                                        <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
                                         
                                         
@@ -139,7 +139,7 @@
                                         <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
                                         <td width="230" style="word-break:break-all">username</td>
                                         <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="190" style="word-break:break-all">applytime</td>
+                                        <td width="200" style="word-break:break-all">applytime</td>
                                         <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
                                         
                                         
@@ -149,7 +149,7 @@
                                        <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
                                         <td width="230" style="word-break:break-all">username</td>
                                         <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="190" style="word-break:break-all">applytime</td>
+                                        <td width="200" style="word-break:break-all">applytime</td>
                                       <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
                                        
                                         
@@ -158,7 +158,7 @@
                                         <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
                                         <td width="230" style="word-break:break-all">username</td>
                                         <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="190" style="word-break:break-all">applytime</td>
+                                        <td width="200" style="word-break:break-all">applytime</td>
                                         <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
                                         
                                         
