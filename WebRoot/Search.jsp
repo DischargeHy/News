@@ -224,33 +224,25 @@ margin:0 auto;
 						
 		</article>
 	</header>
-	<div class="center" style="margin: 0px auto;">
-			<!--搜索框  -->
-				<form action="Search.jsp" method="post">
-				<div class="am-col col-lg-6"  style="margin-left: 200px; margin-top: 30px;margin-bottom:30px" >
-				<div class="am-input-group" >
-				<input type="text" placeholder=" 搜索" class="am-form-field"  style="height:45px;width:650px"> <span class="am-input-group-btn">
-				<button class="am-btn am-btn-default" type="button" style="height:45px;width:60px">搜索</button>
-				</span>
+	<div class="center" align="center">
+				<!--搜索框开始  -->
+
+		<div class="am-col col-lg-6" style="margin-top: 30px; margin-bottom: 30px" align="center">
+			<form action="Search.jsp" method="post">
+				<div class="am-input-group">
+					<input type="text" name="Search" placeholder=" 搜索" class="am-form-field" style="height: 45px; width: 650px"> 
+					<span class="am-input-group-btn"> 
+						<input class="am-btn am-btn-default" name="" type="submit" value="搜索" style="height: 45px; width: 60px" />
+					</span>
 				</div>
-				</div>
-				</form>
-				
-					<div style="width: 500px; height: 36px; margin-left: 90px; margin-top: 20px;margin-bottom:20px;">
-						<ul class="topx" >
-							<li><a href="">综合</a></li>
-							<li><a href="">视频</a></li>
-							<li><a href="">图集</a></li>
-							<li><a href="">用户</a></li>
-						</ul>
-				
-					</div>	
+			</form>
+		</div>
+
+		<!--搜索框结束  -->
 					<!-- 内容 -->
 				
 				<div class="main-wrap"	style="-webkit-box-shadow: #666 0px 0px 10px; margin: 0px auto;margin-top:10px;
 				 moz-box-shadow: #666 0px 0px 10px; box-shadow: #666 0px 0px 10px;width:790px;heigth:810px">
-
-			
 					<!--标题 -->
 				
 					<div class="content">
@@ -323,7 +315,7 @@ margin:0 auto;
 			</ul>
 
 		   </div>
-	      </div>
+	 </div>
 	      
 	<!--底部-->
 

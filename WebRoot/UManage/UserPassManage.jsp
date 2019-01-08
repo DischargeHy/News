@@ -100,18 +100,6 @@ li {
 					</div>
 				</header>
 
-
-				<!--悬浮搜索框-->
-
-				<div class="nav white">
-					<div class="logoBig"></div>
-
-					<div class="search-bar pr">
-						<a name="index_none_header_sysc" href="#"></a>
-
-					</div>
-				</div>
-
 				<div class="clear"></div>
 			</div>
 			</div>
@@ -122,9 +110,9 @@ li {
 		<div class="col-main">
 			<!-- 菜单栏开始 -->
 			<div style="float: left;">
-				<ul class="am-list am-list-border" style="width: 150px;">
-					<li><a href="../UManage/UserMessageManage.jsp"><i class="am-icon-home am-icon-fw"></i> 个人信息</a></li>
-					<li><a href="../UManage/UserMessageManage.jsp"><i class="am-icon-user am-icon-fw"></i> 个人信息管理</a></li>
+				<ul class="am-list am-list-border" style="width: 140px;margin-right: -20px;">
+					<li><a href="../UManage/UserMessageManage.jsp"><i class="am-icon-home am-icon-fw"></i> 个人中心</a></li>
+					<li><a href="../UManage/UserMessageManage.jsp"><i class="am-icon-user am-icon-fw"></i> 个人资料</a></li>
 					<li><a href="../UManage/UserPassManage.jsp"> <i class="am-icon-book am-icon-fw"></i> 密码管理</a></li>
 					<li><a href="#"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
 					<%

@@ -7,8 +7,8 @@
 <html>
 <head>
 <meta charset="utf-8">
-<script type="text/javascript" src="../UJS/Apply.js"></script>
-<!-- 申请小编显示判断JS -->
+<!-- <script type="text/javascript" src="../UJS/Apply.js"></script>
+申请小编显示判断JS -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
 <title>信息</title>
@@ -19,8 +19,7 @@
 <link href="../assets3/css/personal.css" rel="stylesheet" type="text/css">
 <link href="../assets3/css/stepstyle.css" rel="stylesheet" type="text/css">
 
-<script src="../assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
-<script src="../assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
+
 
 <link rel="icon" type="image/png" href="assets1/i/tubiao.png">
 <link rel="stylesheet" href="../assets3/assets/css/amazeui.min.css">
@@ -46,12 +45,6 @@ li {
 							<ul>
 								<li><a href="../index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
-								<li><a href="">米聊</a></li>
-								<li>|</li>
-								<li><a href="">多看阅读</a></li>
-								<li>|</li>
-								<li><a href="">云服务</a></li>
-								<li>|</li>
 								<li><a href="">问题反馈</a></li>
 								<div class="clear"></div>
 							</ul>
@@ -70,17 +63,28 @@ li {
 									String UserType = null;
 									String UserAccount = null;
 									String UserId = null;
+									
+									NewsManage nm=null;
+									ArrayList list=null;
+									User user=null;
+							
+									
 									if (session.getAttribute("UserId") != null) {
 										UserId = session.getAttribute("UserId").toString();
 										UserType = session.getAttribute("UserType").toString();
 										UserAccount = (String) session.getAttribute("UserAccount");
+										
+										nm=new NewsManage();
+										list=nm.showUserByUserId(UserId);
+										user=(User)list.get(0);
+										
 										//如果是管理员点击个人中心
 										if (UserType.equals("3")) {
 											response.sendRedirect("../BSManage/NewsManage.jsp?page=1");
 										}
 								%>
 								<ul>
-									<li><a href="../UManage/UserMessageManage.jsp"><%=UserAccount%></a></li>
+									<li><a href="../UManage/UserMessageManage.jsp"><img class="am-circle" src="../<%=user.getUserHead()%>" width="25px" height="25px" style="margin-top: -2px;margin-right: 5px;"><%=UserAccount%></a></li>
 									<li>|</li>
 									<li><a href="../index.jsp?logout=1">登出</a></li>
 								</ul>
@@ -118,21 +122,17 @@ li {
 	</header>
 	<!--头部结束 -->
 
-	<%
-			NewsManage nm=new NewsManage();
-			ArrayList list=nm.showUserByUserId(UserId);
-			User user=(User)list.get(0);
-	 %>
+	
 	<!--中部开始  -->
 	<div class="center">
 		<div class="col-main">			
 			<!-- 菜单栏开始 -->
-			<div style="float: left;">
-				<ul class="am-list am-list-border" style="width: 150px;">
-					<li><a href="../UManage/UserMessageManage.jsp"><i class="am-icon-home am-icon-fw"></i> 个人信息</a></li>
-					<li><a href="../UManage/UserMessageManage.jsp"><i class="am-icon-user am-icon-fw"></i> 个人信息管理</a></li>
-					<li><a href="../UManage/UserPassManage.jsp"> <i class="am-icon-book am-icon-fw"></i> 密码管理</a></li>
-					<li><a href="#"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
+			<div style="float: left;margin-right: -100px;">
+				<ul class="am-list am-list-border" style="width: 110px;">
+					<li><a href="../UManage/UserMessageManage.jsp" style="font-size: 15px;"><i class="am-icon-home am-icon-fw"></i> 个人中心</a></li>
+					<li><a href="../UManage/UserMessageManage.jsp" style="font-size: 13px;"><i class="am-icon-user am-icon-fw"></i> 个人资料</a></li>
+					<li><a href="../UManage/UserPassManage.jsp" style="font-size: 13px;"> <i class="am-icon-book am-icon-fw"></i> 密码管理</a></li>
+					<li><a href="#" style="font-size: 13px;"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
 					<%
 						//当小编打开个人中心时才显示评论管理选项
 						if (UserType.equals("2")) {
@@ -320,7 +320,7 @@ li {
 								</div>
 							</div>
 							
-							<!--用户类型开始  -->
+							<%-- <!--用户类型开始  -->
 							<div class="am-form-group address">
 								
 								<label for="user-address" class="am-form-label">用户类型</label>
@@ -360,9 +360,9 @@ li {
 									%>
 								</div>
 							</div>
-							<!--用户类型结束  -->
+							<!--用户类型结束  --> --%>
 							
-							<%-- <!--用户类型2开始  -->
+							<!--用户类型2开始  -->
 							<div class="am-form-group address">
 								
 								<label for="user-address" class="am-form-label">用户类型</label>
@@ -424,10 +424,7 @@ li {
 													<!-- <input id="no" type="button" value="取消" style="width: 75px; text-indent: 0px; margin-top: 0px;" data-am-modal-cancel>  -->
 													</centetr>
 											</div>
-<!-- 											<div class="am-modal-footer">
-												<span class="am-modal-btn" data-am-modal-cancel>取消</span> 
-												<span class="am-modal-btn" data-am-modal-confirm>提交</span>
-											</div> -->
+
 											</form>
 										</div>
 									</div>
@@ -451,30 +448,21 @@ li {
 								</div>
 							</div>
 							<!--用户类型2结束  -->
- --%>
  
 							<div class="am-form-group">
 								<!-- 头像显示开始 -->
 								<label for="user-name2" class="am-form-label">头像</label>
 								<div class="am-form-content">
 									<!--头像 -->
-									<img id='img' src="../img/<%=user.getUserHead()%>" width="60px" height="60px" />
+									<img id='img' src="../<%=user.getUserHead()%>" width="60px" height="60px" />
 									<script>
-										var img = document
-												.getElementById('img')
-										file
-												.addEventListener(
-														'change',
-														function() {
+										var img = document.getElementById('img');
+										file.addEventListener('change',function() {
 															var obj = file.files[0]
 															var reader = new FileReader();
-															reader
-																	.readAsDataURL(obj);
+															reader.readAsDataURL(obj);
 															reader.onloadend = function() {
-																img
-																		.setAttribute(
-																				'src',
-																				reader.result);
+																img.setAttribute('src',reader.result);
 															}
 														})
 									</script>
@@ -566,16 +554,7 @@ li {
 	</footer>
 	<!-- 底部结束 -->
 
-
-	<!--[if (gte IE 9)|!(IE)]><!-->
-	<script src="assets/js/jquery.min.js"></script>
-	<!--<![endif]-->
-	<!--[if lte IE 8 ]>
-<script src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
-<script src="http://cdn.staticfile.org/modernizr/2.8.3/modernizr.js"></script>
-<script src="assets/js/amazeui.ie8polyfill.min.js"></script>
-<![endif]-->
-	<script src="assets/js/amazeui.min.js"></script>
 </body>
-
+<script src="../assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="../assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
 </html>
