@@ -119,28 +119,28 @@
 						</div>
 						<hr/>
 
-						<!--头像 -->
-						<div  align="center">
+					<!--头像 -->
+					<div align="center">
 
-							 <img id='img' src="image/" style="margin-top:20px;width: 60px;" />
-     					 <input id="file" type="file" name="file">
+						<img id='img' src="image/" style="margin-top: 20px; width: 60px;" />
+						<input id="file" type="file" name="file">
 						<script>
-						var img = document.getElementById('img')
-					file.addEventListener('change',function(){
-			 		   var obj = file.files[0]
-				    var reader = new FileReader();
-			 	   reader.readAsDataURL(obj);
-						    reader.onloadend = function() {
-				 	       img.setAttribute('src',reader.result);
-					    }
+							var img = document.getElementById('img')
+							file.addEventListener('change', function() {
+								var obj = file.files[0]
+								var reader = new FileReader();
+								reader.readAsDataURL(obj);
+								reader.onloadend = function() {
+									img.setAttribute('src', reader.result);
+								}
 							})
-		</script>
+						</script>
 
 
-						
-						</div>
 
-						<!--个人信息 -->
+					</div>
+
+					<!--个人信息 -->
 						<div class="info-main"  style="	margin-right:100px;" >
 							<form class="am-form am-form-horizontal">
 										<div class="am-form-group">
