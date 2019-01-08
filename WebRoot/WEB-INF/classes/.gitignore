@@ -1,4 +1,7 @@
-/serverlet/
-/db/
-/entity/
 /dao/
+/serverlet/
+/test/
+/util/
+/entity/
+/db/
+/servlet/
