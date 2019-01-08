@@ -150,14 +150,20 @@ width:800px;
 height:900px;
 margin:0 auto;
 }
+.center{
+margin:0 auto;
+text-align:center;
+width:100%
+}
 </style>
 </head>
 
 
 <body >
+
 	<header>
 		<article>
-
+<div class="mt-logo">
 			<!--顶部导航条 -->
 
 			<header>
@@ -169,23 +175,10 @@ margin:0 auto;
 						</li>
 						<li>|</li>
 						<li>
-							<a href="">米聊</a>
-						</li>
-						<li>|</li>
-						<li>
-							<a href="">多看阅读</a>
-						</li>
-						<li>|</li>
-						<li>
-							<a href="">云服务</a>
-						</li>
-						<li>|</li>
-						<li>
 							<a href="">问题反馈</a>
 						</li>
-						<div class="clear"></div>
-					</ul>
-				</div>
+						</ul>
+						</div>
 					<div class="right fr">
 						<div class="fr">
 							<%
@@ -221,30 +214,31 @@ margin:0 auto;
 							<%
 								}
 							%>
-						
+						</div>
 		</article>
 	</header>
-	<div align="center" align="center">
+	<!--页面  -->
+					<div  class="center" style="margin:0px auto">
 				<!--搜索框开始  -->
-
-		<div class="am-col col-lg-6" style="margin-top: 30px; margin-bottom: 30px" align="center">
-			<form action="Search.jsp" method="post">
-				<div class="am-input-group">
-					<input type="text" name="Search" placeholder=" 搜索" class="am-form-field" style="height: 45px; width: 650px"> 
-					<span class="am-input-group-btn"> 
-						<input class="am-btn am-btn-default" name="" type="submit" value="搜索" style="height: 45px; width: 60px" />
-					</span>
-				</div>
-			</form>
-		</div>
-
-		<!--搜索框结束  -->
-					<!-- 内容 -->
 				
-				<div class="main-wrap"	style="-webkit-box-shadow: #666 0px 0px 10px; margin: 0px auto;margin-top:10px;
-				 moz-box-shadow: #666 0px 0px 10px; box-shadow: #666 0px 0px 10px;width:790px;heigth:810px">
-					<!--标题 -->
 				
+				
+						<div class="am-col col-lg-6" style=" margin-top: 30px; margin-bottom: 30px ;margin-left:200px;" >
+						<form action="Search.jsp" method="post">
+								<div class="am-input-group" >
+									<input type="text" name="Search" placeholder=" 搜一下" class="am-form-field" style="height: 45px; width: 650px;" > 
+									<span class="am-input-group-btn"> 
+										<input class="am-btn am-btn-primary" name="" type="submit" value="搜一下" style="height: 45px; width: 80px" />
+									</span>
+								</div>
+							</form>
+					
+					</div>
+					
+				<!--搜索框结束  -->
+					
+					<div class="main-wrap" 	style="-webkit-box-shadow: #666 0px 0px 10px; margin: 0px auto;margin-top:10px;
+				 	moz-box-shadow: #666 0px 0px 10px; box-shadow: #666 0px 0px 10px;width:790px;heigth:810px"  >
 					<div class="content">
 						<!--新闻列表开始  -->
 						<%
@@ -277,16 +271,15 @@ margin:0 auto;
 						<%
 							}
 						%>
+						
 					</div>
 					
+					</div>
 					
 					<!--新闻列表结束  -->
-
-		
-		
-	      </div>
-	      <div style="clear: both; width: 500px; margin: 0px auto; height: 20px; margin-top: 20px;margin-bottom: 20px"">
-			<ul>
+	      <!--序列123  -->
+  			<div style="clear: both; width: 500px; margin: 0px auto; height: 20px; margin-top: 20px;margin-bottom: 20px">
+			   <ul>
 				<li class="am-pagination-prev"><a
 					href="Search.jsp?Search=<%=Search%>&page=1"> 首页</a></li>
 
@@ -313,9 +306,10 @@ margin:0 auto;
 				<li class="am-pagination-next"><a
 					href="Search.jsp?Search=<%=Search%>&page=<%=pageCount%>">尾页 </a></li>
 			</ul>
-
-		   </div>
-	 </div>
+			</div>
+	      <!--序列123結束  -->
+	</div>	
+	<!-- 頁面結束 -->
 	      
 	<!--底部-->
 
@@ -373,6 +367,7 @@ margin:0 auto;
 <script src="assets/js/amazeui.ie8polyfill.min.js"></script>
 <![endif]-->
 	<script src="assets/js/amazeui.min.js"></script>
+
 </body>
 
 </html>
