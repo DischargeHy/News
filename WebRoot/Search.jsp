@@ -279,8 +279,10 @@ width:100%
 					
 					<!--新闻列表结束  -->
 	      <!--序列123  -->
-  			<div style="clear: both; width: 500px; margin: 0px auto; height: 20px; margin-top: 20px;margin-bottom: 20px">
-			   <ul>
+	      <center>
+  			<div style="clear: both; width: 100%;  height: 20px; margin-top: 20px;margin-bottom: 20px" >
+			   
+			   <ul class="am-input-group">
 				<li class="am-pagination-prev"><a
 					href="Search.jsp?Search=<%=Search%>&page=1"> 首页</a></li>
 
@@ -307,7 +309,9 @@ width:100%
 				<li class="am-pagination-next"><a
 					href="Search.jsp?Search=<%=Search%>&page=<%=pageCount%>">尾页 </a></li>
 			</ul>
+			
 			</div>
+			</center>
 	      <!--序列123結束  -->
 	</div>	
 	<!-- 頁面結束 -->
