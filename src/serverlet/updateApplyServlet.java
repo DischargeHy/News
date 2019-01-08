@@ -40,25 +40,25 @@ public class updateApplyServlet extends HttpServlet {
 		if(change==1) {
 			i = bsm.changeUserType(UserId, "2");
 			if(i!=0) {
-				out.print("<script>alert('change success!');location.href='BSManage/UserApply.jsp?page=1';</script>");
+				out.print("<script>alert('change success!');location.href='BSManage/UserApply2.jsp?page=1';</script>");
 			}
 			else {
-				out.print("<script>alert('change failed!');location.href='BSManage/UserApply.jsp?page=1';</script>");
+				out.print("<script>alert('change failed!');location.href='BSManage/UserApply2.jsp?page=1';</script>");
 			}
 		}
 		else {
 			if(k!=0) {
-				out.print("<script>alert('change success!');location.href='BSManage/UserApply.jsp?page=1';</script>");
+				out.print("<script>alert('change success!');location.href='BSManage/UserApply2.jsp?page=1';</script>");
 			}
 			else {
-				out.print("<script>alert('change failed!');location.href='BSManage/UserApply.jsp?page=1';</script>");
+				out.print("<script>alert('change failed!');location.href='BSManage/UserApply2.jsp?page=1';</script>");
 			}
 		}
 		if(i!=0) {
-			out.print("<script>alert('change success!');location.href='BSManage/UserApply.jsp?page=1';</script>");
+			out.print("<script>alert('change success!');location.href='BSManage/UserApply2.jsp?page=1';</script>");
 		}
 		else if(k!=0) {
-			out.print("<script>alert('change success!');location.href='BSManage/UserApply.jsp?page=1';</script>");
+			out.print("<script>alert('change success!');location.href='BSManage/UserApply2.jsp?page=1';</script>");
 		}
 		
 	}

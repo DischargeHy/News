@@ -45,10 +45,10 @@ public class updateCommentServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		if(i!=0) {
-			out.print("<script>alert('operate success!');location.href='BSManage/commentManage.jsp?page=1';</script>");
+			out.print("<script>alert('operate success!');location.href='BSManage/commentManage2.jsp?page=1';</script>");
 		}
 		else {
-			out.print("<script>alert('operate failed!');location.href='BSManage/commentManage.jsp?page=1';</script>");
+			out.print("<script>alert('operate failed!');location.href='BSManage/commentManage.jsp2?page=1';</script>");
 		}
 	}
 
