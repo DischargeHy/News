@@ -171,7 +171,7 @@ width:100%
 				<div class="left fl">
 					<ul>
 						<li>
-							<a href="" target="_blank" style="margin-left: -30px;">米窝首页</a>
+							<a href="index.jsp" target="_blank" style="margin-left: -30px;">米窝首页</a>
 						</li>
 						<li>|</li>
 						<li>
