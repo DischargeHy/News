@@ -220,7 +220,7 @@ li {
 											<!-- <span class="am-modal-btn">
 											<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 40px;"> 
 											</span> -->
-											<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 40px;"> 
+											<input name="operate" type="submit" value="确认" style="width: 50px; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 50px;"> 
 											<span class="am-modal-btn" data-am-modal-cancel>取消</span>
 										</div>
 								</div>
