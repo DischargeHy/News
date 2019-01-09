@@ -145,95 +145,133 @@ li {
 						</div>
 					</div>
 					<hr />
-					<!-- 标题结束 -->	
-					
-										<!--用户类型开始  -->
-							<div class="am-form-group address"  style="background:#0F0;">
-								<label for="user-address" class="am-form-label">用户类型</label>
-								<div class="am-form-content">
-									<%
-										if (UserType.equals("1")) {
-									%>
+					<!-- 标题结束 -->
 
-									<%
-										ApplyList al = nm.showApplyListByUserId(user.getUserId());
-											if (al == null) {
-									%>
-									<input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;"> 
-									<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 3px;">申请成为小编</button>
-								 	<!--弹窗开始  -->
-									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt" style="background:#000;display: none">
-										<div class="am-modal-dialog">
-											<div class="am-modal-hd">请输入申请理由</div>
-											<form action="../AuthorApplyServlet" method="post" id="applyform">
-											<div class="am-modal-bd">
-													<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> 
-													<input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
-													<centetr> 
-													<input id="yes" type="submit" value="确认" style="width: 75px; text-indent: 0px; margin-top: 0px;" form="applyform" > 
-													</centetr>
-											</div>
-											<div class="am-modal-footer">
-												<span class="am-modal-btn" data-am-modal-confirm>提交</span>
-												<span class="am-modal-btn" data-am-modal-cancel>取消</span> 	
-											</div>
-											</form>
+					<!--申请小编div开始  -->
+					<div class="info-main" style="margin-right: 100px;">
+					<form class="am-form am-form-horizontal" action="../AuthorApplyServlet" method="post" id="applyform">
+					<!--用户类型开始  -->
+					<div class="am-form-group">
+						<label for="user-name2" class="am-form-label">用户类型</label>
+						<div class="am-form-content">
+							<%
+								if (UserType.equals("1")) {
+							%>
+
+							<%
+								ApplyList al = nm.showApplyListByUserId(user.getUserId());
+									if (al == null) {
+							%>
+							<input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;">
+							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 3px;">申请成为小编</button>
+							<!-- 弹窗开始 -->
+							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+								<div class="am-modal-dialog">
+									<div class="am-modal-hd">请输入申请理由</div>
+
+										<div class="am-modal-bd">
+											<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> <input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
 										</div>
-									</div>
-									<script type="text/javascript">
-									$(function() { $('#doc-prompt-toggle').on('click', function() { $('#my-prompt').modal({ relatedTarget: this, onConfirm: function(e) { alert('你输入的是：' + e.data || '') } }); }); });
-									</script>
-									<!-- 弹窗结束 --> 
-									<%
-										} else {
-												if (al.getState().equals("申请中")) {
-									%>
-									<input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;">
-									<%
-										} else if (al.getState().equals("申请失败")) {
-									%>
-									<input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;">
-									<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 4px;">重新申请</button>
-									<!--弹窗开始  -->
-									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
-										<div class="am-modal-dialog">
-											<div class="am-modal-hd">请输入申请理由</div>
-											<form action="../AuthorApplyServlet" method="post" id="applyform">
-											<div class="am-modal-bd">
-													<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> 
-													<input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
-													<centetr> 
-													<input id="yes" type="submit" value="确认" style="width: 75px; text-indent: 0px; margin-top: 0px;" form="applyform"> 
-													<!-- <input id="no" type="button" value="取消" style="width: 75px; text-indent: 0px; margin-top: 0px;" data-am-modal-cancel>  -->
-													</centetr>
-											</div>
-											</form>
+										<div class="am-modal-footer">
+											<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 100%;"> <span class="am-modal-btn" data-am-modal-cancel>取消</span>
 										</div>
-									</div>
-									<script type="text/javascript">
-									$(function() { $('#doc-prompt-toggle').on('click', function() { $('#my-prompt').modal({ relatedTarget: this, onConfirm: function(e) { alert('你输入的是：' + e.data || '') }, onCancel: function(e) { alert('取消!'); } }); }); });
-									</script>
-									<!-- 弹窗结束 -->
-									<%
-										} else {
-												}
-											}
-										}
-									%>
-									<%
-										if (UserType.equals("2")) {
-									%>
-									<input type="text" name="usertypeName" value="小编" readonly="readonly">
-									<%
-										}
-									%>
 								</div>
 							</div>
-							<!--用户类型结束  -->			
+							<script type="text/javascript">
+								$(function() {
+									$('#doc-prompt-toggle')
+											.on(
+													'click',
+													function() {
+														$('#my-prompt')
+																.modal(
+																		{
+																			relatedTarget : this,
+																			onConfirm : function(
+																					e) {
+																				alert('你输入的是：'
+																						+ e.data
+																						|| '')
+																			},
+																		});
+													});
+								});
+							</script>
+							<!-- 弹窗结束 -->
+							<%
+								} else {
+										if (al.getState().equals("申请中")) {
+							%>
+							<input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;"><br/>
+							<%
+								} else if (al.getState().equals("申请失败")) {
+							%>
+							<input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;">
+							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 4px;">重新申请</button>
+							<!-- 弹窗开始 -->
+							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+								<div class="am-modal-dialog">
+									<div class="am-modal-hd">请输入申请理由</div>
+
+										<div class="am-modal-bd">
+											<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> <input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
+										</div>
+										<div class="am-modal-footer">
+											<!-- <span class="am-modal-btn">
+											<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 40px;"> 
+											</span> -->
+											<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 40px;"> 
+											<span class="am-modal-btn" data-am-modal-cancel>取消</span>
+										</div>
+								</div>
+							</div>
+							<script type="text/javascript">
+								$(function() {
+									$('#doc-prompt-toggle')
+											.on(
+													'click',
+													function() {
+														$('#my-prompt')
+																.modal(
+																		{
+																			relatedTarget : this,
+																			onConfirm : function(
+																					e) {
+																				alert('你输入的是：'
+																						+ e.data
+																						|| '')
+																			},
+																		});
+													});
+								});
+							</script>
+							<!-- 弹窗结束 -->
+							<%
+								} else {
+										}
+									}
+								}
+							%>
+							<%
+								if (UserType.equals("2")) {
+							%>
+							<input type="text" name="usertypeName" value="小编" readonly="readonly">
+							<%
+								}
+							%>
+						</div>
+					</div>
+					<!--用户类型结束  -->
+					</form>
+					</div>
+				</div>
+					<!--申请小编div结束  -->
 
 					<!--个人信息开始 -->
 					<div class="info-main" style="margin-right: 100px;">
 						<form class="am-form am-form-horizontal" method="post" action="../UserMessageUpdateServlet">
+							
+							<!--账号开始  -->
 							<div class="am-form-group">
 								<label for="user-name2" class="am-form-label">账号</label>
 								<div class="am-form-content">
@@ -241,6 +279,9 @@ li {
 
 								</div>
 							</div>
+							<!--账号结束  -->
+							
+							<!--昵称开始  -->
 							<div class="am-form-group">
 								<label for="user-name2" class="am-form-label">昵称</label>
 								<div class="am-form-content">
@@ -248,9 +289,10 @@ li {
 
 								</div>
 							</div>
+							<!--昵称结束  -->
 
+							<!-- 性别开始 -->
 							<div class="am-form-group">
-								<!-- 性别开始 -->
 								<label class="am-form-label">性别</label>
 								<div class="am-form-content sex">
 									<%
@@ -384,18 +426,18 @@ li {
 							</div>
 							<!-- 生日结束 --> 
 							
-
-							<div class="am-form-group" style="background:#0F0;">
+							<!--电子邮件开始  -->
+							<div class="am-form-group" >
 								<label for="user-email" class="am-form-label">电子邮件</label>
 								<div class="am-form-content">
 									<input id="user-email" placeholder="Email" type="email" name="txt_uemail" value="<%=user.getUserEMail()%>">
 
 								</div>
 							</div>
-							
- 								
+							<!--电子邮件结束  -->
+									
  							<!-- 头像显示开始 -->
-							<div class="am-form-group" style="background:#0F0;">
+							<div class="am-form-group" >
 								<label for="user-name2" class="am-form-label" >头像</label>
 								<div class="am-form-content">
 									<!--头像 -->
@@ -414,9 +456,9 @@ li {
 								</div>
 							</div>
 							<!-- 头像显示结束 -->
-
-							<div class="am-form-group" style="background:#0F0;">
-								<!-- 修改头像开始 -->
+							
+							<!-- 修改头像开始 -->
+							<div class="am-form-group">
 								<label for="user-name2" class="am-form-label">修改头像</label>
 								<div class="am-form-content">
 									<!--修改头像 -->
@@ -439,23 +481,14 @@ li {
 							<!-- 修改头像结束 -->
 							
 							
-							
 							<div class="info-btn">
 								<input class="am-btn am-btn-danger" type="submit" name="Submit" value="保存修改"> <input type="hidden" name="userId" value="<%=user.getUserId()%>">
 							</div>
 						</form>
-						
-					<%-- 	<!-- 点击申请成为小编才出现 -->
-						<div id="apply" style="display: none">
-							<form action="../AuthorApplyServlet" method="post" id="applyform">
-								<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform"> <input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
-								<centetr> <input id="yes" type="submit" value="确认" style="width: 75px; text-indent: 0px; margin-top: 0px;" form="applyform"> <input id="no" type="button" value="取消" style="width: 75px; text-indent: 0px; margin-top: 0px;" onclick="hidden_apply()"> </centetr>
-							</form>
-						</div>
-						<!-- 申请成为小编结束 --> --%>
+					
+							
 					</div>
 					<!--个人信息结束  -->
-				</div>
 			</div>
 		</div>
 	</div>
