@@ -788,7 +788,7 @@ public class NewsManage {
 	public ArrayList showNewsListByNewsTypeId(int NewsTypeId,int Page) {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
-		String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsTypeId=? and NewsStatus=1";
+		String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsTypeId=? and NewsStatus=1 order by UpdateTime desc";
 		try {
 			PreparedStatement pre = con.prepareStatement(sqlString);
 			pre.setInt(1, NewsTypeId);
@@ -966,7 +966,7 @@ public class NewsManage {
 			if(search==null) {
 				search="*";
 			}
-			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsTitle like '%" + search  + "%' and NewsStatus=1";
+			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsTitle like '%" + search  + "%' and NewsStatus=1 order by CreateTime desc";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();

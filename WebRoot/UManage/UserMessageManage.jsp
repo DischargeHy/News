@@ -153,12 +153,11 @@ li {
 					<!--用户类型开始  -->
 					<div class="am-form-group">
 						<label for="user-name2" class="am-form-label">用户类型</label>
-<<<<<<< HEAD
+
 						<div class="am-form-label" style="letter-spacing: 4px;font-size:15px;margin-right:40px;color:#00F;font-weight:520 ">
-=======
-						<div class="am-form-label" style="letter-spacing: 1px;font-size:15px;text-align:left;width:260px;margin-left:1em;">
+
 						
->>>>>>> branch 'master' of https://github.com/DischargeHy/News
+
 							<%
 								if (user.getUserType()==1) {
 							%>
