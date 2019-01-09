@@ -64,7 +64,7 @@ public class UserMessageUpdateServlet extends HttpServlet {
 		if (UserTypeName.equals("小编")) {
 			userType = 2;
 		}
-		String userHead = null;
+		String userHead = "http://localhost:8080/News/img/java.png";//头像修改待定
 
 		/*
 		 * //以下输出用于测试是否全接收到数据没有出错 System.out.println(Year); System.out.println(Month);

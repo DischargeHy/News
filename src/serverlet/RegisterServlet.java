@@ -52,7 +52,7 @@ public class RegisterServlet extends HttpServlet {
 		String userBirthday="2000-01-01";
 		int userSex=0;
 		int userType=1;
-		String userHead=null;
+		String userHead="http://localhost:8080/News/img/java.png";
 		
 		if (request.getParameter("txt_uAccount").equals("") || request.getParameter("txt_uPass").equals("")) {
 			out.println("<script>alert('UserAccount or Password is null');window.location.href='Register.jsp'</script>");
