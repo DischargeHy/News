@@ -78,10 +78,11 @@ public class LoginServlet extends HttpServlet {
 						session.setAttribute("UserId", user.getUserId());
 						session.setAttribute("UserAccount", UserAccount);
 						session.setAttribute("UserType", user.getUserType());
+						session.setAttribute("UserName", user.getUserName());
 						if (user.getUserType() == 1 || user.getUserType() == 2) {
 							response.sendRedirect("index.jsp");
 						} else {
-							response.sendRedirect("BSManage/NewsManage.jsp?page=1");
+							response.sendRedirect("BSManage/NewsManage2.jsp?page=1");
 						}
 					}
 				}else{

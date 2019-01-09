@@ -22,17 +22,17 @@ public class updateUserServlet extends HttpServlet {
 		doGet(request, response);
 		String type = request.getParameter("UserType");
 		String UserId = request.getParameter("UserId");
-		
+		String page = request.getParameter("page");
 		System.out.println(type);
 		System.out.println(UserId);
 		PrintWriter out = response.getWriter();  
 		BSManage bsm = new BSManage();
 		int i = bsm.changeUserType(UserId, type);
 		if(i!=0) {
-			out.print("<script>alert('change success!');location.href='BSManage/UserManage.jsp?page=1';</script>");
+			out.print("<script>alert('change success!');location.href='BSManage/UserManage2.jsp?page=" + page + "';</script>");
 		}
 		else {
-			out.print("<script>alert('change failed!');location.href='BSManage/UserManage.jsp?page=1';</script>");
+			out.print("<script>alert('change failed!');location.href='BSManage/UserManage2.jsp?page=" + page + "';</script>");
 		}
 	}
 
