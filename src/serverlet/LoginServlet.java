@@ -79,6 +79,7 @@ public class LoginServlet extends HttpServlet {
 						session.setAttribute("UserAccount", UserAccount);
 						session.setAttribute("UserType", user.getUserType());
 						session.setAttribute("UserName", user.getUserName());
+						session.setAttribute("UserHead", user.getUserHead());
 						if (user.getUserType() == 1 || user.getUserType() == 2) {
 							response.sendRedirect("index.jsp");
 						} else {

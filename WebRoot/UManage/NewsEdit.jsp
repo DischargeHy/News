@@ -139,7 +139,10 @@ li {
 				<hr />
 				<!--发布新闻主要内容开始  -->
 				<div>
+<<<<<<< HEAD
 					<jsp:include page="/WEB-INF/template/ck5.jsp"></jsp:include>
+=======
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
 				</div>
 				<!-- 发布新闻主要内容结束 -->
 				<br />

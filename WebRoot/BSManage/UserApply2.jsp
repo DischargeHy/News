@@ -57,7 +57,7 @@
 				    	<!-- User -->
 						<div class="user-box am-hide-sm-only">
 	                        <div class="user-img">
-	                            <img src="../houtai/assets/img/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+	                            <img src="<%=session.getAttribute("UserHead") %>" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
 	                            <div class="user-status offline"><i class="am-icon-dot-circle-o" aria-hidden="true"></i></div>
 	                        </div>
 	                         <%if (session.getAttribute("UserAccount") != null) {	
@@ -81,15 +81,15 @@
 	                    <!-- End User -->
 	            
 						 <ul class="am-list admin-sidebar-list">
-						    <li><a href="#"><span class="am-icon-home"></span> 首页</a></li>
+						    <li><a href="../"><span class="am-icon-home"></span> 首页</a></li>
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span> 新闻管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
+						        <li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						        <%if(userType==3){ %>
                                 <li><a href="../BSManage/NewsExamine2.jsp?page=1" class="am-cf">审核列表 </a></li>
                                 <li><a href="../BSManage/NewsTypeManage2.jsp?page=1" class="am-cf">分类管理 </a></li>
 						        <%} %>
-						        <li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						      </ul>
 						    </li>
 						    <li class="admin-parent">
@@ -104,7 +104,8 @@
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="am-icon-file"></span> 用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
 						        <li><a href="../BSManage/UserManage2.jsp?page=1" class="am-cf">权限管理</a></li>
-						        <li><a href="../BSManage/UserApply2.jsp?page=1">权限申请管理</a></li> 
+						        <li style="background-color: #E0E0E0;"><a href="../BSManage/UserApply2.jsp?page=1">权限申请管理</a></li> 
+						        <li><a href="../BSManage/UserSuggest2.jsp?page=1" class="am-cf">反馈查看</a></li>
 						      </ul>
 						    </li>
 							<%} %>
@@ -126,15 +127,8 @@
                                         <th width="100" style="word-break:break-all">用户头像</th>
                                         <th width="230" style="word-break:break-all">用户名</th>
                                         <th width="230" style="word-break:break-all">用户邮箱</th>
-<<<<<<< HEAD
-                                        <th width="200" style="word-break:break-all">申请时间</th>
-                                        <th>操作</th>
-                                       
-                                        
-=======
                                         <th width="190" style="word-break:break-all">申请时间</th>
                                         <th colspan="2">操作</th>
->>>>>>> branch 'master' of https://github.com/DischargeHy/News.git
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -157,15 +151,6 @@
 									ApplyList al = (ApplyList)list.get(i);
 								%>
                                     <tr>
-<<<<<<< HEAD
-                                        <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
-                                        <td width="230" style="word-break:break-all">username</td>
-                                        <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="200" style="word-break:break-all">applytime</td>
-                                        <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
-                                       
-                                        
-=======
                                         <td width="100" style="word-break:break-all"><img src="<%=al.getUserHead()%>" width="30px" height="30px"/></td>
                                         <td width="230" style="word-break:break-all"><%=al.getUserName()%></td>
                                         <td width="230" style="word-break:break-all"><%=al.getUserEMail()%></td>
@@ -206,7 +191,7 @@
 												<input type="hidden" value="<%=al.getApplyId() %>" name="ApplyId">
 												<input type="hidden" value="<%=al.getUserId() %>" name="UserId">
 												<input type="hidden" value="0" name="change">
-												<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=al.getApplyId() %>no">拒绝</button>
+												<button  type="button"  class="am-btn am-btn-danger"  id="doc-prompt-toggle<%=al.getApplyId() %>no">拒绝</button>
 											<!-- 弹窗开始 -->
 											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=al.getApplyId() %>no">
 										  <div class="am-modal-dialog">
@@ -232,49 +217,8 @@
 											<!-- 弹窗结束 -->
 											</form>
 										</td>
->>>>>>> branch 'master' of https://github.com/DischargeHy/News.git
                                     </tr>
-<<<<<<< HEAD
-                                     <tr>
-                                      <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
-                                        <td width="230" style="word-break:break-all">username</td>
-                                        <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="200" style="word-break:break-all">applytime</td>
-                                       <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
-                                        
-                                        
-                                    </tr>
-                                     <tr>
-                                        <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
-                                        <td width="230" style="word-break:break-all">username</td>
-                                        <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="200" style="word-break:break-all">applytime</td>
-                                        <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
-                                        
-                                        
-                                        
-                                    </tr>
-                                    <tr>
-                                       <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
-                                        <td width="230" style="word-break:break-all">username</td>
-                                        <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="200" style="word-break:break-all">applytime</td>
-                                      <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
-                                       
-                                        
-                                    </tr>
-                                    <tr>
-                                        <td width="100" style="word-break:break-all"><img src="../houtai/assets/img/avatar-1.jpg" width="30px" height="30px"/></td>
-                                        <td width="230" style="word-break:break-all">username</td>
-                                        <td width="230" style="word-break:break-all">useremail</td>
-                                        <td width="200" style="word-break:break-all">applytime</td>
-                                        <td><a href=""><button type="submit">允许申请</button></a> &nbsp;<a 	href="update.html"><button type="submit">拒绝申请</button></a></td>
-                                        
-                                        
-                                    </tr>
-=======
                                  <%} %>
->>>>>>> branch 'master' of https://github.com/DischargeHy/News.git
                                 </tbody>
                             </table>
                             <!-- col end -->

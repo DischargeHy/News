@@ -29,7 +29,7 @@ li {
 					<div class="top center">
 						<div class="left fl">
 							<ul>
-								<li><a href="../index.jsp" style="margin-left: -30px;">首页</a></li>
+								<li><a href="index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
 								<li><a href="">问题反馈</a></li>
 								<div class="clear"></div>
@@ -181,24 +181,23 @@ li {
 
 
 
-			<ul class="am-pagination">
-				<li class="am-pagination-prev"><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=1">首页</a></li>
-				<li class="am-pagination-prev"><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>">&laquo; 上一页</a></li>
+			<ul class="am-pagination  am-pagination-centered">
+				<li class="am-disabled"><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=1">首页</a></li>
+				<li><a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>" >上一页</a></li>
 				<%for(int i=1;i<=pageCount;i++){ 
 								if(i==Page){		
 							%>
-				<%=i %>
-				<%	
+				<li ><a style="color: red;"><%=i%> </a></li>				<%	
 								}
 								else{
 							%>
-				<li class="am-pagination-next"><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=i%>"><%=i%> </a></li>
+				<li ><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=i%>"><%=i%> </a></li>
 				<%
 								}	
 							} 
 							%>
-				<li class="am-pagination-next"><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page+1%>">下一页 &raquo;</a></li>
-				<li class="am-pagination-next"><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=pageCount%>">尾页 </a></li>
+				<li><a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page+1%>" >下一页</a></li>
+				<li><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=pageCount%>">尾页 </a></li>
 
 			</ul>
 		</div>

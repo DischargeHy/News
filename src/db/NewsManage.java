@@ -13,6 +13,7 @@ import entity.CommentReport;
 import entity.News;
 import entity.NewsExamineList;
 import entity.NewsType;
+import entity.Suggest;
 import entity.User;
 
 public class NewsManage {
@@ -479,6 +480,52 @@ public class NewsManage {
 			}
 			return i;
 		}
+		//按页显示所有举报信息
+		public ArrayList showSuggest(String page) {
+			ArrayList list = new ArrayList();
+			int limit = 0;
+			int page_int = Integer.parseInt(page);
+			limit+= (page_int-1)*8;
+			Connection con = conn.getCon();
+			String sqlString = "select * from `SuggestView` limit " + limit +",8";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					int suggestId = rs.getInt("SuggestId");
+					String userName = rs.getString("UserName");
+					String suggestTime = rs.getString("SuggestTime");
+					String userEmail = rs.getString("UserEmail");
+					String text = rs.getString("Text");
+					Suggest s = new Suggest(suggestId, userName, suggestTime, userEmail, text);
+					list.add(s);
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		//返回举报页数
+		public int getSuggestPage() {
+			Connection con = conn.getCon();
+			int i = 0;
+			String sqlString = "select * from `SuggestView`";
+			try {
+	 			PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				rs.last();
+				i = rs.getRow();
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return i;
+		}
 		//总申请页数查询
 		public int getApplyPage() {
 			Connection con = conn.getCon();
@@ -826,16 +873,15 @@ public class NewsManage {
 		public int updateUserNoPass(User user) {
 			int count = 0;
 			Connection con = conn.getCon();
-			String sqlString = "update User set UserName=?,UserType=?,UserHead=?,UserBirthday=?,UserSex=?,UserEMail=? where Userid=?";
+			String sqlString = "update User set UserName=?,UserHead=?,UserBirthday=?,UserSex=?,UserEMail=? where Userid=?";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				pre.setString(1, user.getUserName());
-				pre.setInt(2, user.getUserType());
-				pre.setString(3, user.getUserHead());
-				pre.setString(4, user.getUserBirthday());
-				pre.setInt(5, user.getUserSex());
-				pre.setString(6, user.getUserEMail());
-				pre.setInt(7, user.getUserId());
+				pre.setString(2, user.getUserHead());
+				pre.setString(3, user.getUserBirthday());
+				pre.setInt(4, user.getUserSex());
+				pre.setString(5, user.getUserEMail());
+				pre.setInt(6, user.getUserId());
 				count = pre.executeUpdate();
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -1034,4 +1080,74 @@ public class NewsManage {
 			}
 			return list;
 		}
+		
+		//查询最新新闻（单条）
+		public News showMostNewNews() {
+			News news=null;
+			Connection con = conn.getCon();
+			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsStatus=1 order by CreateTime desc limit 1";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					String createTime = rs.getString("CreateTime");
+					
+					int newsId = rs.getInt("NewsId");
+					String newsTitle = rs.getString("NewsTitle");
+					String userName = rs.getString("UserName");
+					int browse=rs.getInt("browse");
+					String updateTime = rs.getString("updateTime");
+					String newsCover=rs.getString("newsCover");
+					String newsContent=rs.getString("newsContent");
+					int userId = rs.getInt("UserId");
+					int newsStatus = rs.getInt("NewsStatus");
+					int newsContentNum=showContentNum(newsId);//调用方法查询回复数
+					news = new News(newsId, newsTitle, userName, createTime,userId, browse, updateTime, newsStatus, newsCover, newsContentNum, newsContent);
+				}
+				
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return news;
+		}
+		
+		//查询当日新闻列表
+		public ArrayList showTodayNews() {
+			ArrayList list = new ArrayList();
+			Connection con = conn.getCon();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
+			String Today=df.format(new java.sql.Date(System.currentTimeMillis()));//获取今天的日期
+			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsStatus=1 and CreateTime like '" + Today + "%' order by CreateTime desc limit 4";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					String createTime = rs.getString("CreateTime");
+					
+					int newsId = rs.getInt("NewsId");
+					String newsTitle = rs.getString("NewsTitle");
+					String userName = rs.getString("UserName");
+					int browse=rs.getInt("browse");
+					String updateTime = rs.getString("updateTime");
+					String newsCover=rs.getString("newsCover");
+					String newsContent=rs.getString("newsContent");
+					int userId = rs.getInt("UserId");
+					int newsStatus = rs.getInt("NewsStatus");
+					int newsContentNum=showContentNum(newsId);//调用方法查询回复数
+					News news = new News(newsId, newsTitle, userName, createTime,userId, browse, updateTime, newsStatus, newsCover, newsContentNum, newsContent);
+					list.add(news);
+				}
+				
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		
 }

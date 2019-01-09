@@ -80,7 +80,7 @@
 				    	<!-- User -->
 						<div class="user-box am-hide-sm-only">
 	                        <div class="user-img">
-	                            <img src="../houtai/assets/img/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+	                            <img src="<%=session.getAttribute("UserHead") %>" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
 	                            <div class="user-status offline"><i class="am-icon-dot-circle-o" aria-hidden="true"></i></div>
 	                        </div>
 	                         <%if (session.getAttribute("UserAccount") != null) {	
@@ -103,15 +103,15 @@
 	                    </div>
 	                    <!-- End User -->
 						<ul class="am-list admin-sidebar-list">
-						    <li><a href="#"><span class="am-icon-home"></span> 首页</a></li>
+						    <li><a href="../"><span class="am-icon-home"></span> 首页</a></li>
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span> 新闻管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
+						      	<li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						        <%if(userType==3){ %>
                                 <li><a href="../BSManage/NewsExamine2.jsp?page=1" class="am-cf">审核列表 </a></li>
                                 <li><a href="../BSManage/NewsTypeManage2.jsp?page=1" class="am-cf">分类管理 </a></li>
 						        <%} %>
-						        <li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						      </ul>
 						    </li>
 						    <li class="admin-parent">
@@ -125,8 +125,9 @@
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="am-icon-file"></span> 用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-						        <li><a href="../BSManage/UserManage2.jsp?page=1" class="am-cf">权限管理</a></li>
+						        <li style="background-color: #E0E0E0;"><a href="../BSManage/UserManage2.jsp?page=1" class="am-cf">权限管理</a></li>
 						        <li><a href="../BSManage/UserApply2.jsp?page=1">权限申请管理</a></li> 
+						        <li><a href="../BSManage/UserSuggest2.jsp?page=1" class="am-cf">反馈查看</a></li>
 						      </ul>
 						    </li>
 							<%} %>
@@ -197,7 +198,7 @@
 							 					<option value="3" <%if(user.getUserType()==3){ %>selected="selected"<%} %>>管理员</option>
 							 					<option value="4" <%if(user.getUserType()==4){ %>selected="selected"<%} %>>封号</option>
 	  										</select>
-											<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=user.getUserId()%>">更改</button>&nbsp;
+											<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=user.getUserId()%>">更改</button>&nbsp;
 											<!-- 弹窗开始 -->
 											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=user.getUserId()%>">
 										  <div class="am-modal-dialog">
