@@ -13,6 +13,17 @@
 <link rel="stylesheet" href="assets1/css/amazeui.min.css">
 <link rel="stylesheet" href="assets1/css/app.css">
 <link rel="stylesheet" href="assets1/css/style.css">
+
+<!-- <link href="assets3/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+<link href="assets3/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+<link href="assets3/css/personal.css" rel="stylesheet" type="text/css">
+<link href="assets3/css/stepstyle.css" rel="stylesheet" type="text/css">
+<link rel="icon" type="image/png" href="assets1/i/tubiao.png">
+<link rel="stylesheet" href="assets3/assets/css/amazeui.min.css">
+<link rel="stylesheet" href="assets3/assets/css/app.css">
+<link rel="stylesheet" href="assets3/assets/css/style.css">-->
+<script src="assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script> 
 <style>
 li {
 	list-style: none;
@@ -25,47 +36,91 @@ li {
 		<article>
 			<div class="mt-logo">
 				<!--顶部导航栏  -->
+				<% request.setCharacterEncoding("utf-8");
+					int Page=1;
+					if(request.getParameter("page")!=null){
+						Page = Integer.parseInt(request.getParameter("page"));
+						}
+					if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
+							session.removeAttribute("UserAccount");//清空session	
+							session.removeAttribute("UserType");
+							session.removeAttribute("UserId");
+					}
+					String UserType = null;
+					String UserAccount = null;
+					String UserId = null;
+					if (session.getAttribute("UserId") != null) {
+						UserId = session.getAttribute("UserId").toString();
+						UserType = session.getAttribute("UserType").toString();
+						UserAccount = (String) session.getAttribute("UserAccount");
+					}
+					NewsManage nm=new NewsManage();
+					ArrayList list=null;
+					User user=null;
+					if(UserId!=null){		
+						list=nm.showUserByUserId(UserId);//根据session中用户的ID查询用户信息
+						user=(User)list.get(0);
+					}
+				%>
 				<header>
 					<div class="top center">
 						<div class="left fl">
 							<ul>
 								<li><a href="index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
-								<li><a href="">问题反馈</a></li>
+								<%if(UserId==null){
+								%>
+								<!-- 空位 -->
+								<%
+								} else{
+								%>
+								<li><a id="doc-prompt-toggle">问题反馈</a></li>
+									<!--弹窗开始  -->
+									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+										<form action="AdviseServlet" method="post" id="adviceform">
+										<div class="am-modal-dialog">
+											<div class="am-modal-hd">请输入您的建议</div>
+
+											<div class="am-modal-bd">
+												<input type="text" placeholder="请输入您的建议" name="txt_advice" form="adviceform" class="am-modal-prompt-input"> 
+												<input type="hidden" name="userId" value="<%=UserId%>" form="adviceform">
+											<div class="am-modal-footer">
+												<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 50px; font-size: 16px;"> <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+											</div>
+										</div>
+										</form>
+									</div> <script type="text/javascript">
+										$(function() {
+											$('#doc-prompt-toggle')
+													.on(
+															'click',
+															function() {
+																$('#my-prompt')
+																		.modal(
+																				{
+																					relatedTarget : this,
+																					onConfirm : function(
+																							e) {
+																						alert('你输入的是：'
+																								+ e.data
+																								|| '')
+																					},
+																				});
+															});
+										});
+									</script> 
+									<!-- 弹窗结束 -->
+								<% 	
+								}%>
+								
 								<div class="clear"></div>
 							</ul>
 						</div>
 						<div class="right fr">
 
 							<div class="fr">
-								<%
-									request.setCharacterEncoding("utf-8");
-									int Page=1;
-									if(request.getParameter("page")!=null){
-										Page = Integer.parseInt(request.getParameter("page"));
-									}
-									if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
-										session.removeAttribute("UserAccount");//清空session	
-										session.removeAttribute("UserType");
-										session.removeAttribute("UserId");
-									}
-									String UserType = null;
-									String UserAccount = null;
-									String UserId = null;
-									
-									NewsManage nm=new NewsManage();
-									ArrayList list=null;//用于存放用户信息
-									User user=null;
-							
-									
-									if (session.getAttribute("UserId") != null) {
-										UserId = session.getAttribute("UserId").toString();
-										UserType = session.getAttribute("UserType").toString();
-										UserAccount = (String) session.getAttribute("UserAccount");
-										
-										list=nm.showUserByUserId(UserId);
-										user=(User)list.get(0);
-										
+								<%								
+									if(UserId!=null){		
 										//如果是管理员点击个人中心
 										if (UserType.equals("3")) {
 											response.sendRedirect("../BSManage/NewsManage.jsp?page=1");
@@ -149,8 +204,9 @@ li {
 
 	<!-- banner end -->
 
-	<!-- content srart -->
+	<!--中间部分开始  -->
 	<div class="am-g am-g-fixed blog-fixed center">
+		<!-- 板块新闻展示开始 -->
 		<div class="am-u-md-8 am-u-sm-12">
 			<%
 					ArrayList list3 = nm.showNewsListByNewsTypeId(NewsTypeId, Page);/*通过新闻类型Id查询新闻内容  */
@@ -180,7 +236,7 @@ li {
 				%>
 
 
-
+			<!--页码开始  -->
 			<ul class="am-pagination  am-pagination-centered">
 				<li class="am-disabled"><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=1">首页</a></li>
 				<li><a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>" >上一页</a></li>
@@ -200,27 +256,46 @@ li {
 				<li><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=pageCount%>">尾页 </a></li>
 
 			</ul>
+			<!--页码结束  -->
 		</div>
-
+		<!-- 板块新闻展示结束 -->
+		
+		<!--右侧新闻+链接开始  -->
 		<div class="am-u-md-4 am-u-sm-12 blog-sidebar">
+			<!-- 最新资讯开始 -->
 			<div class="blog-sidebar-widget blog-bor">
 				<h2 class="blog-text-center blog-title">
 					<span>最新资讯</span>
 				</h2>
-				<img src="assets1/i/f14.jpg" alt="about me" class="blog-entry-img">
-				<p>妹纸</p>
-				<p>我不想成为一个庸俗的人。十年百年后，当我们死去，质疑我们的人同样死去，后人看到的是裹足不前、原地打转的你，还是一直奔跑、走到远方的我？</p>
+				<%
+					News mostNewNews=nm.showMostNewNews();
+				%>
+				<img src=<%=mostNewNews.getNewsCover() %> alt="about me" class="blog-entry-img" style="width: 312px;height: 236px;">
+				<p>@ <%=mostNewNews.getUserName() %></p>
+				<p><a href="ShowNews?newsId=<%=mostNewNews.getNewsId()%>"><%=mostNewNews.getNewsTitle()%></a></p>
+				
 			</div>
+			<!-- 最新资讯结束 -->
 
 			<div class="blog-sidebar-widget blog-bor">
 				<h2 class="blog-title">
 					<span>24小时新闻</span>
 				</h2>
-				<ul class="am-list">
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
+				<ul class="am-list" >
+					<%
+					ArrayList todayNewsList=nm.showTodayNews();
+					for(int i = 0; i < todayNewsList.size(); i++){
+					News todayNews=(News)todayNewsList.get(i);
+					%>
+					<li>
+					<a href="ShowNews?newsId=<%=todayNews.getNewsId()%>">
+					<img src=<%=todayNews.getNewsCover() %> alt="about me" style="height: 75px; width: 75px;">
+					<%=todayNews.getNewsTitle()%>
+					</a>
+					</li>
+					<%
+					}
+					%>
 				</ul>
 			</div>
 
@@ -230,7 +305,7 @@ li {
 				</h2>
 				<div class="am-u-sm-12 blog-clear-padding">
 					<a href="" class="blog-tag">海外网</a> <a href="" class="blog-tag">中国网</a> <a href="" class="blog-tag">光明网</a> <a href="" class="blog-tag">北青网</a> <a href="" class="blog-tag">闽南网</a> <a href="" class="blog-tag">乐居网</a> <a href="" class="blog-tag">海外网</a> <a href="" class="blog-tag">中国网</a> <a href="" class="blog-tag">光明网</a> <a href="" class="blog-tag">北青网</a> <a href="" class="blog-tag">闽南网</a> <a href="" class="blog-tag">乐居网</a> <a href="" class="blog-tag">海外网</a> <a href="" class="blog-tag">中国网</a>
-					<a href="" class="blog-tag">光明网</a> <a href="" class="blog-tag">北青网</a> <a href="" class="blog-tag">闽南网</a> <a href="" class="blog-tag">乐居网</a> <a href="" class="blog-tag">法制晚报</a> <a href="" class="blog-tag">汽车之家</a>
+					<a href="" class="blog-tag">光明网</a> <a href="" class="blog-tag">北青网</a> <a href="" class="blog-tag">闽南网</a> <a href="" class="blog-tag">乐居网</a> <a href="" class="blog-tag">法制网</a> <a href="" class="blog-tag">汽车网</a>
 				</div>
 			</div>
 			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
@@ -242,10 +317,10 @@ li {
 						href="" class="blog-tag"> 企业认证</a>
 				</div>
 			</div>
-
 		</div>
+		<!--右侧新闻+链接结束  -->
 	</div>
-	<!-- content end -->
+	<!--中间部分结束  -->
 
 	<!-- 底部开始 -->
 	<footer class="blog-footer" style="margin-top: 10px;">

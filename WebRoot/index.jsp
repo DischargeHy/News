@@ -199,8 +199,11 @@ li {
 			<%} %>
 
 		</div>
-		<!-- 剩余新闻展示结束 -->
+		<!-- 剩余热门新闻展示结束 -->
+		
+		<!--右侧新闻+链接开始  -->
 		<div class="am-u-md-4 am-u-sm-12 blog-sidebar">
+			<!-- 最新资讯开始 -->
 			<div class="blog-sidebar-widget blog-bor">
 				<h2 class="blog-text-center blog-title">
 					<span>最新资讯</span>
@@ -214,6 +217,7 @@ li {
 				<p><a href="ShowNews?newsId=<%=mostNewNews.getNewsId()%>"><%=mostNewNews.getNewsTitle()%></a></p>
 				
 			</div>
+			<!-- 最新资讯结束 -->
 
 			<div class="blog-sidebar-widget blog-bor">
 				<h2 class="blog-title">
@@ -301,8 +305,8 @@ li {
 					
 				</div>
 			</div>
-
 		</div>
+		<!--右侧新闻+链接结束  -->
 	</div>
 	<!--中间部分结束  -->
 

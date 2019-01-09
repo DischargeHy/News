@@ -1,3 +1,4 @@
+<%@page import="entity.User"%>
 <%@page import="entity.News"%>
 <%@page import="db.NewsManage"%>
 <%@page import="java.util.ArrayList"%>
@@ -160,64 +161,85 @@ width:100%
 
 
 <body >
-
+<!--头部开始 -->
 	<header>
 		<article>
-<div class="mt-logo">
-			<!--顶部导航条 -->
-
-			<header>
-				<div class="top center">
-				<div class="left fl">
-					<ul>
-						<li>
-							<a href="index.jsp" target="_blank" style="margin-left: -30px;">米窝首页</a>
-						</li>
-						<li>|</li>
-						<li>
-							<a href="">问题反馈</a>
-						</li>
-						</ul>
-						</div>
-					<div class="right fr">
-						<div class="fr">
-							<%
-								request.setCharacterEncoding("utf-8");
-
-								int Page = 1;
-								if (request.getParameter("page") != null) {
-									Page = Integer.parseInt(request.getParameter("page"));
-								}
-								if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
-									session.removeAttribute("UserAccount");//清空session	
-									session.removeAttribute("UserType");
-									session.removeAttribute("UserId");
-								}
-								if (session.getAttribute("UserAccount") != null) {
-									String UserAccount = (String) session.getAttribute("UserAccount");
-									String UserType = session.getAttribute("UserType").toString();
-									String UserId = session.getAttribute("UserId").toString();
-							%>
+			<div class="mt-logo">
+				<!--顶部导航栏  -->
+				<header>
+					<div class="top center">
+						<div class="left fl">
 							<ul>
-								<li><a href="UManage/UserMessageManage.jsp"><%=UserAccount%></a></li>
+								<li><a href="index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
-								<li><a href="index.jsp?logout=1">登出</a></li>
+								<li><a href="">问题反馈</a>
+									</li>
+								<div class="clear"></div>
 							</ul>
-							<%
-								} else {
-							%>
-							<ul>
-								<li><a href="./Login.jsp">登录</a></li>
-								<li>|</li>
-								<li><a href="./Register.jsp">注册</a></li>
-							</ul>
-							<%
-								}
-							%>
 						</div>
+						<div class="right fr">
+
+							<div class="fr">
+								<%
+									request.setCharacterEncoding("utf-8");
+									int Page=1;
+									if(request.getParameter("page")!=null){
+										Page = Integer.parseInt(request.getParameter("page"));
+									}
+									if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
+										session.removeAttribute("UserAccount");//清空session	
+										session.removeAttribute("UserType");
+										session.removeAttribute("UserId");
+									}
+									String UserType = null;
+									String UserAccount = null;
+									String UserId = null;
+									
+									NewsManage nm=new NewsManage();
+									ArrayList list=null;//用于存放用户信息
+									User user=null;
+							
+									
+									if (session.getAttribute("UserId") != null) {
+										UserId = session.getAttribute("UserId").toString();
+										UserType = session.getAttribute("UserType").toString();
+										UserAccount = (String) session.getAttribute("UserAccount");
+										
+										list=nm.showUserByUserId(UserId);
+										user=(User)list.get(0);
+										
+										//如果是管理员点击个人中心
+										if (UserType.equals("3")) {
+											response.sendRedirect("BSManage/NewsManage2.jsp?page=1");
+										}
+								%>
+								<ul>
+									<li><a href="./UManage/UserMessageManage.jsp"><img class="am-circle" src="<%=user.getUserHead()%>" width="25px" height="25px" style="margin-top: -2px;margin-right: 10px;"><%=UserAccount%></a></li>
+									<li>|</li>
+									<li><a href="./index.jsp?logout=1">登出</a></li>
+								</ul>
+								<%
+									} else {
+								%>
+								<ul>
+									<li><a href="./Login.jsp">登录</a></li>
+									<li>|</li>
+									<li><a href="./Register.jsp">注册</a></li>
+								</ul>
+								<%
+						}
+					%>
+							</div>
+							<div class="clear"></div>
+						</div>
+						<div class="clear"></div>
+					</div>
+				</header>
+				<!--顶部导航栏结束  -->
+			</div>
 		</article>
 	</header>
-	<!--页面  -->
+	<!--头部结束 -->
 					<div  class="center" style="margin:0px auto">
 				<!--搜索框开始  -->
 
@@ -248,7 +270,6 @@ width:100%
 							if (request.getParameter("Search") != null) {
 								Search = request.getParameter("Search");
 							}
-							NewsManage nm = new NewsManage();
 							int pageCount = nm.ShowPageCountBynewsTitle(Search);//总分页数
 							if (Page < 1)
 								Page = 1;//如果页码小于1，则页码置为第1页
@@ -284,27 +305,24 @@ width:100%
 			 <div style=" display: inline-block;" >
 
 				<ul class="am-pagination  am-pagination-centered ">
-					<li class="am-disabled"><a
-						href="Search.jsp?Search=<%=Search%>&page=1"> 首页</a></li>
-
+					<li class="am-disabled"><a href="Search.jsp?Search=<%=Search%>&page=1"> 首页</a></li>
+					<li><a href="Search.jsp?Search=<%=Search %>&page=<%=Page-1%>" >上一页</a></li>
 					<%
 						for (int i = 1; i <= pageCount; i++) {
 							if (i == Page) {
 					%>
 
-					<li ><a
-						href="Search.jsp?Search=<%=Search%>&page=<%=i%>"><%=i%></a></li>
+					<li ><a style="color: red;"><%=i%></a></li>
 					<%
 						} else {
 					%>
-					<li ><a
-						href="Search.jsp?Search=<%=Search%>&page=<%=i%>"><%=i%></a></li>
+					<li ><a href="Search.jsp?Search=<%=Search%>&page=<%=i%>"><%=i%></a></li>
 					<%
 						}
 						}
 					%>
-					<li ><a
-						href="Search.jsp?Search=<%=Search%>&page=<%=pageCount%>">尾页 </a></li>
+					<li><a href="Search.jsp?Search=<%=Search %>&page=<%=Page+1%>" >下一页</a></li>
+					<li ><a href="Search.jsp?Search=<%=Search%>&page=<%=pageCount%>">尾页 </a></li>
 				</ul>
 
 			</div> 
@@ -316,50 +334,32 @@ width:100%
 	      
 	<!--底部-->
 
-	<footer class="blog-footer">
+	<!-- 底部开始 -->
+	<footer class="blog-footer" style="margin-top: 10px;">
 		<div class="am-g am-g-fixed blog-fixed blog-footer-padding center">
 			<div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
 				<h3>工作室简介</h3>
 				<p class="am-text-sm">
-					这是一个有趣而富有灵魂的网站。<br> / 想要了解的都能在这里 <br> / 不论你对什么感兴趣 <br>
-					/ 你都会从中找到乐趣。<br> / emmmmm，不知道说啥了。外面的世界真精彩<br> <br>
-					新鲜资讯，热门话题，没有最精彩，只有更精彩！
+					这是一个有趣而富有灵魂的网站。<br> 想要了解的都能在这里。 <br> 不论你对什么感兴趣。 <br> 你都会从中找到乐趣。
 				</p>
 			</div>
 			<div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
-				<h3>社交账号</h3>
-				<p>
-					<a href=""><span
-						class="am-icon-qq am-icon-fw am-primary blog-icon blog-icon"></span></a>
-					<a href=""><span
-						class="am-icon-github am-icon-fw blog-icon blog-icon"></span></a> <a
-						href=""><span
-						class="am-icon-weibo am-icon-fw blog-icon blog-icon"></span></a> <a
-						href=""><span
-						class="am-icon-reddit am-icon-fw blog-icon blog-icon"></span></a> <a
-						href=""><span
-						class="am-icon-weixin am-icon-fw blog-icon blog-icon"></span></a>
-				</p>
 				<h3>Credits</h3>
 				<p>我们追求卓越，然时间、经验、能力有限。本工作室有很多不足的地方，希望大家包容、不吝赐教，给我们提意见、建议。感谢你们！</p>
 			</div>
 			<div class="am-u-sm-12 am-u-md-4- am-u-lg-4">
-				<h1>我们站在巨人的肩膀上</h1>
 				<h3>Heroes</h3>
 				<p>
 				<ul>
 					<li>jQuery</li>
 					<li>Zepto.js</li>
-					<li>Seajs</li>
-					<li>LESS</li>
-					<li>...</li>
 				</ul>
 				</p>
 			</div>
 		</div>
-		<div class="blog-text-center">Copyright© 2019 米窝工作室 版权所有 All
-			rights reserved</div>
+		<div class="blog-text-center">Copyright© 2019 米窝工作室 版权所有 All rights reserved</div>
 	</footer>
+	<!--底部结束  -->
 
 	<!--[if (gte IE 9)|!(IE)]><!-->
 	<script src="assets/js/jquery.min.js"></script>

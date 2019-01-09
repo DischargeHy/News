@@ -1021,6 +1021,26 @@ public class NewsManage {
 			return i;
 		}
 		
+		//插入建议反馈信息---Suggest表
+				public int insertAdvise(Suggest sg) {
+					int i = 0;
+					Connection con = conn.getCon();
+					String sqlString = "insert into Suggest(UserId,Text,SuggestTime) values(?,?,?)";
+					try {
+						PreparedStatement pre = con.prepareStatement(sqlString);
+						pre.setInt(1, sg.getUserId());
+						pre.setString(2, sg.getText());
+						SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
+						pre.setString(3, df.format(new java.sql.Date(System.currentTimeMillis())));
+						i = pre.executeUpdate();
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						conn.closeAll(con);
+					}
+					return i;
+				}
+		
 		//通过UserId查询小编申请表---ApplyList表
 		public ApplyList showApplyListByUserId(int userid) {
 			ApplyList al=null;
