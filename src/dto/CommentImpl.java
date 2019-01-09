@@ -38,7 +38,7 @@ public class CommentImpl {
 	public LinkedList<Comment> selectComments(int newsId) throws SQLException{
 		LinkedList<Comment> linkedList=new LinkedList<Comment>();
 		
-		String sqlString="SELECT * FROM V_comment WHERE newsId=? AND replyId=null";
+		String sqlString="SELECT * FROM V_comment WHERE newsId=? AND replyId is null";
 		PreparedStatement preparedStatement=connection.prepareStatement(sqlString);
 		preparedStatement.setInt(1, newsId);
 		
@@ -49,7 +49,7 @@ public class CommentImpl {
 					resultSet.getDate("commentTime"), resultSet.getInt("userId"), resultSet.getInt("newsId"), 
 					resultSet.getInt("replyId"), resultSet.getString("state"),resultSet.getInt("replyCount"),
 					resultSet.getString("userName"), resultSet.getString("userHead"),resultSet.getInt("replyUserId"), 
-					resultSet.getString("replyUserName"),resultSet.getString("replyUserHead")));
+					resultSet.getString("replyUserName")));
 		}
 		
 		return linkedList;
@@ -58,7 +58,7 @@ public class CommentImpl {
 	public LinkedList<Comment> selectComments(int newsId,int replayId) throws SQLException{
 		LinkedList<Comment> linkedList=new LinkedList<Comment>();
 		
-		String sqlString="SELECT * FROM V_comment WHERE newsId=? AND replyId!=null";
+		String sqlString="SELECT * FROM V_comment WHERE newsId=? AND replyId is not null";
 		PreparedStatement preparedStatement=connection.prepareStatement(sqlString);
 		preparedStatement.setInt(1, newsId);
 		
@@ -69,7 +69,7 @@ public class CommentImpl {
 					resultSet.getDate("commentTime"), resultSet.getInt("userId"), resultSet.getInt("newsId"), 
 					resultSet.getInt("replyId"), resultSet.getString("state"),resultSet.getInt("replyCount"),
 					resultSet.getString("userName"), resultSet.getString("userHead"),resultSet.getInt("replyUserId"), 
-					resultSet.getString("replyUserName"),resultSet.getString("replyUserHead")));
+					resultSet.getString("replyUserName")));
 		}
 		
 		return linkedList;

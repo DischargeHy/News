@@ -30,7 +30,7 @@ public class Test extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		System.out.println("xxx");
+		System.out.println("Test");
 //		int i=(Integer)null;
 		
 //		SensitivewordFilter sFilter=(SensitivewordFilter)this.getServletContext().getAttribute("wordFilter");
@@ -39,6 +39,9 @@ public class Test extends HttpServlet {
 //				+ "难过就躺在某一个人的怀里尽情的阐述心扉或者手机卡复制器一个人一杯红酒一部电影在夜三级片 深人静的晚上，关上电话静静的发呆着。";
 //		System.out.println(sFilter.replaceSensitiveWord(string,SensitivewordFilter.minMatchTYpe,"*"));
 //		System.out.println(sFilter.toString());
+		
+		request.getRequestDispatcher("test.jsp").forward(request, response);
+		
 	}
 
 	/**

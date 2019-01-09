@@ -44,11 +44,11 @@ public class ShowComments extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		doGet(request, response);
+
 		
 		String newsIdString=request.getParameter("newsId");
 		String commentIdString=request.getParameter("commentId");
-		
+		System.out.println("showComment");
 		CommentImpl commentImpl=new CommentImpl(new DBCon().getCon());
 		if (newsIdString!=null) {
 			int newsId=Integer.parseInt(newsIdString);

@@ -12,18 +12,18 @@
 
 <title>修改</title>
 
-<link href="../assets3/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
-<link href="../assets3/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
+<link href="./assets3/AmazeUI-2.4.2/assets/css/admin.css" rel="stylesheet" type="text/css">
+<link href="./assets3/AmazeUI-2.4.2/assets/css/amazeui.css" rel="stylesheet" type="text/css">
 
-<link href="../assets3/css/personal.css" rel="stylesheet" type="text/css">
-<link href="../assets3/css/stepstyle.css" rel="stylesheet" type="text/css">
+<link href="./assets3/css/personal.css" rel="stylesheet" type="text/css">
+<link href="./assets3/css/stepstyle.css" rel="stylesheet" type="text/css">
 
 
 
 <link rel="icon" type="image/png" href="assets1/i/tubiao.png">
-<link rel="stylesheet" href="../assets3/assets/css/amazeui.min.css">
-<link rel="stylesheet" href="../assets3/assets/css/app.css">
-<link rel="stylesheet" href="../assets3/assets/css/style.css">
+<link rel="stylesheet" href="./assets3/assets/css/amazeui.min.css">
+<link rel="stylesheet" href="./assets3/assets/css/app.css">
+<link rel="stylesheet" href="./assets3/assets/css/style.css">
 <style>
 li {
 	list-style: none;
@@ -40,7 +40,7 @@ li {
 					<div class="top center">
 						<div class="left fl">
 							<ul>
-								<li><a href="../index.jsp" style="margin-left: -30px;">首页</a></li>
+								<li><a href="./index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
 								<li><a href="">问题反馈</a></li>
 								<div class="clear"></div>
@@ -80,9 +80,9 @@ li {
 										}
 								%>
 								<ul>
-									<li><a href="../UManage/UserMessageManage.jsp"><img class="am-circle" src="../img/java.png" width="25px" height="25px" style="margin-top: -2px;margin-right: 10px;"><%=UserAccount%></a></li>
+									<li><a href="./UManage/UserMessageManage.jsp"><img class="am-circle" src="./img/java.png" width="25px" height="25px" style="margin-top: -2px;margin-right: 10px;"><%=UserAccount%></a></li>
 									<li>|</li>
-									<li><a href="../index.jsp?logout=1">登出</a></li>
+									<li><a href="./index.jsp?logout=1">登出</a></li>
 								</ul>
 								<%
 									} else {
@@ -112,9 +112,9 @@ li {
 			<!-- 菜单栏开始 -->
 			<div style="float: left;">
 				<ul class="am-list am-list-border" style="width: 110px;">
-					<li><a href="../UManage/UserMessageManage.jsp" style="font-size: 15px;"><i class="am-icon-home am-icon-fw"></i> 个人中心</a></li>
-					<li><a href="../UManage/UserMessageManage.jsp" style="font-size: 13px;"><i class="am-icon-user am-icon-fw"></i> 个人资料</a></li>
-					<li><a href="../UManage/UserPassManage.jsp" style="font-size: 13px;"> <i class="am-icon-book am-icon-fw"></i> 密码管理</a></li>
+					<li><a href="./UManage/UserMessageManage.jsp" style="font-size: 15px;"><i class="am-icon-home am-icon-fw"></i> 个人中心</a></li>
+					<li><a href="./UManage/UserMessageManage.jsp" style="font-size: 13px;"><i class="am-icon-user am-icon-fw"></i> 个人资料</a></li>
+					<li><a href="./UManage/UserPassManage.jsp" style="font-size: 13px;"> <i class="am-icon-book am-icon-fw"></i> 密码管理</a></li>
 					<li><a href="#" style="font-size: 13px;"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
 					<%
 						//当小编打开个人中心时才显示评论管理选项
@@ -184,6 +184,6 @@ li {
 	<!--<![endif]-->
 	<script src="assets/js/amazeui.min.js"></script>
 </body>
-<script src="../assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
-<script src="../assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
+<script src="./assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="./assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
 </html>

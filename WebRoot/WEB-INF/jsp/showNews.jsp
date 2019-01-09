@@ -44,7 +44,7 @@
 </div>
 
 <div>
-<jsp:include page="/WEB-INF/template/newsContent.jsp"></jsp:include>
+	<jsp:include page="/WEB-INF/template/newsContent.jsp"></jsp:include>
 </div>
 <div style="margin: 0 auto; width: 200px;">
 	<jsp:include page="/WEB-INF/template/comment.jsp"></jsp:include>
