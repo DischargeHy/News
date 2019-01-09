@@ -63,7 +63,7 @@
 				    	<!-- User -->
 						<div class="user-box am-hide-sm-only">
 	                        <div class="user-img">
-	                            <img src="../houtai/assets/img/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+	                            <img src="<%=session.getAttribute("UserHead") %>" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
 	                            <div class="user-status offline"><i class="am-icon-dot-circle-o" aria-hidden="true"></i></div>
 	                        </div>
 	                        <%if (session.getAttribute("UserAccount") != null) {	
@@ -103,9 +103,9 @@
 						      </ul>
 						    </li>
 						    <li class="admin-parent">
-						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><i class="am-icon-line-chart" aria-hidden="true"></i> 评论管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
+						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><i class="am-icon-line-chart" aria-hidden="true" ></i> 评论管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
-						        <li><a href="../BSManage/commentManage2.jsp?page=1" class="am-cf">举报管理</a></li>
+						        <li><a href="../BSManage/commentManage2.jsp?page=1" class="am-cf" style="background-color: #E0E0E0;">举报管理</a></li>
 						       
 						      </ul>
 						    </li>
@@ -166,7 +166,7 @@
 										<input type="checkbox" name="dealUser" value="4"></div></td>
                                         <td>
 											<input type="hidden" value="<%=cr.getCommentId()%>" name="CommentId">
-											<button type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=cr.getCommentId()%>">删除</button>
+											<button type="button"  class="am-btn am-btn-danger" id="doc-prompt-toggle<%=cr.getCommentId()%>">删除</button>
 											<!-- 弹窗开始 -->
 											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=cr.getCommentId()%>">
 										  <div class="am-modal-dialog">

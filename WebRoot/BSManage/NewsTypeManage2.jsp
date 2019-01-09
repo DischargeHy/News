@@ -75,7 +75,7 @@ int userType = (Integer)session.getAttribute("UserType");
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
 						        <%if(userType==3){ %>
                                 <li><a href="../BSManage/NewsExamine2.jsp?page=1" class="am-cf">审核列表 </a></li>
-                                <li><a href="../BSManage/NewsTypeManage2.jsp?page=1" class="am-cf">分类管理 </a></li>
+                                <li style="background-color: #E0E0E0;"><a href="../BSManage/NewsTypeManage2.jsp?page=1" class="am-cf">分类管理 </a></li>
 						        <%} %>
 						        <li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						      </ul>
@@ -140,10 +140,10 @@ int userType = (Integer)session.getAttribute("UserType");
 										</td>
                                         <td>
                                         	<form action="../updateType" method="post"><td>
-                                        		<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>">更改</button>
+                                        		<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>">更改</button>
 												<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
 												<input type="hidden" name="edit" value="delete">
-												<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>del">删除</button>											<!-- 弹窗 -->
+												<button  type="button"  class="am-btn am-btn-danger"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>del">删除</button>											<!-- 弹窗 -->
 											<!-- 开始 -->
 										<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=newstype.getNewsTypeId()%>del">
 										  <div class="am-modal-dialog">
