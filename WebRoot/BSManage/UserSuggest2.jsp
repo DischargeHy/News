@@ -1,3 +1,4 @@
+<%@page import="entity.Suggest"%>
 <%@page import="entity.CommentReport"%>
 <%@page import="entity.ApplyList"%>
 <%@page import="entity.User"%>
@@ -9,7 +10,7 @@
 <html>
 <head>
 <meta charset="utf-8">
-<title>评论举报管理</title>
+<title>用户反馈查看</title>
 		 <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css"> 
 		<link rel="stylesheet" href="../houtai/assets/css/amazeui.css" />
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
@@ -26,7 +27,7 @@
 	NewsManage nm = new NewsManage();
 	int userId =(Integer)session.getAttribute("UserId");
 	int userType = (Integer)session.getAttribute("UserType");
-	String ReportPage = request.getParameter("page");
+	String SuggestPage = request.getParameter("page");
 	int page_num = 0;//总页数
 	int allPage = 0;//总行数
 	String type = "0";
@@ -34,12 +35,7 @@
 		type = request.getParameter("type");
 	}
 	ArrayList list = null;//举报列表
-	if(userType==3){
-		list = nm.showReport(ReportPage);//根据页数显示所有举报内容
-	}
-	else{
-		list = nm.showReport(ReportPage, userId);
-	}
+		list = nm.showSuggest(SuggestPage);//根据页数显示所有举报内容
 %>
 <body>
 	<!-- Begin page -->
@@ -49,7 +45,7 @@
 	
 			<div class="contain">
 				<ul class="am-nav am-navbar-nav am-navbar-left">
-					<li><h4 class="page-title">评论举报管理</h4></li>
+					<li><h4 class="page-title">用户反馈查看</h4></li>
 				</ul>
 			</div>
 		</header>
@@ -105,7 +101,7 @@
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><i class="am-icon-line-chart" aria-hidden="true" ></i> 评论管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
-						        <li><a href="../BSManage/commentManage2.jsp?page=1" class="am-cf" style="background-color: #E0E0E0;">举报管理</a></li>
+						        <li><a href="../BSManage/commentManage2.jsp?page=1" class="am-cf">举报管理</a></li>
 						       
 						      </ul>
 						    </li>
@@ -114,8 +110,8 @@
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="am-icon-file"></span> 用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
 						        <li><a href="../BSManage/UserManage2.jsp?page=1" class="am-cf">权限管理</a></li>
-						        <li><a href="../BSManage/UserApply2.jsp?page=1">权限申请管理</a></li> 
-						       <li><a href="../BSManage/UserSuggest2.jsp?page=1" class="am-cf">反馈查看</a></li>
+						        <li><a href="../BSManage/UserApply2.jsp?page=1">权限申请管理</a></li>
+						        <li><a href="../BSManage/UserSuggest2.jsp?page=1" class="am-cf" style="background-color: #E0E0E0;">反馈查看</a></li>
 						      </ul>
 						    </li>
 							<%} %>
@@ -135,15 +131,13 @@
                                 <thead>
                                     <tr>
                                         <th width="200" style="word-break:break-all">用户信息</th>
-                                        <th width="200" style="word-break:break-all"></th>
-                                        <th width="180" style="word-break:break-all">评论时间</th>
-										<th width="80" style="word-break:break-all"><div align="center">封号</div></th>
-                                        <th colspan="2">操作</th>
+                                        <th width="200" style="word-break:break-all">反馈内容</th>
+                                        <th width="180" style="word-break:break-all">反馈时间</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                 <%
-									allPage = nm.getReportPage();
+									allPage = nm.getSuggestPage();
 									page_num = allPage/8;
 									if(allPage%8!=0){
 										page_num+=1;
@@ -153,75 +147,14 @@
 							        int p2 = Integer.parseInt(request.getParameter("page")); 
 							        p2=p2+1;
 									for (int i = 0; i < list.size(); i++) {
-									CommentReport cr = (CommentReport)list.get(i);
+										Suggest s = (Suggest)list.get(i);
 								%>
                                     <tr>
                                         <td width="180" style="word-break:break-all">
-                                        	新闻标题：<a href="../ShowNews?newsId=<%=cr.getNewsId()%>"><%=cr.getNewsTitle() %></a>
-                                       		 <br />评论用户：<%=cr.getUserName() %></td>
-                                       	<td width="350">评论内容：<%=cr.getCommentContent() %></td>
-                                        <td width="180" style="word-break:break-all"><%=cr.getCommentTime() %></td>
+                                       		 反馈用户：<%=s.getUserName()%><br>用户邮箱：</td>
+                                       	<td width="350">反馈内容：<%=s.getText()%></td>
+                                        <td width="180" style="word-break:break-all"><%=s.getSuggestTime()%></td>
 										<td width="80" style="word-break:break-all"><div align="center" >
-										<form action="../updateCommentServlet" method="Post">
-										<input type="hidden" value="<%=cr.getUserId()%>" name="UserId">
-										<input type="checkbox" name="dealUser" value="4"></div></td>
-                                        <td>
-											<input type="hidden" value="<%=cr.getCommentId()%>" name="CommentId">
-											<button type="button"  class="am-btn am-btn-danger" id="doc-prompt-toggle<%=cr.getCommentId()%>">删除</button>
-											<!-- 弹窗开始 -->
-											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=cr.getCommentId()%>">
-										  <div class="am-modal-dialog">
-										    <div class="am-modal-hd">确认删除？</div>
-											    <div class="am-modal-footer">
-											     <input name="operate" type="submit" value="删除" style="width: 100%;background-color:#F8F8F8;border: 0px;color:#0E90D2;line-height: 100%;">
-											     <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-											    </div>
-											  </div>
-											</div>
-											<script type="text/javascript">
-												$(function() {
-													  $('#doc-prompt-toggle<%=cr.getCommentId()%>').on('click', function() {
-													    $('#my-prompt<%=cr.getCommentId()%>').modal({
-													      relatedTarget: this,
-													      onConfirm: function(e) {
-													        alert('你输入的是：' + e.data || '')
-													      },
-													    });
-													  });
-													});
-											</script>
-											<!-- 弹窗结束 -->
-										</form>
-										</td>
-										<td>
-										<form action="../updateCommentServlet" method="Post">
-										<input type="hidden" value="<%=cr.getCommentId()%>" name="CommentId">
-												<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=cr.getCommentId()%>no">取消举报</button>&nbsp;
-											<!-- 弹窗开始 -->
-											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=cr.getCommentId()%>no">
-										  <div class="am-modal-dialog">
-										    <div class="am-modal-hd">是否取消</div>
-											    <div class="am-modal-footer">
-											     <input name="operate" type="submit" value="是" style="width: 100%;background-color:#F8F8F8;border: 0px;color:#0E90D2;line-height: 100%;">
-											     <span class="am-modal-btn" data-am-modal-cancel>否</span>
-											    </div>
-											  </div>
-											</div>
-											<script type="text/javascript">
-												$(function() {
-													  $('#doc-prompt-toggle<%=cr.getCommentId()%>no').on('click', function() {
-													    $('#my-prompt<%=cr.getCommentId()%>no').modal({
-													      relatedTarget: this,
-													      onConfirm: function(e) {
-													        alert('你输入的是：' + e.data || '')
-													      },
-													    });
-													  });
-													});
-											</script>
-											<!-- 弹窗结束 -->
-											</td>
-										</form>
 										</td>
                                     </tr>
                                 <%} %>
@@ -233,18 +166,18 @@
 					 <div class="fy" style="float:right; margin-right:20px;">
            			<ul class="pagination">
            			<%if(p1>=1){ %>
-                        <li><a id="up" href="commentManage2.jsp?page=<%=p1%>">上一页</a></li>
+                        <li><a id="up" href="UserSuggest2.jsp?page=<%=p1%>">上一页</a></li>
                     <%} %>
                     <%for(int i = 1 ; i <= page_num ; i++){%>
                         <%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
-		        			<li><a href="commentManage2.jsp?page=<%=i%>"><%=i %></a></li>
+		        			<li><a href="UserSuggest2.jsp?page=<%=i%>"><%=i %></a></li>
 		        		<%}
 		        		else{%>
 		        			<li><a style="color: red"><%=i %></a></li>
 		        		<%}%>
                     <%} %>
                     <%if(p2<=page_num){ %>
-                        <li><a id="down" href="commentManage2.jsp?page=<%=p2 %>">下一页</a></li>
+                        <li><a id="down" href="UserSuggest2.jsp?page=<%=p2 %>">下一页</a></li>
                     <%} %>
                     </ul>
                   </div>
