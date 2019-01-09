@@ -153,9 +153,14 @@ li {
 					<!--用户类型开始  -->
 					<div class="am-form-group">
 						<label for="user-name2" class="am-form-label">用户类型</label>
+<<<<<<< HEAD
 						<div class="am-form-label" style="letter-spacing: 4px;font-size:15px;margin-right:40px;color:#00F;font-weight:520 ">
+=======
+						<div class="am-form-label" style="letter-spacing: 1px;font-size:15px;text-align:left;width:260px;margin-left:1em;">
+						
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
 							<%
-								if (UserType.equals("1")) {
+								if (user.getUserType()==1) {
 							%>
 
 							<%
@@ -206,12 +211,22 @@ li {
 										if (al.getState().equals("申请中")) {
 							%>
 							<!-- <input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;"><br/> -->
+<<<<<<< HEAD
 							小编申请审核中<br/>
+=======
+							<font color="#FF0000" size="3">小编申请审核中</font>
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
 							<%
 								} else if (al.getState().equals("申请失败")) {
 							%>
+<<<<<<< HEAD
 							<input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;">
 							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 4px;">重新申请</button>
+=======
+							<!-- <input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;"> -->
+							<font color="#FF0000" size="3">小编申请审核中</font>
+							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" >重新申请</button>
+>>>>>>> branch 'master' of https://github.com/DischargeHy/News
 							<!-- 弹窗开始 -->
 							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
 								<div class="am-modal-dialog">
@@ -251,14 +266,15 @@ li {
 								} else {
 							%>
 								<!-- <input type="text" name="usertypeName" value="小编申请成功，请重新登录生效..." readonly="readonly" style="width: 270px; float: left;"> -->
-								<a href="../Login.jsp">小编申请成功，请重新登录生效...</a>
+								<a href="../Login.jsp">	
+								<div style="margin-top:20"><font color="#FF0000" size="3" >小编申请成功，请重新登录生效...</font></div> </a>
 							<%
 										}
 									}
 								}
 							%>
 							<%
-								if (UserType.equals("2")) {
+								if (user.getUserType()==2) {
 							%>
 							<!-- <input type="text" name="usertypeName" value="小编" readonly="readonly"><br/> -->
 							小编<br/>

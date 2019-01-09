@@ -119,17 +119,9 @@
 				  			 %>   
 	                        <h5><a href="NewsManage2.jsp"><%=UserName %></a> </h5>
 	                        <%} %>
-	                        <ul class="list-inline">
+	                       <ul class="list-inline">
 	                            <li>
-	                                <a href="#">
-	                                    <i class="am-icon-cog" aria-hidden="true"></i>
-	                                </a>
-	                            </li>
-	
-	                            <li>
-	                                <a href="#" class="text-custom">
-	                                    <i class="am-icon-cog" aria-hidden="true"></i>
-	                                </a>
+	                                <a href="../index.jsp?logout=1">登出</a>
 	                            </li>
 	                        </ul>
 	                    </div>
@@ -328,7 +320,12 @@
 											   </form>
                                        </td>
                                     </tr>
-                                <%} %>
+                                <%} 
+                                if(list.size()==0){%>
+							        <tr height="80px">
+                                       <td width="100%" style="word-break:break-all" colspan="5">未查找到相关新闻！</td>
+                                    </tr>
+							        <%}%>
                                 </tbody>
                             </table>
                             <!-- col end -->

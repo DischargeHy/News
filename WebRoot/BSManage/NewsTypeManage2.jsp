@@ -54,15 +54,7 @@ int userType = (Integer)session.getAttribute("UserType");
 	                        <%} %>
 	                        <ul class="list-inline">
 	                            <li>
-	                                <a href="#">
-	                                    <i class="am-icon-cog" aria-hidden="true"></i>
-	                                </a>
-	                            </li>
-	
-	                            <li>
-	                                <a href="#" class="text-custom">
-	                                    <i class="am-icon-cog" aria-hidden="true"></i>
-	                                </a>
+	                                <a href="../index.jsp?logout=1">登出</a>
 	                            </li>
 	                        </ul>
 	                    </div>
@@ -141,7 +133,7 @@ int userType = (Integer)session.getAttribute("UserType");
 										</td>
                                         <td>
                                         	<form action="../updateType" method="post"><td>
-                                        		<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>">更改</button>
+                                        		<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>">修改</button>
 												<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
 												<input type="hidden" name="edit" value="delete">
 												<button  type="button"  class="am-btn am-btn-danger"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>del">删除</button>											<!-- 弹窗 -->

@@ -97,7 +97,8 @@ li {
 	<!--头部结束 -->
 	<br />
 	
-	<div class="banner_x center">
+	<div class="banner_x center" >
+		<div class="center" style="width:90%;">
 		<!-- 板块导航栏显示开始 -->
 		<div class="nav left">
 			<ul>
@@ -119,14 +120,16 @@ li {
 					}
 				%>
 			</ul>
+			</div>
 		</div>
+		
 		<!-- 板块导航栏显示结束 -->
 		
 		<!--搜索框开始-->
-		<div class="search fr ">
+		<div class="search fr">
 			<form action="Search.jsp" method="post">
-				<div class="text fl">
-					<input type="text" name="Search" class="shuru" placeholder="请输入搜索内容">
+				<div class="text fl" >
+					<input type="text" name="Search" class="shuru" placeholder="请输入搜索内容" >
 				</div>
 				<div class="submit fl">
 					<input type="submit" class="sousuo" value="搜索" />
@@ -142,7 +145,7 @@ li {
 
 
 	<!-- Top3新闻展示开始 -->
-	<div class="am-g am-g-fixed blog-fixed center" align="center">
+	<div class="am-g am-g-fixed blog-fixed center" align="center" style="width:90%;">
 		<div data-am-widget="slider" class="am-slider am-slider-b1" data-am-slider='{&quot;controlNav&quot;:false}'>
 			<ul class="am-slides ">
 				<%
@@ -179,16 +182,18 @@ li {
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-img">
 					<img src=<%=news.getNewsCover()%> alt="" class="am-u-sm-12" width="369px" height="207px">
 				</div>
-				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
+				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text" style="height:207px ">
 					<span><a class="blog-color">article &nbsp;</a></span> <span> @<%=news.getUserName()%> &nbsp;</span> <br/>
 
 					<h1>
 						<a href="ShowNews?newsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a>
 					</h1>
 					
+					<div style="position:absolute;top:90%;left:2.8%;">
 					<span><a class="blog-color">Content &nbsp;</a></span><span><%=news.getNewsContentNum() %></span>
 					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 					<span><a class="blog-color">Last modification &nbsp;</a></span><span><%=news.getUpdateTime()%></span>
+				</div>
 				</div>
 			</article>
 			<%} %>
@@ -200,6 +205,7 @@ li {
 				<h2 class="blog-text-center blog-title">
 					<span>最新资讯</span>
 				</h2>
+				<hr>
 				<%
 					News mostNewNews=nm.showMostNewNews();
 				%>
@@ -221,8 +227,13 @@ li {
 					%>
 					<li>
 					<a href="ShowNews?newsId=<%=todayNews.getNewsId()%>">
-					<img src=<%=todayNews.getNewsCover() %> alt="about me" style="height: 75px; width: 75px;">
+					<div style="left">
+					<img src=<%=todayNews.getNewsCover() %> alt="about me" style="height: 236px; width:312px;">
+					</div>
+					<br>
+					<div style="right">
 					<%=todayNews.getNewsTitle()%>
+					</div>
 					</a>
 					</li>
 					<%
@@ -231,22 +242,63 @@ li {
 				</ul>
 			</div>
 
-			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
+			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g" >
 				<h2 class="blog-title">
 					<span>友情链接</span>
 				</h2>
-				<div class="am-u-sm-12 blog-clear-padding">
-					<a href="" class="blog-tag">海外网</a> <a href="" class="blog-tag">中国网</a> <a href="" class="blog-tag">光明网</a> <a href="" class="blog-tag">北青网</a> <a href="" class="blog-tag">闽南网</a> <a href="" class="blog-tag">乐居网</a> <a href="" class="blog-tag">海外网</a> <a href="" class="blog-tag">中国网</a> <a href="" class="blog-tag">光明网</a> <a href="" class="blog-tag">北青网</a> <a href="" class="blog-tag">闽南网</a> <a href="" class="blog-tag">乐居网</a> <a href="" class="blog-tag">海外网</a> <a href="" class="blog-tag">中国网</a>
-					<a href="" class="blog-tag">光明网</a> <a href="" class="blog-tag">北青网</a> <a href="" class="blog-tag">闽南网</a> <a href="" class="blog-tag">乐居网</a> <a href="" class="blog-tag">法制网</a> <a href="" class="blog-tag">汽车网</a>
+				<hr>
+				
+				<div class="am-u-sm-12 blog-clear-padding " >
+				
+			
+					<a href="" class="blog-tag">海外网</a>
+					 <a href="" class="blog-tag">中国网</a> 
+					 <a href="" class="blog-tag">光明网</a> 
+					 <a href="" class="blog-tag">北青网</a>
+					  <a href="" class="blog-tag">闽南网</a>
+					   <a href="" class="blog-tag">乐居网</a>
+					    <a href="" class="blog-tag">海外网</a>
+					     <a href="" class="blog-tag">中国网</a>
+					     <a href="" class="blog-tag">光明网</a> 
+					     <a href="" class="blog-tag">北青网</a> 
+					     <a href="" class="blog-tag">闽南网</a> 
+					     <a href="" class="blog-tag">乐居网</a>
+					     <a href="" class="blog-tag">海外网</a> 
+					     <a href="" class="blog-tag">中国网</a>
+					<a href="" class="blog-tag">光明网</a> 
+					<a href="" class="blog-tag">北青网</a> 
+					<a href="" class="blog-tag">闽南网</a> 
+					<a href="" class="blog-tag">乐居网</a> 
+					<a href="" class="blog-tag">法制网</a> 
+					<a href="" class="blog-tag">汽车网</a>
+			
+				
+				
 				</div>
+				
 			</div>
 			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
 				<h2 class="blog-title">
 					<span>更多</span>
 				</h2>
-				<div class="am-u-sm-12 blog-clear-padding">
-					<a href="" class="blog-tag"> 关于米窝</a> <a href="" class="blog-tag"> 加入米窝</a> <a href="" class="blog-tag"> 媒体报道</a> <a href="" class="blog-tag"> 媒体合作</a> <a href="" class="blog-tag"> 产品合作</a> <a href="" class="blog-tag"> 合作说明</a> <a href="" class="blog-tag"> 产品说明</a> <a href="" class="blog-tag"> 广告投放</a> <a href="" class="blog-tag"> 联系我们</a> <a href="" class="blog-tag"> 用户协议</a> <a href="" class="blog-tag"> 隐私政策</a> <a href="" class="blog-tag"> 侵权投诉</a> <a href="" class="blog-tag"> 廉洁举报</a> <a
-						href="" class="blog-tag"> 企业认证</a>
+				<hr>
+				<div class="am-u-sm-12 blog-clear-padding" >
+				
+					<a href="" class="blog-tag"> 关于米窝</a> 
+					<a href="" class="blog-tag"> 加入米窝</a> 
+					<a href="" class="blog-tag"> 媒体报道</a> 
+					<a href="" class="blog-tag"> 媒体合作</a> 
+					<a href="" class="blog-tag"> 产品合作</a> 
+					<a href="" class="blog-tag"> 合作说明</a> 
+					<a href="" class="blog-tag"> 产品说明</a> 
+					<a href="" class="blog-tag"> 广告投放</a> 
+					<a href="" class="blog-tag"> 联系我们</a> 
+					<a href="" class="blog-tag"> 用户协议</a> 
+					<a href="" class="blog-tag"> 隐私政策</a> 
+					<a href="" class="blog-tag"> 侵权投诉</a> 
+					<a href="" class="blog-tag"> 廉洁举报</a> 
+					<a href="" class="blog-tag"> 企业认证</a>
+					
 				</div>
 			</div>
 

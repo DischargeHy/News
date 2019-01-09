@@ -23,16 +23,21 @@ public class updateType extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("utf-8");
 		int NewsTypeId =Integer.parseInt(request.getParameter("NewsTypeId"));
-		String NewsTypeName = request.getParameter("NewsTypeName");
+		String NewsTypeName = "";
+		if(request.getParameter("NewsTypeName")!=null) {
+			NewsTypeName = request.getParameter("NewsTypeName");
+		}
 		String edit = request.getParameter("edit");
 		BSManage bs = new BSManage();
 		int num = 0;
-		System.out.println(NewsTypeId);
-		System.out.println(NewsTypeName);
 		PrintWriter out = response.getWriter();  
 		if(edit.equals("update")){
 			try {
-				num = bs.updateNewsType(NewsTypeId, NewsTypeName);
+				if(NewsTypeName.length()>=3&&NewsTypeName.length()<=7) {
+				num = bs.updateNewsType(NewsTypeId, NewsTypeName);}
+				else {
+					num=0;
+				}
 				if(num!=0) {
 					out.print("<script>alert('edit success!');location.href='BSManage/NewsTypeManage2.jsp';</script>");
 				}
@@ -59,7 +64,8 @@ public class updateType extends HttpServlet {
 		}
 		else if(edit.equals("insert")) {
 			try {
-				num = bs.insertNewsType(NewsTypeName);
+				if(NewsTypeName.length()>=3&&NewsTypeName.length()<=7) {
+				num = bs.insertNewsType(NewsTypeName);}
 				if(num!=0) {
 					out.print("<script>alert('add success!');location.href='BSManage/NewsTypeManage2.jsp';</script>");
 				}
