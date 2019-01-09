@@ -76,7 +76,6 @@
 
 					<li><h4 class="page-title">新闻查询管理</h4></li>
 				</ul>
-				
 				<ul class="am-nav am-navbar-nav am-navbar-right">
 					<li class="inform"><i class="am-icon-bell-o" aria-hidden="true"></i></li>
 					<li class="hidden-xs am-hide-sm-only">
@@ -109,7 +108,7 @@
 				    	<!-- User -->
 						<div class="user-box am-hide-sm-only">
 	                        <div class="user-img">
-	                            <img src="../houtai/assets/img/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
+	                            <img src="<%=session.getAttribute("UserHead") %>" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
 	                            <div class="user-status offline"><i class="am-icon-dot-circle-o" aria-hidden="true"></i></div>
 	                        </div>
 	                        <%if (session.getAttribute("UserAccount") != null) {	
