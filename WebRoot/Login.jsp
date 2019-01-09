@@ -21,16 +21,16 @@
 <div class="log"> 
   <div class="am-g">
   <div class="am-u-lg-3 am-u-md-6 am-u-sm-8 am-u-sm-centered log-content">
-    <h1 class="log-title am-animation-slide-top">登录</h1>
+    <h1 class="log-title am-animation-slide-top">登 录</h1>
     <br>
     <form class="am-form" id="log-form" action="LoginServlet" method="post">
       <div class="am-input-group am-radius am-animation-slide-left">       
-        <input type="text" id="doc-vld-email-2-1" name="txt_uAccount" class="am-radius" data-validation-message="请输入正确用户名" placeholder="用户名" required/>
+        <input type="text" id="doc-vld-email-2-1" name="txt_uAccount" class="am-radius" data-validation-message="请输入正确的用户名" placeholder="用户名" minlength="2" maxlength="16" required/>
         <span class="am-input-group-label log-icon am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
       </div>
       <br>
       <div class="am-input-group am-animation-slide-left log-animation-delay">
-        <input type="password" id="log-password" name="txt_uPass" class="am-form-field am-radius log-input" placeholder="密码" minlength="6" data-validation-message="请输入正确密码" required>
+        <input type="password" id="log-password" name="txt_uPass" class="am-form-field am-radius log-input" placeholder="密码" minlength="6" maxlength="16" data-validation-message="请输入正确的密码" required>
         <span class="am-input-group-label log-icon am-radius"><i class="am-icon-lock am-icon-sm am-icon-fw"></i></span>
       </div>
       <br>

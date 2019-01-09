@@ -245,4 +245,123 @@ aside {width: 160px;}
 /*博客*/
 .blog-main{margin-top:30px ;}
    }
+/* 搜索页面中间 */
+
+.body {
+	width: 100%;
+	background-color: #F1F2F3;
+}
+
+.top {
+	width: 100%;
+	height: 30px;
+	text-align: center;
+}
+
+.li {
+	list-style: none;
+	float: left;
+	margin-left: 20px;
+}
+
+.topl a {
+	color: #FFF;
+	line-height: 30px;
+	text-align: center;
+}
+
+.topr {
+	float: right;
+	margin-right: 50px;
+}
+
+.topr a {
+	color: #FFF;
+	line-height: 30px;
+	text-align: center;
+}
+
+.a {
+	text-decoration: none;
+}
+
+.topx {
+	margin-left: 70px;
+	margin-top: 30px;
+	font-size: 18px;
+}
+
+.topx a:hover {
+	color: #F00;
+}
+
+.content {
+	width: 530px;
+	height: 600px;
+	margin-left: 230px;
+	margin-top: 80px;
+	background: #FFF;
+	position: relative;
+	right: 100px;
+}
+
+.content1 {
+	width: 600px;
+	height: 110px;
+	text-align: center;
+}
+
+.contentleft {
+	width: 20%;
+	float: left;
+}
+
+.contentright {
+	margin-left: 90px;
+	margin-top: 40px;
+	width: 65%;
+	float: right;
+}
+
+.contentright a {
+	color: #777777;
+	font-size: 16px;
+}
+
+.contentleft img {
+	margin-top: 10px;
+	margin-left: 20px;
+}
+
+.contentleft1 {
+	width: 20%;
+	float: left;
+}
+
+.contentright1 {
+	margin-right: 30px;
+	margin-top: 20px;
+	width: 65%;
+	float: right;
+}
+
+.contentright1 a {
+	color: #777777;
+	font-size: 16px;
+}
+
+.contentleft1 img {
+	margin-left: 20px;
+}
+
+.contentright  p, a {
+	font-size: 20px;
+	color: #000;
+}
+
+.contentright1 p, a {
+	font-size: 20px;
+	color: #000;
+}
+
 
