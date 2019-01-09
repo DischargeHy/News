@@ -153,7 +153,7 @@ li {
 					<!--用户类型开始  -->
 					<div class="am-form-group">
 						<label for="user-name2" class="am-form-label">用户类型</label>
-						<div class="am-form-label" style="letter-spacing: 1px;font-size:15px;text-align:left;width:150px;margin-left:1em;">
+						<div class="am-form-label" style="letter-spacing: 1px;font-size:15px;text-align:left;width:240px;margin-left:1em;">
 						
 							<%
 								if (UserType.equals("1")) {
@@ -211,7 +211,8 @@ li {
 							<%
 								} else if (al.getState().equals("申请失败")) {
 							%>
-							<input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;">
+							<!-- <input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;"> -->
+							<font color="#FF0000">小编申请审核中</font> 
 							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 4px;">重新申请</button>
 							<!-- 弹窗开始 -->
 							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
