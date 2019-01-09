@@ -200,9 +200,9 @@ li {
 				<h2 class="blog-text-center blog-title">
 					<span>最新资讯</span>
 				</h2>
-				<img src="assets1/i/f14.jpg" alt="about me" class="blog-entry-img">
-				<p>妹纸</p>
-				<p>我不想成为一个庸俗的人。十年百年后，当我们死去，质疑我们的人同样死去，后人看到的是裹足不前、原地打转的你，还是一直奔跑、走到远方的我？</p>
+				<img src="img/java.png" alt="about me" class="blog-entry-img" style="width: 312px;height: 236px;">
+				<p>作者</p>
+				<p>标题</p>
 			</div>
 
 			<div class="blog-sidebar-widget blog-bor">
@@ -210,7 +210,7 @@ li {
 					<span>24小时新闻</span>
 				</h2>
 				<ul class="am-list">
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
+					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">标题</a></li>
 					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
 					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
 					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>

@@ -103,15 +103,15 @@
 	                    </div>
 	                    <!-- End User -->
 						<ul class="am-list admin-sidebar-list">
-						    <li><a href="#"><span class="am-icon-home"></span> 首页</a></li>
+						    <li><a href="../"><span class="am-icon-home"></span> 首页</a></li>
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span> 新闻管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
+						      	<li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						        <%if(userType==3){ %>
                                 <li><a href="../BSManage/NewsExamine2.jsp?page=1" class="am-cf">审核列表 </a></li>
                                 <li><a href="../BSManage/NewsTypeManage2.jsp?page=1" class="am-cf">分类管理 </a></li>
 						        <%} %>
-						        <li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						      </ul>
 						    </li>
 						    <li class="admin-parent">
@@ -127,6 +127,7 @@
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
 						        <li style="background-color: #E0E0E0;"><a href="../BSManage/UserManage2.jsp?page=1" class="am-cf">权限管理</a></li>
 						        <li><a href="../BSManage/UserApply2.jsp?page=1">权限申请管理</a></li> 
+						        <li><a href="../BSManage/UserSuggest2.jsp?page=1" class="am-cf">反馈查看</a></li>
 						      </ul>
 						    </li>
 							<%} %>
