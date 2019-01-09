@@ -153,7 +153,8 @@ li {
 					<!--用户类型开始  -->
 					<div class="am-form-group">
 						<label for="user-name2" class="am-form-label">用户类型</label>
-						<div class="am-form-label" style="letter-spacing: 4px;font-size:15px;margin-right:40px;color:#00F;font-weight:520 ">
+						<div class="am-form-label" style="letter-spacing: 1px;font-size:15px;text-align:left;width:150px;margin-left:1em;">
+						
 							<%
 								if (UserType.equals("1")) {
 							%>
@@ -165,7 +166,7 @@ li {
 							<!-- <input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;"> -->
 							普通用户
 							
-							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 3px;">申请成为小编</button>
+							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 0px; margin-top: 3px;">申请成为小编</button>
 							<!-- 弹窗开始 -->
 							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
 								<div class="am-modal-dialog">
@@ -206,7 +207,7 @@ li {
 										if (al.getState().equals("申请中")) {
 							%>
 							<!-- <input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;"><br/> -->
-							小编申请审核中<br/>
+							<font color="#FF0000">小编申请审核中</font> <br/>
 							<%
 								} else if (al.getState().equals("申请失败")) {
 							%>
@@ -261,7 +262,7 @@ li {
 								if (UserType.equals("2")) {
 							%>
 							<!-- <input type="text" name="usertypeName" value="小编" readonly="readonly"><br/> -->
-							小编<br/>
+							<font color="#00F">小编</font><br/>
 							<%
 								}
 							%>
@@ -280,7 +281,7 @@ li {
 							<!--账号开始  -->
 							<div class="am-form-group">
 								<label for="user-name2" class="am-form-label">账号</label>
-								<div class="am-form-label" style="letter-spacing: 2px;font-size:14px;margin-right:40px">
+								<div class="am-form-label" style="letter-spacing: 1px;text-align:left;margin-left:1em;">
 									<%=user.getUserAccount()%>
 									<input type="hidden"  placeholder="UserAccount" readonly="readonly" name="txt_uAccount" value="<%=user.getUserAccount()%>" />
 
