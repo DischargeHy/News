@@ -57,13 +57,9 @@ public class UserMessageUpdateServlet extends HttpServlet {
 		String userEMail = request.getParameter("txt_uemail");
 		String userBirthday = Year + "-" + Month + "-" + Day;
 		int userSex = Integer.parseInt(request.getParameter("rdo_gender"));
+		
+		//无用
 		int userType = 1;
-		if (UserTypeName.equals("普通用户")) {
-			userType = 1;
-		}
-		if (UserTypeName.equals("小编")) {
-			userType = 2;
-		}
 		String userHead = "http://localhost:8080/News/img/java.png";//头像修改待定
 
 		/*

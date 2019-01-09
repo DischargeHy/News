@@ -281,7 +281,7 @@ width:100%
 				
 		 <!--序列123  -->
 		
-			 <div style=" display:inline-block;" >
+			 <div style=" display: inline-block;" >
 
 				<ul class="am-pagination  am-pagination-centered ">
 					<li class="am-disabled"><a
