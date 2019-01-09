@@ -157,7 +157,7 @@ li {
 							<h1>
 								<a href="ShowNews?newsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a>
 							</h1>
-							<span>说明字段</span>
+							<span><%=news.getUserName() %></span>
 						</div>
 					</div></li>
 				<%} %>
@@ -180,40 +180,54 @@ li {
 					<img src=<%=news.getNewsCover()%> alt="" class="am-u-sm-12" width="369px" height="207px">
 				</div>
 				<div class="am-u-lg-6 am-u-md-12 am-u-sm-12 blog-entry-text">
-					<span><a href="" class="blog-color">article &nbsp;</a></span> <span> @<%=news.getUserName()%> &nbsp;
-					</span> <span><%=news.getUpdateTime()%></span>
+					<span><a class="blog-color">article &nbsp;</a></span> <span> @<%=news.getUserName()%> &nbsp;</span> <br/>
+
 					<h1>
 						<a href="ShowNews?newsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a>
 					</h1>
-					<p>说明字段</p>
-					<p>
-						<a href="" class="blog-continue">continue reading</a>
-					</p>
+					
+					<span><a class="blog-color">Content &nbsp;</a></span><span><%=news.getNewsContentNum() %></span>
+					&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+					<span><a class="blog-color">Last modification &nbsp;</a></span><span><%=news.getUpdateTime()%></span>
 				</div>
 			</article>
 			<%} %>
 
 		</div>
-		<!-- 剩余热门新闻展示结束 -->
+		<!-- 剩余新闻展示结束 -->
 		<div class="am-u-md-4 am-u-sm-12 blog-sidebar">
 			<div class="blog-sidebar-widget blog-bor">
 				<h2 class="blog-text-center blog-title">
 					<span>最新资讯</span>
 				</h2>
-				<img src="assets1/i/f14.jpg" alt="about me" class="blog-entry-img">
-				<p>妹纸</p>
-				<p>我不想成为一个庸俗的人。十年百年后，当我们死去，质疑我们的人同样死去，后人看到的是裹足不前、原地打转的你，还是一直奔跑、走到远方的我？</p>
+				<%
+					News mostNewNews=nm.showMostNewNews();
+				%>
+				<img src=<%=mostNewNews.getNewsCover() %> alt="about me" class="blog-entry-img" style="width: 312px;height: 236px;">
+				<p>@ <%=mostNewNews.getUserName() %></p>
+				<p><a href="ShowNews?newsId=<%=mostNewNews.getNewsId()%>"><%=mostNewNews.getNewsTitle()%></a></p>
+				
 			</div>
 
 			<div class="blog-sidebar-widget blog-bor">
 				<h2 class="blog-title">
 					<span>24小时新闻</span>
 				</h2>
-				<ul class="am-list">
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
-					<li><a href="#"><img src="assets1/i/f14.jpg" alt="about me" style="height: 75px; width: 75px;">每个人都有一道伤口， 或深或浅，盖</a></li>
+				<ul class="am-list" >
+					<%
+					ArrayList todayNewsList=nm.showTodayNews();
+					for(int i = 0; i < todayNewsList.size(); i++){
+					News todayNews=(News)todayNewsList.get(i);
+					%>
+					<li>
+					<a href="ShowNews?newsId=<%=todayNews.getNewsId()%>">
+					<img src=<%=todayNews.getNewsCover() %> alt="about me" style="height: 75px; width: 75px;">
+					<%=todayNews.getNewsTitle()%>
+					</a>
+					</li>
+					<%
+					}
+					%>
 				</ul>
 			</div>
 
