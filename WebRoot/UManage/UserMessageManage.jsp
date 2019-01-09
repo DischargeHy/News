@@ -162,7 +162,9 @@ li {
 								ApplyList al = nm.showApplyListByUserId(user.getUserId());
 									if (al == null) {
 							%>
-							<input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;">
+							<!-- <input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;"> -->
+							普通用户
+							
 							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 3px;">申请成为小编</button>
 							<!-- 弹窗开始 -->
 							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
@@ -173,7 +175,8 @@ li {
 											<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> <input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
 										</div>
 										<div class="am-modal-footer">
-											<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 100%;"> <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+											<input name="operate" type="submit" value="确认" style="width: 110%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 50px;font-size: 16px;">
+											<span class="am-modal-btn" data-am-modal-cancel>取消</span>
 										</div>
 								</div>
 							</div>
@@ -202,7 +205,8 @@ li {
 								} else {
 										if (al.getState().equals("申请中")) {
 							%>
-							<input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;"><br/>
+							<!-- <input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;"><br/> -->
+							小编申请审核中<br/>
 							<%
 								} else if (al.getState().equals("申请失败")) {
 							%>
@@ -217,10 +221,7 @@ li {
 											<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> <input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
 										</div>
 										<div class="am-modal-footer">
-											<!-- <span class="am-modal-btn">
-											<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 40px;"> 
-											</span> -->
-											<input name="operate" type="submit" value="确认" style="width: 50px; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 50px;"> 
+											<input name="operate" type="submit" value="确认" style="width: 110%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 50px;font-size: 16px;">
 											<span class="am-modal-btn" data-am-modal-cancel>取消</span>
 										</div>
 								</div>
@@ -248,6 +249,10 @@ li {
 							<!-- 弹窗结束 -->
 							<%
 								} else {
+							%>
+								<!-- <input type="text" name="usertypeName" value="小编申请成功，请重新登录生效..." readonly="readonly" style="width: 270px; float: left;"> -->
+								<a href="../Login.jsp">小编申请成功，请重新登录生效...</a>
+							<%
 										}
 									}
 								}
@@ -255,7 +260,8 @@ li {
 							<%
 								if (UserType.equals("2")) {
 							%>
-							<input type="text" name="usertypeName" value="小编" readonly="readonly">
+							<!-- <input type="text" name="usertypeName" value="小编" readonly="readonly"><br/> -->
+							小编<br/>
 							<%
 								}
 							%>
@@ -275,7 +281,8 @@ li {
 							<div class="am-form-group">
 								<label for="user-name2" class="am-form-label">账号</label>
 								<div class="am-form-content">
-									<input type="text" id="UserID" placeholder="UserAccount" readonly="readonly" name="txt_uAccount" value="<%=user.getUserAccount()%>" />
+									<%=user.getUserAccount()%>
+									<input type="hidden"  placeholder="UserAccount" readonly="readonly" name="txt_uAccount" value="<%=user.getUserAccount()%>" />
 
 								</div>
 							</div>
