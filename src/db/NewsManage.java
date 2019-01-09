@@ -264,6 +264,8 @@ public class NewsManage {
 		}
 		//通过页数筛选用户
 		public ArrayList showUser(String type,String page) {
+			System.out.println(type);
+			System.out.println(page);
 			ArrayList list = new ArrayList();
 			int limit = 0;
 			int page_int = Integer.parseInt(page);
@@ -350,9 +352,9 @@ public class NewsManage {
 			ArrayList list = new ArrayList();
 			int limit = 0;
 			int page_int = Integer.parseInt(page);
-			limit+= (page_int-1)*10;
+			limit+= (page_int-1)*6;
 			Connection con = conn.getCon();
-			String sqlString = "select * from `NewsExamineView` limit " + limit +",10";
+			String sqlString = "select * from `NewsExamineView` limit " + limit +",6";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();
@@ -398,9 +400,9 @@ public class NewsManage {
 			ArrayList list = new ArrayList();
 			int limit = 0;
 			int page_int = Integer.parseInt(page);
-			limit+= (page_int-1)*10;
+			limit+= (page_int-1)*8;
 			Connection con = conn.getCon();
-			String sqlString = "select * from `CommentReportView` limit " + limit +",10";
+			String sqlString = "select * from `CommentReportView` limit " + limit +",8";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();

@@ -46,10 +46,10 @@ public class updateNewsServlet extends HttpServlet {
 			try {
 				i = bm.deleteNews(NewsId);
 				if(i!=0) {
-					out.print("<script>alert('delete success!');location.href='BSManage/NewsManage.jsp?page=1';</script>");
+					out.print("<script>alert('delete success!');location.href='BSManage/NewsManage2.jsp?page=1';</script>");
 				}
 				else {
-					out.print("<script>alert('delete failed!');location.href='BSManage/NewsManage.jsp?page=1';</script>");
+					out.print("<script>alert('delete failed!');location.href='BSManage/NewsManage2.jsp?page=1';</script>");
 					out.flush();
 				}
 			} catch (SQLException e) {

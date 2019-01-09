@@ -34,10 +34,10 @@ public class updateType extends HttpServlet {
 			try {
 				num = bs.updateNewsType(NewsTypeId, NewsTypeName);
 				if(num!=0) {
-					out.print("<script>alert('edit success!');location.href='BSManage/NewsTypeManage.jsp';</script>");
+					out.print("<script>alert('edit success!');location.href='BSManage/NewsTypeManage2.jsp';</script>");
 				}
 				else {
-					out.print("<script>alert('edit failed!');location.href='BSManage/NewsTypeManage.jsp';</script>");
+					out.print("<script>alert('edit failed!');location.href='BSManage/NewsTypeManage2.jsp';</script>");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -47,10 +47,10 @@ public class updateType extends HttpServlet {
 			try {
 				num = bs.deleteNewsType(NewsTypeId);
 				if(num!=0) {
-					out.print("<script>alert('delete success!');location.href='BSManage/NewsTypeManage.jsp';</script>");
+					out.print("<script>alert('delete success!');location.href='BSManage/NewsTypeManage2.jsp';</script>");
 				}
 				else {
-					out.print("<script>alert('delete failed!');location.href='BSManage/NewsTypeManage.jsp';</script>");
+					out.print("<script>alert('delete failed!');location.href='BSManage/NewsTypeManage2.jsp';</script>");
 				}
 			} catch (SQLException e) {
 				// TODO Auto-generated catch block
@@ -61,10 +61,10 @@ public class updateType extends HttpServlet {
 			try {
 				num = bs.insertNewsType(NewsTypeName);
 				if(num!=0) {
-					out.print("<script>alert('add success!');location.href='BSManage/NewsTypeManage.jsp';</script>");
+					out.print("<script>alert('add success!');location.href='BSManage/NewsTypeManage2.jsp';</script>");
 				}
 				else {
-					out.print("<script>alert('add failed!');location.href='BSManage/NewsTypeManage.jsp';</script>");
+					out.print("<script>alert('add failed!');location.href='BSManage/NewsTypeManage2.jsp';</script>");
 				}
 			} catch (SQLException e) {
 				e.printStackTrace();
