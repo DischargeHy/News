@@ -2,9 +2,12 @@ package dao;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 import java.util.LinkedList;
+
+import entity.User;
 
 public class CommentImpl {
 	private Connection connection;
@@ -13,11 +16,23 @@ public class CommentImpl {
 		this.connection = connection;
 	}
 	
+//	public User getAuthor(int commentId) throws SQLException {
+//		String sqlString="SELECT User.* FROM User,Comment WHERE User.userId=Comment.userId AND commentId=?";
+//		PreparedStatement preparedStatement=connection.prepareStatement(sqlString);
+//		preparedStatement.setInt(1, commentId);
+//		ResultSet resultSet=preparedStatement.executeQuery();
+//		return new User(resultSet.getInt("userId"),resultSet.getString("userAccount"),resultSet.getString("userName"),
+//				);
+//		
+//	}
+	
 	//
 	public boolean insertComment(Comment comment) throws SQLException {
-
-		PreparedStatement preparedStatement=connection.prepareStatement("INSERT INTO `comment` (`commentContent`, `userId`,`newsId`,`replyId`) "
-				+ "VALUES (?,?,?,?)");
+		
+		String sql="INSERT INTO `Comment` (`commentContent`, `userId`,`newsId`,`replyId`) "
+				+ "VALUES (?,?,?,?)";
+//		System.out.println(sql);
+		PreparedStatement preparedStatement=connection.prepareStatement(sql);
 		preparedStatement.setString(1, comment.getCommentContent());
 		preparedStatement.setInt(2, comment.getUserId());
 		preparedStatement.setInt(3, comment.getNewsId());
@@ -29,6 +44,16 @@ public class CommentImpl {
 		
 		preparedStatement.execute();
 
+		return true;
+	}
+	
+	public boolean delectComment(int commentId) throws SQLException {
+		
+		String sql="DELECT FROM `Comment` WHERE commentId=?";
+		PreparedStatement preparedStatement=connection.prepareStatement(sql);
+		preparedStatement.setInt(1, commentId);
+		
+		preparedStatement.execute();
 		return true;
 	}
 	

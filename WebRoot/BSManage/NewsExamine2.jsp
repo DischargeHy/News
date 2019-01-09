@@ -1,4 +1,8 @@
-<%@ page language="java" contentType="text/html; charset=utf-8"
+<%@page import="entity.NewsExamineList"%>
+<%@page import="entity.News"%>
+<%@page import="entity.NewsType"%>
+<%@page import="db.NewsManage"%>
+<%@ page language="java" import="java.util.*" contentType="text/html; charset=utf-8"
     pageEncoding="utf-8"%>
 <!DOCTYPE html>
 <html>
@@ -15,7 +19,19 @@
 		<link rel="stylesheet" href="../houtai/assets/css/admin.css" />
 		<link rel="stylesheet" href="../houtai/assets/css/page/typography.css" />
 		<link rel="stylesheet" href="../houtai/assets/css/page/form.css" />
+		<script type="text/javascript" src="../assets3/AmazeUI-2.4.2/assets/js/amazeui.js"></script>
+		<script type="text/javascript" src="../assets3/AmazeUI-2.4.2/assets/js/jquery.min.js"></script>
 </head>
+<%
+	NewsManage nm = new NewsManage();
+	int userId =(Integer)session.getAttribute("UserId");
+	int userType = (Integer)session.getAttribute("UserType");
+	String ExaminePage = request.getParameter("page");
+	ArrayList list = null;
+	int page_num = 0;//总页数
+	int allPage = 0;//总行数
+	String search = request.getParameter("search"); 
+%>
 <body>
 	<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
@@ -27,16 +43,6 @@
 				<ul class="am-nav am-navbar-nav am-navbar-left">
 
 					<li><h4 class="page-title">新闻审核列表</h4></li>
-				</ul>
-				
-				<ul class="am-nav am-navbar-nav am-navbar-right">
-					<li class="inform"><i class="am-icon-bell-o" aria-hidden="true"></i></li>
-					<li class="hidden-xs am-hide-sm-only">
-                        <form role="search" class="app-search">
-                            <input type="text" placeholder="Search..." class="form-control">
-                            <a href=""><img src="../houtai/assets/img/search.png"></a>
-                        </form>
-                    </li>
 				</ul>
 			</div>
 		</header>
@@ -53,7 +59,14 @@
 	                            <img src="../houtai/assets/img/avatar-1.jpg" alt="user-img" title="Mat Helme" class="img-circle img-thumbnail img-responsive">
 	                            <div class="user-status offline"><i class="am-icon-dot-circle-o" aria-hidden="true"></i></div>
 	                        </div>
-	                        <h5><a href="#">Mat Helme</a> </h5>
+	                        <%if (session.getAttribute("UserAccount") != null) {	
+					    		String UserAccount=(String)session.getAttribute("UserAccount"); 
+					    		String UserType=session.getAttribute("UserType").toString();
+					    		String UserId=session.getAttribute("UserId").toString();
+					    		String UserName=session.getAttribute("UserName").toString();
+				  			 %>   
+	                        <h5><a href="NewsManage2.jsp"><%=UserName %></a> </h5>
+	                        <%} %>
 	                        <ul class="list-inline">
 	                            <li>
 	                                <a href="#">
@@ -75,29 +88,29 @@
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span> 新闻管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
-						        
-                                <li><a href="../BSManage/NewsExamine2.jsp" class="am-cf">新闻审核列表 </a></li>
-                                <li><a href="../BSManage/NewsTypeManage2.jsp" class="am-cf">新闻分类管理 </a></li>
-						        <li><a href="../BSManage/NewsManage2.jsp">新闻查询管理</a></li>
+						        <%if(userType==3){ %>
+                                <li><a href="../BSManage/NewsExamine2.jsp?page=1" class="am-cf">审核列表 </a></li>
+                                <li><a href="../BSManage/NewsTypeManage2.jsp?page=1" class="am-cf">分类管理 </a></li>
+						        <%} %>
+						        <li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						      </ul>
 						    </li>
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav2'}"><i class="am-icon-line-chart" aria-hidden="true"></i> 评论管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav2">
-						        <li><a href="../BSManage/commentManage2.jsp" class="am-cf">评论举报管理</a></li>
+						        <li><a href="../BSManage/commentManage2.jsp?page=1" class="am-cf">举报管理</a></li>
 						       
 						      </ul>
 						    </li>
+						    <%if(session.getAttribute("UserType").toString().equals("3")){ %>
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="am-icon-file"></span> 用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-						        <li><a href="../BSManage/UserManage2.jsp" class="am-cf">用户权限管理</a></li>
-						        <li><a href="../BSManage/UserApply2.jsp">用户权限申请管理</a></li> 
-                                
-								
+						        <li><a href="../BSManage/UserManage2.jsp?page=1" class="am-cf">权限管理</a></li>
+						        <li><a href="../BSManage/UserApply2.jsp?page=1">权限申请管理</a></li> 
 						      </ul>
 						    </li>
-							
+							<%} %>
 						  </ul>
 						  <br />
 				</div>
@@ -123,55 +136,108 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td width="400" style="word-break:break-all">新闻版块：111<br />标题：ttt</td>
+                                <%
+									list = nm.showNewsExamine(ExaminePage);
+									allPage = nm.getNewsExaminePage();
+									page_num = allPage/6;
+									if(allPage%6!=0){
+										page_num+=1;
+									}
+							       	int p1 = Integer.parseInt(request.getParameter("page")); 
+							        p1=p1-1;
+							        int p2 = Integer.parseInt(request.getParameter("page")); 
+							        p2=p2+1;
+									for (int i = 0; i < list.size(); i++) {
+										NewsExamineList nel = (NewsExamineList)list.get(i);
+								%>
+                                    <tr style="height: 80px;vertical-align: middle;">
+                                        <td width="400" style="word-break:break-all">新闻版块：<%=nel.getNewsTypeName() %><br />标题：<a href="../ShowNews?newsId=<%=nel.getNewsId()%>"><%=nel.getNewsTitle() %></a></td>
                                       
-                                        <td width="250" style="word-break:break-all">作者：123<br />邮箱：123456@qq.com</td>
+                                        <td width="250" style="word-break:break-all">作者：<%=nel.getUserName() %><br />邮箱：<%=nel.getUserEMail() %></td>
                                        
-                                        <td width="180" style="word-break:break-all">2018-12-31 15:00:00&nbsp;/&nbsp;<br />2019-1-3 16:45:00</td> 
+                                        <td width="180" style="word-break:break-all"><%=nel.getCreateTime() %>&nbsp;&nbsp;<br /><%=nel.getUpdateTime() %></td> 
                                        
-                                        <td><a href=""><button type="submit">通过</button></a>&nbsp;<a 	href=""><button type="submit">不通过</button></a></td> 
+                                       <td><form action="../updateNewsExamine" method="post">
+											<input type="hidden" value="<%=nel.getNewsId()%>" name="NewsId">
+											<input type="hidden" value="<%=ExaminePage%>" name="page">
+											<input type="hidden" value="1" name="state">
+											<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=nel.getNewsId()%>">通过</button>
+											<!-- 弹窗开始 -->
+											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=nel.getNewsId()%>">
+										  <div class="am-modal-dialog">
+										    <div class="am-modal-hd">是否确认通过</div>
+											    <div class="am-modal-footer">
+											     <input type="submit" value="是" style="width: 100%;background-color:#F8F8F8;border: 0px;color:#0E90D2;line-height: 100%;">
+											     <span class="am-modal-btn" data-am-modal-cancel>否</span>
+											    </div>
+											  </div>
+											</div>
+											<script type="text/javascript">
+												$(function() {
+													  $('#doc-prompt-toggle<%=nel.getNewsId()%>').on('click', function() {
+													    $('#my-prompt<%=nel.getNewsId()%>').modal({
+													      relatedTarget: this,
+													      onConfirm: function(e) {
+													        alert('你输入的是：' + e.data || '')
+													      },
+													    });
+													  });
+													});
+											</script>
+											<!-- 弹窗结束 -->
+										</form></td>
+										<td><form action="../updateNewsExamine" method="post">
+											<input type="hidden" value="<%=nel.getNewsId()%>" name="NewsId">
+											<input type="hidden" value="<%=ExaminePage%>" name="page">
+											<input type="hidden" value="2" name="state">
+											<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=nel.getNewsId()%>no" style="">不通过</button>
+											<!-- 弹窗开始 -->
+											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=nel.getNewsId()%>no">
+										  <div class="am-modal-dialog">
+										    <div class="am-modal-hd">确认要求重新编辑？</div>
+											    <div class="am-modal-footer">
+											     <input type="submit" value="是" style="width: 100%;background-color:#F8F8F8;border: 0px;color:#0E90D2;line-height: 100%;">
+											     <span class="am-modal-btn" data-am-modal-cancel>否</span>
+											    </div>
+											  </div>
+											</div>
+											<script type="text/javascript">
+												$(function() {
+													  $('#doc-prompt-toggle<%=nel.getNewsId()%>no').on('click', function() {
+													    $('#my-prompt<%=nel.getNewsId()%>no').modal({
+													      relatedTarget: this,
+													      onConfirm: function(e) {
+													        alert('你输入的是：' + e.data || '')
+													      },
+													    });
+													  });
+													});
+											</script>
+											<!-- 弹窗结束 -->
+										</form></td>
                                     </tr>
-                                      <tr>
-                                        <td width="400" style="word-break:break-all">新闻版块：111<br />标题：ttt</td>
-                                        <td width="250" style="word-break:break-all">作者：123<br />邮箱：123456@qq.com</td>
-                                       <td width="180" style="word-break:break-all">2018-12-31 15:00:00&nbsp;/&nbsp;<br />2019-1-3 16:45:00</td> 
-                                        <td><a href=""><button type="submit">通过</button></a>&nbsp;<a 	href=""><button type="submit">不通过</button></a></td> 
-                                    </tr>
-                                      <tr>
-                                        <td width="400" style="word-break:break-all">新闻版块：111<br />标题：ttt</td>
-                                        <td width="250" style="word-break:break-all">作者：123<br />邮箱：123456@qq.com</td>
-                                        <td width="180" style="word-break:break-all">2018-12-31 15:00:00&nbsp;/&nbsp;<br />2019-1-3 16:45:00</td> 
-                                        <td><a href=""><button type="submit">通过</button></a>&nbsp;<a 	href=""><button type="submit">不通过</button></a></td> 
-                                    </tr>
-                                    <tr>
-                                       <td width="400" style="word-break:break-all">新闻版块：111<br />标题：ttt</td>
-                                        <td width="250" style="word-break:break-all">作者：123<br />邮箱：123456@qq.com</td>
-                                       <td width="180" style="word-break:break-all">2018-12-31 15:00:00&nbsp;/&nbsp;<br />2019-1-3 16:45:00</td> 
-                                        <td><a href=""><button type="submit">通过</button></a>&nbsp;<a 	href=""><button type="submit">不通过</button></a></td> 
-                                    </tr>
-                                    <tr>
-                                        <td width="400" style="word-break:break-all">新闻版块：111<br />标题：ttt</td>
-                                        <td width="250" style="word-break:break-all">作者：123<br />邮箱：123456@qq.com</td>
-                                       <td width="180" style="word-break:break-all">2018-12-31 15:00:00&nbsp;/&nbsp;<br />2019-1-3 16:45:00</td> 
-                                        <td><a href=""><button type="submit">通过</button></a>&nbsp;<a 	href=""><button type="submit">不通过</button></a></td> 
-                                    </tr>
+                                <%} %>
                                 </tbody>
                             </table>
                             <!-- col end -->
                         </div>
                     </div>
                     <div class="fy" style="float:right; margin-right:20px;">
-           			<ul class="pagination">
-                        <li><a href="#">上一页</a></li>
-                        <li><a href="#">...</a></li>
-                        <li><a href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">4</a></li>
-                        <li><a href="#">5</a></li>
-                        <li><a href="#">...</a></li>
-                        <li><a href="#">下一页</a></li>
+           			<ul class="pagination" style="margin-top: 0px">
+           			<%if(p1>=1){ %>
+                        <li><a id="up" href="../BSManage/NewsExamine2.jsp?page=<%=p1%>">上一页</a></li>
+                    <%} %>
+                    <%for(int i = 1 ; i <= page_num ; i++){%>
+                        <%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
+		        			<li><a href="../BSManage/NewsExamine2.jsp?page=<%=i%>"><%=i %></a></li>
+		        		<%}
+		        		else{%>
+		        			<li><a style="color: red"><%=i %></a></li>
+		        		<%}%>
+                    <%} %>
+                    <%if(p2<=page_num){ %>
+                        <li><a id="down" href="../BSManage/NewsExamine2.jsp?page=<%=p2 %>">下一页</a></li>
+                    <%} %>
                     </ul>
                   </div>
 			</div>

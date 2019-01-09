@@ -9,6 +9,9 @@
 <head>
 <meta charset="UTF-8">
 <script type="text/javascript" src="../UJS/Apply.js"></script><!-- 申请小编显示判断JS -->
+<link rel="stylesheet" type="text/css" href="http://cdn.amazeui.org/amazeui/2.4.2/css/amazeui.min.css"/>
+<script type="text/javascript" src="http://libs.baidu.com/jquery/1.11.3/jquery.min.js"></script>
+<script type="text/javascript" src="http://cdn.amazeui.org/amazeui/2.4.2/js/amazeui.min.js"></script>
 <title>Insert title here</title>
 </head>
 <body>
@@ -254,6 +257,89 @@
 						</label>
 						</td>
 					</tr>
+					<!--用户类型开始  -->
+							<div class="am-form-group address"  style="background:#0F0;">
+								<label for="user-address" class="am-form-label">用户类型</label>
+								<div class="am-form-content">
+									<%
+										if (UserType.equals("1")) {
+									%>
+
+									<%
+										ApplyList al = nm.showApplyListByUserId(user.getUserId());
+											if (al == null) {
+									%>
+									<input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;"> 
+									<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 3px;">申请成为小编</button>
+								 	<!--弹窗开始  -->
+									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt" style="background:#000;display: none">
+										<div class="am-modal-dialog">
+											<div class="am-modal-hd">请输入申请理由</div>
+											<form action="../AuthorApplyServlet" method="post" id="applyform">
+											<div class="am-modal-bd">
+													<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> 
+													<input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
+													<centetr> 
+													<input id="yes" type="submit" value="确认" style="width: 75px; text-indent: 0px; margin-top: 0px;" form="applyform" > 
+													</centetr>
+											</div>
+											<div class="am-modal-footer">
+												<span class="am-modal-btn" data-am-modal-confirm>提交</span>
+												<span class="am-modal-btn" data-am-modal-cancel>取消</span> 	
+											</div>
+											</form>
+										</div>
+									</div>
+									<script type="text/javascript">
+									$(function() { $('#doc-prompt-toggle').on('click', function() { $('#my-prompt').modal({ relatedTarget: this, onConfirm: function(e) { alert('你输入的是：' + e.data || '') } }); }); });
+									</script>
+									<!-- 弹窗结束 --> 
+									<%
+										} else {
+												if (al.getState().equals("申请中")) {
+									%>
+									<input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;">
+									<%
+										} else if (al.getState().equals("申请失败")) {
+									%>
+									<input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;">
+									<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 4px;">重新申请</button>
+									<!--弹窗开始  -->
+									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+										<div class="am-modal-dialog">
+											<div class="am-modal-hd">请输入申请理由</div>
+											<form action="../AuthorApplyServlet" method="post" id="applyform">
+											<div class="am-modal-bd">
+													<input type="text" placeholder="请输入申请理由" name="txt_apply" form="applyform" class="am-modal-prompt-input"> 
+													<input type="hidden" name="userId" value="<%=user.getUserId()%>" form="applyform">
+													<centetr> 
+													<input id="yes" type="submit" value="确认" style="width: 75px; text-indent: 0px; margin-top: 0px;" form="applyform"> 
+													<!-- <input id="no" type="button" value="取消" style="width: 75px; text-indent: 0px; margin-top: 0px;" data-am-modal-cancel>  -->
+													</centetr>
+											</div>
+											</form>
+										</div>
+									</div>
+									<script type="text/javascript">
+									$(function() { $('#doc-prompt-toggle').on('click', function() { $('#my-prompt').modal({ relatedTarget: this, onConfirm: function(e) { alert('你输入的是：' + e.data || '') }, onCancel: function(e) { alert('取消!'); } }); }); });
+									</script>
+									<!-- 弹窗结束 -->
+									<%
+										} else {
+												}
+											}
+										}
+									%>
+									<%
+										if (UserType.equals("2")) {
+									%>
+									<input type="text" name="usertypeName" value="小编" readonly="readonly">
+									<%
+										}
+									%>
+								</div>
+							</div>
+							<!--用户类型结束  -->
 				</table>
 			</form>
 			<div id="apply" style="display: none"><!-- 点击申请成为小编才出现 -->

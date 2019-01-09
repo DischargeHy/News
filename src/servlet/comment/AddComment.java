@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.alibaba.fastjson.JSON;
 import com.mysql.cj.xdevapi.DbDoc;
 
 import dao.Comment;
@@ -44,7 +45,7 @@ public class AddComment extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		
+		System.out.println("addComment");
 		
 		int userId=(Integer)request.getSession().getAttribute("UserId");
 		int newsId=Integer.parseInt(request.getParameter("newsId"));
@@ -52,16 +53,18 @@ public class AddComment extends HttpServlet {
 		
 		Comment comment=new Comment(commentContent, userId, newsId);
 		CommentImpl commentImpl=new CommentImpl(new DBCon().getCon());
-
+		
+		String jsonString;
 		try {
 			commentImpl.insertComment(comment);
+			jsonString=JSON.toJSONString(comment);
+			response.getOutputStream().print(jsonString);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+			
 		}
-//		String 
-//		response.getOutputStream().print(true);
-		
+
 	}
 
 }

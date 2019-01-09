@@ -1,26 +1,28 @@
-package serverlet;
+package servlet.comment;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.BSManage;
+import db.DBCon;
+import dto.CommentImpl;
 
 /**
- * Servlet implementation class updateNewsServlet
+ * Servlet implementation class DelectComment
  */
-public class updateNewsServlet extends HttpServlet {
+@WebServlet("/AddComment")
+public class DelectComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public updateNewsServlet() {
+    public DelectComment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -30,34 +32,26 @@ public class updateNewsServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		String commentIdString=request.getParameter("commentId");
+		if (commentIdString!=null) {
+			try {
+				new dao.CommentImpl(new DBCon().getCon()).delectComment(Integer.parseInt(commentIdString));
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
 	}
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
-		request.setCharacterEncoding("UTF-8");
-		PrintWriter out = response.getWriter();  
-		if(request.getParameter("edit").equals("delete")) {
-			int NewsId =Integer.parseInt(request.getParameter("NewsId"));
-			BSManage bm = new BSManage();
-			int i = 0;
-			try {
-				i = bm.deleteNews(NewsId);
-				if(i!=0) {
-					out.print("<script>alert('delete success!');location.href='BSManage/NewsManage2.jsp?page=1';</script>");
-				}
-				else {
-					out.print("<script>alert('delete failed!');location.href='BSManage/NewsManage2.jsp?page=1';</script>");
-					out.flush();
-				}
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			
-		}
-		
 	}
 
 }

@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>${news.getNewsTitle()}</title>
 <script src="${pageContext.request.contextPath}/ck5/document/ckeditor.js"></script>
-
+<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
 </head>
 <body>
 <div id="head" class="table-info">

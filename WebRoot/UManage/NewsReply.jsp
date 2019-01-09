@@ -1,11 +1,12 @@
 <%@page import="entity.User"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="db.NewsManage"%>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
 <title>修改</title>
@@ -27,9 +28,7 @@ li {
 	list-style: none;
 }
 </style>
-
 </head>
-
 <body id="blog" style="background-color: #F1F2F3;">
 	<!--头部开始 -->
 	<header>
@@ -133,37 +132,15 @@ li {
 
 				<div class="am-cf am-padding">
 					<div class="am-fl am-cf">
-						<strong class="am-text-danger am-text-lg">修改密码</strong> / <small>Password</small>
+						<strong class="am-text-danger am-text-lg">查看回复</strong> / <small>NewsReply</small>
 					</div>
 				</div>
 				<hr />
-				<div style="height: 0px;"></div><!--密码框上的空白距离  -->
-				<form class="am-form am-form-horizontal" method="post" action="../UserPassUpdateServlet">
-					<div class="am-form-group">
-						<label for="user-old-password" class="am-form-label">原密码</label>
-						<div class="am-form-content">
-							<input type="password" id="user-old-password" placeholder="请输入原登录密码" name="txt_uRealPass">
-						</div>
-					</div>
-					<div class="am-form-group">
-						<label for="user-new-password" class="am-form-label">新密码</label>
-						<div class="am-form-content">
-							<input type="password" id="user-new-password" placeholder="请输入新密码" name="txt_uPass">
-						</div>
-					</div>
-					<div class="am-form-group">
-						<label for="user-confirm-password" class="am-form-label">确认密码</label>
-						<div class="am-form-content">
-							<input type="password" id="user-confirm-password" placeholder="请再次输入新密码" name="txt_ReuPass">
-						</div>
-					</div>
-					<div class="info-btn">
-						<div>
-							<input type="submit" class="am-btn am-btn-danger" value="保存修改" /> <input type="hidden" name="userId" value="<%=user.getUserId()%>">
-						</div>
-					</div>
-
-				</form>
+				<!--查看回复主要内容开始 -->
+				<div>
+					
+				</div>
+				<!--查看回复主要内容结束 -->
 				<br />
 			</div>
 			<!--底部-->
