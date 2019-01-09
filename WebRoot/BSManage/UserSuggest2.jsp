@@ -72,15 +72,7 @@
 	                        <%} %>
 	                        <ul class="list-inline">
 	                            <li>
-	                                <a href="#">
-	                                    <i class="am-icon-cog" aria-hidden="true"></i>
-	                                </a>
-	                            </li>
-	
-	                            <li>
-	                                <a href="#" class="text-custom">
-	                                    <i class="am-icon-cog" aria-hidden="true"></i>
-	                                </a>
+	                                <a href="../index.jsp?logout=1">登出</a>
 	                            </li>
 	                        </ul>
 	                    </div>
