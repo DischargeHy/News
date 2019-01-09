@@ -153,7 +153,7 @@ li {
 					<!--用户类型开始  -->
 					<div class="am-form-group">
 						<label for="user-name2" class="am-form-label">用户类型</label>
-						<div class="am-form-content">
+						<div class="am-form-label" style="letter-spacing: 4px;font-size:15px;margin-right:40px;color:#00F;font-weight:520 ">
 							<%
 								if (UserType.equals("1")) {
 							%>
@@ -280,7 +280,7 @@ li {
 							<!--账号开始  -->
 							<div class="am-form-group">
 								<label for="user-name2" class="am-form-label">账号</label>
-								<div class="am-form-content">
+								<div class="am-form-label" style="letter-spacing: 2px;font-size:14px;margin-right:40px">
 									<%=user.getUserAccount()%>
 									<input type="hidden"  placeholder="UserAccount" readonly="readonly" name="txt_uAccount" value="<%=user.getUserAccount()%>" />
 
