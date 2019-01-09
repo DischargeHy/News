@@ -959,12 +959,13 @@ public class NewsManage {
 			Connection con = conn.getCon();
 			String sqlString = "insert into Apply(UserId,Reasons,Time,state) values(?,?,?,?)";
 			try {
+				System.out.println(al.getState());
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				pre.setInt(1, al.getUserId());
 				pre.setString(2, al.getReasons());
 				SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//设置日期格式
 				pre.setString(3, df.format(new java.sql.Date(System.currentTimeMillis())));
-				pre.setString(4, al.getState());
+				pre.setString(4, "申请中");
 				i = pre.executeUpdate();
 			} catch (SQLException e) {
 				e.printStackTrace();
