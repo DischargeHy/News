@@ -125,7 +125,7 @@
 						    <li class="admin-parent">
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav5'}"><span class="am-icon-file"></span> 用户管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav5">
-						        <li><a href="../BSManage/UserManage2.jsp?page=1" class="am-cf">权限管理</a></li>
+						        <li style="background-color: #E0E0E0;"><a href="../BSManage/UserManage2.jsp?page=1" class="am-cf">权限管理</a></li>
 						        <li><a href="../BSManage/UserApply2.jsp?page=1">权限申请管理</a></li> 
 						      </ul>
 						    </li>
@@ -197,7 +197,7 @@
 							 					<option value="3" <%if(user.getUserType()==3){ %>selected="selected"<%} %>>管理员</option>
 							 					<option value="4" <%if(user.getUserType()==4){ %>selected="selected"<%} %>>封号</option>
 	  										</select>
-											<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=user.getUserId()%>">更改</button>&nbsp;
+											<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=user.getUserId()%>">更改</button>&nbsp;
 											<!-- 弹窗开始 -->
 											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=user.getUserId()%>">
 										  <div class="am-modal-dialog">

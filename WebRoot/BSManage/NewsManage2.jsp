@@ -86,11 +86,14 @@
 							<input type="hidden" value="<%=NewsType%>" name="NewsType">
 							<%if(userType==3){ %>
                             <input id="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(request.getParameter("search"));}%>" type="text" placeholder="请输入搜索内容" class="form-control" onchange="changeHref1(<%=NewsType%>)">
+                            <a id="aForm" href="../BSManage/NewsManage2.jsp?page=1&search=<%if(search==null||search.equals("")){out.print("null");}else{out.print(search);}%>&NewsType=<%=NewsType%>"><img src="../houtai/assets/img/search.png"></a>
                             <%} 
-							else{%>
+							else{ %>
                             <input id="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(request.getParameter("search"));}%>" type="text" placeholder="请输入搜索内容" class="form-control" onchange="changeHref2(<%=NewsStatus%>)">
-                            <%} %>
-                            <a id="aForm" href=""><img src="../houtai/assets/img/search.png"></a>
+                      		<a id="aForm" href="../BSManage/NewsManage2.jsp?page=1&search=<%if(search==null||search.equals("")){out.print("null");}else{out.print(search);}%>&NewsStatus=<%=NewsStatus%>"><img src="../houtai/assets/img/search.png"></a>
+                      		 <%} %>
+                               
+ 
                         </form>
                     </li>
 				</ul>
@@ -142,7 +145,7 @@
                                 <li><a href="../BSManage/NewsExamine2.jsp?page=1" class="am-cf">审核列表 </a></li>
                                 <li><a href="../BSManage/NewsTypeManage2.jsp?page=1" class="am-cf">分类管理 </a></li>
 						        <%} %>
-						        <li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
+						        <li style="background-color: #E0E0E0;"><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
 						      </ul>
 						    </li>
 						    <li class="admin-parent">
@@ -226,16 +229,16 @@
 									for (int i = 0; i < list.size(); i++) {
 									News news = (News)list.get(i);// 有以下NewsId,NewsTitle,CreateTime,NewsTypeName,UserName
 								%>
-                                    <tr height="50px">
+                                    <tr height="80px">
                                        <td width="300" style="word-break:break-all"><a href="../ShowNews?newsId=<%=news.getNewsId()%>"><%=news.getNewsTitle()%></a></td>
                                         <td width="100" style="word-break:break-all"><%=news.getNewsTypeName()%></td>
                                         <td width="100" style="word-break:break-all"><%=news.getUserName()%></td>
                                         <td width="180" style="word-break:break-all"><%=news.getCreateTime()%></td>
                                         <td width="180">
 	                                       <%if(userType!=3){ %>
-	                                       		<form action="../ShowNews?newsId=<%=news.getNewsId()%>" method="post" style="float: left">
+	                                       		<form action="../EditNews?newsId=<%=news.getNewsId()%>" method="post" style="float: left">
 		                                      	<input type="hidden" value="<%=news.getNewsId()%>" name="NewsId">
-			                                    <button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=news.getNewsId()%>edit">编辑</button>&nbsp;
+			                                    <button  type="button" class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=news.getNewsId()%>edit">编辑</button>&nbsp;
 											<!-- 弹窗开始 -->
 											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=news.getNewsId()%>edit">
 										  <div class="am-modal-dialog">
@@ -269,7 +272,7 @@
 													<input type="hidden" name="page" value="<%=NewsPage%>">
 													<input type="hidden" name="NewsType" value="<%=NewsType%>">
 													<input type="hidden" value="<%=news.getNewsId()%>" name="NewsId">
-													<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=news.getNewsId()%>">重审</button>&nbsp;
+													<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=news.getNewsId()%>">重审</button>&nbsp;
 											<!-- 弹窗开始 -->
 											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=news.getNewsId()%>">
 										  <div class="am-modal-dialog">
@@ -298,7 +301,7 @@
 		                                       <form action="../updateNewsServlet" method="post" style="float: left">
 													<input type="hidden" value="<%=news.getNewsId()%>" name="NewsId">
 													<input type="hidden" value="delete" name="edit">
-													<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=news.getNewsId()%>del">删除</button>
+													<button  type="button"  class="am-btn am-btn-danger"  id="doc-prompt-toggle<%=news.getNewsId()%>del">删除</button>
 											<!-- 弹窗开始 -->
 											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=news.getNewsId()%>del">
 										  <div class="am-modal-dialog">

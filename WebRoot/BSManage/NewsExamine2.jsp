@@ -89,7 +89,7 @@
 						      <a class="am-cf" data-am-collapse="{target: '#collapse-nav1'}"><span class="am-icon-table"></span> 新闻管理 <span class="am-icon-angle-right am-fr am-margin-right"></span></a>
 						      <ul class="am-list am-collapse admin-sidebar-sub am-in" id="collapse-nav1">
 						        <%if(userType==3){ %>
-                                <li><a href="../BSManage/NewsExamine2.jsp?page=1" class="am-cf">审核列表 </a></li>
+                                <li><a href="../BSManage/NewsExamine2.jsp?page=1" class="am-cf" style="background-color: #E0E0E0;">审核列表 </a></li>
                                 <li><a href="../BSManage/NewsTypeManage2.jsp?page=1" class="am-cf">分类管理 </a></li>
 						        <%} %>
 						        <li><a href="../BSManage/NewsManage2.jsp?page=1">查询管理</a></li>
@@ -190,7 +190,7 @@
 											<input type="hidden" value="<%=nel.getNewsId()%>" name="NewsId">
 											<input type="hidden" value="<%=ExaminePage%>" name="page">
 											<input type="hidden" value="2" name="state">
-											<button  type="button"  class="am-btn am-btn-success"  id="doc-prompt-toggle<%=nel.getNewsId()%>no" style="">不通过</button>
+											<button  type="button" class="am-btn am-btn-danger"  id="doc-prompt-toggle<%=nel.getNewsId()%>no" style="">不通过</button>
 											<!-- 弹窗开始 -->
 											<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=nel.getNewsId()%>no">
 										  <div class="am-modal-dialog">
