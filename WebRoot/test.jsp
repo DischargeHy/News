@@ -19,16 +19,20 @@
 			<div class="d_author_name"></div>
 		</div>
 		<div class="d_post_comtent_main">
-			<div class="p_content"></div>
+			<div class="p_content">
+				<div class="p_text"></div>
+				<div class="p_bottom">
+					<button class="am-btn am-btn-primary" data-am-collapse="{target: '#reply_ul'}">Menu</button>
+				</div>
+			</div>
 			<div class="reply_content">
 				<ul class="reply_ul" id="reply_ul">
 					<!-- 评论下的回复 -->
 					<li class="reply_li">
-						<div class="reply_li_div">
-							<div class="reply_li_div_head">
-							</div>
-							<div class="reply_li_div_content">
-							</div>
+						<div class="reply_li_div_head"><img class="reply_img" src=""></div>
+						<div class="reply_li_div_content">
+							<div class="reply_text"></div>
+							<div class="reply_bottom"></div>
 						</div>
 					</li>
 					
