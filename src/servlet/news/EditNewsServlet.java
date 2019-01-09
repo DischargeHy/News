@@ -1,4 +1,4 @@
-package serverlet.news;
+package servlet.news;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -61,7 +61,8 @@ public class EditNewsServlet extends HttpServlet {
 			ArrayList<NewsType> list =nm.showNewsType();  //新闻类型列表
 			
 			request.setAttribute("typeList", list);
-			request.getRequestDispatcher("/WEB-INF/jsp/editNews.jsp").forward(request, response);
+//			request.getRequestDispatcher("/WEB-INF/jsp/editNews.jsp").forward(request, response);
+			request.getRequestDispatcher("/UManage/NewsEdit.jsp").forward(request, response);
 		
 		}
 	}

@@ -1,4 +1,4 @@
-package serverlet.news;
+package servlet.news;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -14,7 +14,7 @@ import dao.News;
 import dao.NewsImpl;
 import db.DBCon;
 import util.Url;
-
+ 
 /**
  * Servlet implementation class PulishNews
  */

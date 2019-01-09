@@ -139,7 +139,7 @@ li {
 				<hr />
 				<!--发布新闻主要内容开始  -->
 				<div>
-					
+					<jsp:include page="/WEB-INF/template/ck5.jsp"></jsp:include>
 				</div>
 				<!-- 发布新闻主要内容结束 -->
 				<br />

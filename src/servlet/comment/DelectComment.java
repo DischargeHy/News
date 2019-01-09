@@ -15,7 +15,7 @@ import dto.CommentImpl;
 /**
  * Servlet implementation class DelectComment
  */
-@WebServlet("/AddComment")
+@WebServlet("/DelectComment")
 public class DelectComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        

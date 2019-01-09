@@ -1,4 +1,4 @@
-package serverlet.news;
+package servlet.news;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import dao.News;
 import dao.NewsImpl;
 import db.DBCon;
-
+ 
 /**
  * Servlet implementation class ShowNews
  */
