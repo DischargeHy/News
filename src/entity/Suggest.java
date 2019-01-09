@@ -35,6 +35,19 @@ public class Suggest {
 	public int getUserId() {
 		return UserId;
 	}
+
+	public int getSuggestId() {
+		return SuggestId;
+	}
+
+	public String getUserName() {
+		return UserName;
+	}
+
+	public String getUserEmail() {
+		return UserEmail;
+	}
+	
 	
 	
 	
