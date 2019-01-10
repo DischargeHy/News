@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 
 import db.DBCon;
 import dto.Comment;
@@ -48,9 +49,10 @@ public class ShowComments extends HttpServlet {
 		
 		String newsIdString=request.getParameter("newsId");
 		String commentIdString=request.getParameter("commentId");
-		System.out.println("showComment");
+//		System.out.println("showComment");
 		CommentImpl commentImpl=new CommentImpl(new DBCon().getCon());
 		if (newsIdString!=null) {
+			JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
 			int newsId=Integer.parseInt(newsIdString);
 			if (commentIdString!=null) {
 				//查看次级评论
@@ -64,7 +66,7 @@ public class ShowComments extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				response.getWriter().print(JSON.toJSONString(linkedList));
+				response.getWriter().print(JSON.toJSONString(linkedList, SerializerFeature.WriteDateUseDateFormat));
 			}else {
 				//查看主评论
 				LinkedList<Comment> linkedList=null;
@@ -75,7 +77,7 @@ public class ShowComments extends HttpServlet {
 					e.printStackTrace();
 				}
 				
-				response.getWriter().print(JSON.toJSONString(linkedList));
+				response.getWriter().print(JSON.toJSONString(linkedList, SerializerFeature.WriteDateUseDateFormat));
 			}
 		}		
 		

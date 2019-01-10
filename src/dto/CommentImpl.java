@@ -58,9 +58,10 @@ public class CommentImpl {
 	public LinkedList<Comment> selectComments(int newsId,int replayId) throws SQLException{
 		LinkedList<Comment> linkedList=new LinkedList<Comment>();
 		
-		String sqlString="SELECT * FROM V_comment WHERE newsId=? AND replyId is not null";
+		String sqlString="SELECT * FROM V_comment WHERE newsId=? AND replyId=?";
 		PreparedStatement preparedStatement=connection.prepareStatement(sqlString);
 		preparedStatement.setInt(1, newsId);
+		preparedStatement.setInt(2, replayId);
 		
 		ResultSet resultSet = preparedStatement.executeQuery();
 		
