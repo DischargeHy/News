@@ -7,6 +7,14 @@
 
  *
  */
+var authorId;
+var newsId;
+var userId;  //当前登录用户的id
+function ini_date(a,n,u){
+	authorId=a;
+	newsId=n;
+	userId=u;
+}
 function createXmlHttp() {
     var xmlhttp = null;
     try {
@@ -70,6 +78,8 @@ function show_reply(newsId,commentId,num,dom){
 	}else{
 		Data = "newsId="+newsId;
 	}
+	var d_post_comtent_main=$(dom).parent().parent();
+	$(d_post_comtent_main).children("div:last-child").toggle("slow");
 	$.ajax({
 	    //几个参数需要注意一下
 	        type: "POST",//方法类型
@@ -80,9 +90,11 @@ function show_reply(newsId,commentId,num,dom){
 	        success: function (result) {
 	            console.log(result);//打印服务端返回的数据(调试用)
 //	            alert("success");
-	            var d_post_comtent_main=$(dom).parent().parent();
 	            
-	            $(d_post_comtent_main).children("div:last-child").html(product_reply_ul(result,comment_num)).toggle("slow");
+	            var ul=product_reply_ul(result,comment_num);
+//	            $(ul).hide();
+	            $(d_post_comtent_main).children("div:last-child").html(ul);
+	            
 	            
 	            
 //	            if (result.resultCode == 200) {
@@ -172,23 +184,47 @@ function product_p_content(mainComment,comment_num){
 
     var p_bottom=$('<div class="p_bottom"></div>');  //评论内容的底部   显示 评论时间和 该评论的回复数量
     
-    var comment_time=$('<span class="reply-time"></span>').text(mainComment.commentTime);
+    var comment_time=$('<span class="reply_time"></span>').text(mainComment.commentTime);
     
 //    var huifu=$("<a href='javascript:pinglun("+mainComment.commentId+",\'"+mainComment.userName+"\')' >回复</a>");
     
-    var huifu=$("<a href=''>回复</a>");
-	var href="javascript:pinglun("+mainComment.commentId+",'"+mainComment.userName+"')";
-	$(huifu).attr('href',href);
+    //如果是自己的评论或者是作者
+    var huifuOrShanchu;
+    var zuozhe;
+    if(authorId==userId){
+    	huifuOrShanchu=$("<a href=''>删除</a>");
+    	var href="javascript:delect_comment("+mainComment.commentId+")";
+    	zuozhe=$("<a href=''>回复</a>");
+    	var href="javascript:pinglun("+mainComment.commentId+",'"+mainComment.userName+"')";
+    	$(zuozhe).attr('href',href);
+    }else if(userId==mainComment.userId){
+    	huifuOrShanchu=$("<a href=''>删除</a>");
+    	var href="javascript:delect_comment("+mainComment.commentId+")";
+    	$(huifuOrShanchu).attr('href',href);
+    }
+    else{
+    	huifuOrShanchu=$("<a href=''>回复</a>");
+    	var href="javascript:pinglun("+mainComment.commentId+",'"+mainComment.userName+"')";
+    	$(huifuOrShanchu).attr('href',href);
+    }
     
-    $(p_bottom).append(comment_time).append(huifu);
+    //举报   report_comment()
+	var report=$("<a href=''>举报</a>");
+	var href="javascript:report_comment("+mainComment.commentId+")";
+	$(report).attr('href',href);
+    
+    $(p_bottom).append(comment_time).append(huifuOrShanchu).append(zuozhe).append(report);
    
+    
+    
     p_content.append(p_text).append(p_bottom);
     
     if(mainComment.replyCount>0){
         var button=$('<button class="am-btn am-btn-primary" data-am-collapse="{target: "#reply_ul_'+comment_num+'" }  onclick="show_reply('+mainComment.newsId+','+mainComment.commentId+','+comment_num+',this)"></button>'); //
         button.append('<i>查看回复('+mainComment.replyCount+')</i>');
         
-        var reply_content=$('<div class="reply_content"></div>');
+        var reply_content=$('<div class="reply_content" ></div>').hide();
+        
         $(p_bottom).append(button).after(reply_content);
         
     }else{
@@ -223,7 +259,7 @@ function product_reply_li(secondComment){
 
 	var reply_li_div_head=$('<div class="reply_li_div_head"></div>');	//回复者头像
 	
-	var img=$("<img class='reply-head'></img>").attr('src',secondComment.userHead);  
+	var img=$("<img class='reply_head'></img>").attr('src',secondComment.userHead);  
 	$(reply_li_div_head).append(img);//  将图片放入 上述 div 中
 	
 	var reply_li_div_content=$('<div class="reply_li_div_content"></div>'); //单条回复的主要内容
@@ -233,17 +269,46 @@ function product_reply_li(secondComment){
 	var userName=$('<a href="#"></a>').text(secondComment.userName);   //发表回复的那个人的名字
 	
 	var replyUserName=$('<a href="#"></a>').text(secondComment.replyUserName);
-	$(reply_text).append(userName).append('<i>@</i>').append(replyUserName).append('<span class="reply-time">'+secondComment.commentContent+'</span>');
+	$(reply_text).append(userName).append('<i>@</i>').append(replyUserName).append('<span class="reply_p">'+secondComment.commentContent+'</span>');
 
 	
 	var reply_bottom=$('<div class="reply_bottom"></div>'); //回复的底部
 	
+	//如果是自己的评论或者是作者
+    var huifuOrShanchu;
+    var zuozhe;
+    if(authorId==userId){
+    	huifuOrShanchu=$("<a href=''>删除</a>");
+    	var href="javascript:delect_comment("+secondComment.commentId+")";
+    	zuozhe=$("<a href=''>回复</a>");
+    	var href="javascript:pinglun("+secondComment.commentId+",'"+secondComment.userName+"')";
+    	$(zuozhe).attr('href',href);
+    }else if(userId==secondComment.userId){
+    	huifuOrShanchu=$("<a href=''>删除</a>");
+    	var href="javascript:delect_comment("+secondComment.commentId+")";
+    	$(huifuOrShanchu).attr('href',href);
+    }
+    else{
+    	huifuOrShanchu=$("<a href=''>回复</a>");
+    	var href="javascript:pinglun("+secondComment.commentId+",'"+secondComment.userName+"')";
+    	$(huifuOrShanchu).attr('href',href);
+    }
 	
-	var a=$("<a href=''>回复</a>");
-	var href="javascript:pinglun("+secondComment.commentId+",'"+secondComment.userName+"')";
-	$(a).attr('href',href);
-	$(reply_bottom).append('<span class="reply-time">'+secondComment.commentTime+'</span>');
-	$(reply_bottom).append(a);
+//	var a=$("<a href=''>回复</a>");
+//	var href="javascript:pinglun("+secondComment.commentId+",'"+secondComment.userName+"')";
+//	$(a).attr('href',href);
+    
+	$(reply_bottom).append('<span class="reply_time">'+secondComment.commentTime+'</span>');
+//	$(reply_bottom).append(a);
+	//举报   report_comment()
+	var report=$("<a href=''>举报</a>");
+	var href="javascript:report_comment("+secondComment.commentId+")";
+	$(report).attr('href',href);
+	
+	$(reply_bottom).append(huifuOrShanchu).append(zuozhe).append(report);
+	
+	
+	
 	
 	
 	$(reply_li_div_content).append(reply_text);
@@ -275,6 +340,56 @@ function test_ul(json){
 
 
 
+function delect_comment(commentId){
+	var Data="commentId="+commentId;
+	if(confirm("是否删除")){
+		$.ajax({
+		    //几个参数需要注意一下
+		        type: "POST",//方法类型
+		        dataType: "json",//预期服务器返回的数据类型
+		        url: "/News/DelectComment" ,//url
+		        data: Data,
+		        success: function (result) {
+//		            console.log(result);//打印服务端返回的数据(调试用)
+		        	window.location.reload();
+//		            if (result.resultCode == 200) {
+//		                alert("SUCCESS");
+		//
+//		            }
+		            ;
+		        },
+		        error : function() {
+		            alert("异常，删除失败！");
+		        }
+		    });
+	}
+}
+
+function report_comment(commentId){
+	var Data="commentId="+commentId;
+	if(confirm("是否举报")){
+		$.ajax({
+		    //几个参数需要注意一下
+		        type: "POST",//方法类型
+		        dataType: "json",//预期服务器返回的数据类型
+		        url: "/News/ReportComment" ,//url
+		        data: Data,
+		        success: function (result) {
+//		            console.log(result);//打印服务端返回的数据(调试用)
+		        	alert("举报成功！");
+//		        	window.location.reload();
+//		            if (result.resultCode == 200) {
+//		                alert("SUCCESS");
+		//
+//		            }
+		            ;
+		        },
+		        error : function() {
+		            alert("异常，举报失败！");
+		        }
+		    });
+	}
+}
 
 
 

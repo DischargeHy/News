@@ -5,11 +5,11 @@
 function publish(message){
 	//获取新闻内容
 	var newsContent=editor.getData();
-	newsContent=newsContent.replace(/[\r\n]/g, " ");
-	newsContent=newsContent.replace(/&/g, "%26");
-	
+//	newsContent=newsContent.replace(/[\r\n]/g, " ");
+//	newsContent=newsContent.replace(/&/g, "%26");
+	newsContent=encodeURIComponent(newsContent);
 
-
+	/*
 //	alert(newsContent);
 
 	var xmlhttp = createXmlHttp();
@@ -30,10 +30,35 @@ function publish(message){
 	postData+="&newsCover="+fengmian;	//新闻封面
 	postData+="&newsTitle="+newsTitle;  //新闻标题
 	postData+="&newsTypeId="+newsTypeId;//新闻类型
-	
+*/	
+	$.ajax({
+	    //几个参数需要注意一下
+	        type: "POST",//方法类型
+	        dataType: "json",//预期服务器返回的数据类型
+	        url: "/News/PublishNews" ,//url
+	        data: $('#editNews').serialize()+"&newsContent="+newsContent,
+	        success: function (result) {
+//	            console.log(result);//打印服务端返回的数据(调试用)
+	        	if(result.upload==1){
+	        		window.location.href=result.url;
+	        	}else{
+	        		message.innerHTML=result.message;
+	        		
+	        	}
+	        	
+//	            if (result.resultCode == 200) {
+//	                alert("SUCCESS");
+	//
+//	            }
+	            ;
+	        },
+	        error : function() {
+	            alert("上传失败！");
+	        }
+	    });
 
 
-	xmlhttp.onreadystatechange = function() {
+	/*xmlhttp.onreadystatechange = function() {
 	    if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
 
 	    	//result 为发布成功后跳转的页面
@@ -54,7 +79,7 @@ function publish(message){
 	var url = '/News/PublishNews';
 	xmlhttp.open("POST", url, true);
 	xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded; charset=UTF-8");
-	xmlhttp.send(postData);
+	xmlhttp.send(postData);*/
 
 
 

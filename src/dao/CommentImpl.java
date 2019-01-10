@@ -49,7 +49,17 @@ public class CommentImpl {
 	
 	public boolean delectComment(int commentId) throws SQLException {
 		
-		String sql="DELECT FROM `Comment` WHERE commentId=?";
+		String sql="DELETE FROM `Comment` WHERE commentId=?";
+//		System.out.println(sql);
+		PreparedStatement preparedStatement=connection.prepareStatement(sql);
+		preparedStatement.setInt(1, commentId);
+		
+		preparedStatement.execute();
+		return true;
+	}
+	
+	public boolean reportComment(int commentId) throws SQLException {
+		String sql="UPDATE `Comment` SET state=1 WHERE commentId=?";
 		PreparedStatement preparedStatement=connection.prepareStatement(sql);
 		preparedStatement.setInt(1, commentId);
 		

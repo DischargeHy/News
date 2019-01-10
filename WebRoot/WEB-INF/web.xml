@@ -134,4 +134,14 @@
     <servlet-name>ShowComment</servlet-name>
     <url-pattern>/ShowComment</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ReportComment</display-name>
+    <servlet-name>ReportComment</servlet-name>
+    <servlet-class>servlet.comment.ReportComment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ReportComment</servlet-name>
+    <url-pattern>/ReportComment</url-pattern>
+  </servlet-mapping>
 </web-app>

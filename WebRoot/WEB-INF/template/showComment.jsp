@@ -5,9 +5,9 @@
 	<div id="who"></div>
 	<form action="" method="post" id="commentForm" name="commentForm"
 		enctype="application/x-www-form-urlencoded">
-		<input type="hidden" id="newsId" name="newsId" value="${newsId}" /> <input
+		<input type="hidden" id="newsId" name="newsId" value="${news.newsId}" /> <input
 			type="hidden" id="replyId" name="replyId" value="" />
-		<textarea rows="5" cols="20" id="commentContent" name="commentContent"></textarea>
+		<textarea id="commentContent" name="commentContent"></textarea>
 	</form>
 	<button onclick="submit_pinglun()">提交评论</button>
 	<button onclick="resetForm()">更改为回复新闻</button>
@@ -17,5 +17,7 @@
 	src="${pageContext.request.contextPath}/js/comment.js"></script>
 <script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
 <script type="text/javascript">
-	showComments(${newsId});
+	showComments(${news.newsId});
+	
+	ini_date(${news.userId},${news.newsId},${sessionScope.UserId});
 </script>

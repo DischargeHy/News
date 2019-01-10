@@ -6,12 +6,12 @@
     pageEncoding="UTF-8"%>
 <script src="${pageContext.request.contextPath}/ck5/document/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/ck5/document/translations/zh-cn.js"></script>
-
+<form id="editNews">
 <div style="text-align: center;">
 <label>新闻标题<input id="newsTitle" name="newsTitle" size="80" type="text" value="${news.getNewsTitle() }"/></label>
 <label>新闻类型</label>
 <!-- 新闻类型 -->
-<select id="newsType" name="newsTypeName">
+<select id="newsType" name="newsTypeId">
 	<%
 		News news=(News)request.getAttribute("news");
 	
@@ -45,7 +45,6 @@
 <script src="${pageContext.request.contextPath}/js/ck5/document-common.js"></script>
 <script src="${pageContext.request.contextPath}/js/newsEdit.js"></script>
 <div style="text-align: center;">
-<button onclick="publishConfirm()" >发布新闻</button>
 <span id="publishMessage" style="color: red;"></span>
 </div>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ck5.css" type="text/css" />
@@ -58,3 +57,5 @@
 <img alt="新闻封面" src="<%if(news!=null){out.print(news.getNewsCover());}
 						else{ %>${pageContext.request.contextPath}/img/java.png<%} %>" style="max-width: 300px;" id="fengmian">
 </div>
+</form>
+<button onclick="publishConfirm()" style="display: bloack; margin: 0 auto;">发布新闻</button>

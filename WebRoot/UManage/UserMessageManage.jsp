@@ -521,43 +521,68 @@ li {
 								<div class="am-form-content">
 									<!--头像 -->
 									<img id='img' class="am-circle" src=" <%=user.getUserHead()%>" width="60px" height="60px" />
-									<script>
-										var img = document.getElementById('img');
-										file.addEventListener('change',function() {
-															var obj = file.files[0]
-															var reader = new FileReader();
-															reader.readAsDataURL(obj);
-															reader.onloadend = function() {
-																img.setAttribute('src',reader.result);
-															}
-														})
-									</script>
 								</div>
 							</div>
 							<!-- 头像显示结束 -->
-							
+							<script src="${pageContext.request.contextPath}/js/newsEdit.js"></script>
 							<!-- 修改头像开始 -->
 							<div class="am-form-group">
 								<label for="user-name2" class="am-form-label">修改头像</label>
 								<div class="am-form-content">
 									<!--修改头像 -->
-									<input id="file" type="file" name="file" style="margin-top: 10px;">
+									<input id="file" type="file" name="file" accept="image/png,image/gif,image/jpeg" style="margin-top: 10px;">
 									<script>
 										var img = document.getElementById('img')
-										file.addEventListener(
-														'change',
-														function() {
-															var obj = file.files[0]
-															var reader = new FileReader();
-															reader.readAsDataURL(obj);
-															reader.onloadend = function() {
-																img.setAttribute('src',reader.result);
-															}
-														})
+										file.addEventListener('change',function() {
+											touxiang();
+										})
 									</script>
 								</div>
 							</div>
+							
 							<!-- 修改头像结束 -->
+							<script type="text/javascript">
+							//上传头像
+							function touxiang(){
+								var xmlhttp = createXmlHttp();
+								var newsCover=document.getElementById("file").files[0];
+								// 实例化一个表单数据对象 
+								var formData = new FormData(); 
+								formData.append("newsCover", newsCover); 
+								formData.append("t", Math.random()); 
+								if(!xmlhttp) {
+								    alert("您的浏览器不支持AJAX！");
+								    return 0;
+								}
+								var url = '/News/ck5/Upload';
+
+								xmlhttp.onreadystatechange = function() {
+								    if(xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+
+								    	//result 为发布成功后跳转的页面
+								        var result=xmlhttp.responseText;
+								        
+								        if(result == null || result == " "){
+								        	
+								        }else{
+								        	var result_json;
+									        result_json=eval("(" + result + ")");
+//									        alert(result_json.url);
+									        document.getElementById("img").src = result_json.url;
+								        }
+								    }else{
+								    	//发布失败
+								    	
+								    }
+								}
+								xmlhttp.open("POST", url, true);
+								
+//								xmlhttp.setRequestHeader("Content-Type", "multipart/form-data");
+//								xmlhttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+								xmlhttp.send(formData);
+							}
+							
+							</script>
 							
 							
 							<div class="info-btn">

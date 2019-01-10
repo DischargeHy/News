@@ -67,7 +67,7 @@ public class ShowComments extends HttpServlet {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				
+//				response.getWriter().print(JSON.toJSONStringWithDateFormat(linkedList, "yyyy-MM-dd HH:mm:ss"));
 				response.getWriter().print(JSON.toJSONString(linkedList, SerializerFeature.WriteDateUseDateFormat));
 			}else {
 				//查看主评论

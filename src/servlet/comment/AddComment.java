@@ -15,6 +15,7 @@ import com.mysql.cj.xdevapi.DbDoc;
 import dao.Comment;
 import dao.CommentImpl;
 import db.DBCon;
+import util.wordFilter.SensitivewordFilter;
 
 /**
  * Servlet implementation class Comment
@@ -46,11 +47,17 @@ public class AddComment extends HttpServlet {
 		// TODO Auto-generated method stub
 		
 //		System.out.println("addComment");
-		
-		int userId=(Integer)request.getSession().getAttribute("UserId");;
+		request.setCharacterEncoding("UTF-8");
+		int userId=(Integer)request.getSession().getAttribute("UserId");
 		int newsId=Integer.parseInt(request.getParameter("newsId"));
 
 		String commentContent=request.getParameter("commentContent");
+		
+		SensitivewordFilter sFilter=(SensitivewordFilter)this.getServletContext().getAttribute("wordFilter");
+		
+		commentContent=sFilter.replaceSensitiveWord(commentContent,SensitivewordFilter.minMatchTYpe,"*");
+		
+		
 		
 		String replyIdString=request.getParameter("replyId");
 		Comment comment=null;
@@ -70,7 +77,10 @@ public class AddComment extends HttpServlet {
 		try {
 			commentImpl.insertComment(comment);
 			jsonString=JSON.toJSONString(comment);
-			response.getOutputStream().print(jsonString);
+			response.setContentType("application/json;charset=UTF-8");
+//			System.out.println(jsonString);
+//			response.getWriter().print("true");
+			response.getWriter().print(jsonString);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

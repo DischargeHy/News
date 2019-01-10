@@ -3,6 +3,7 @@ package servlet.news;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,7 @@ import dao.News;
 import dao.NewsImpl;
 import db.DBCon;
 import util.Url;
+import util.wordFilter.SensitivewordFilter;
  
 /**
  * Servlet implementation class PulishNews
@@ -46,46 +48,49 @@ public class PublishNewsServlet extends HttpServlet {
 //		System.out.println("-----------------PublishNews-----------------");
 		if ((Integer)request.getSession().getAttribute("UserType")!=2) {
 			response.sendError(3, "你不是小编！！！");
-
+			
 		}else {
 			String newsContent=request.getParameter("newsContent");
 			String newsCover=request.getParameter("newsCover");
 			String newsTitle=request.getParameter("newsTitle");
-			int newsTypeId=Integer.parseInt(request.getParameter("newsTypeId"));
 			
-	//		String t=request.getParameter("t");
-//			System.out.println("newsContent:"+newsContent);
-	//		System.out.println("newsCover:"+newsCover);
-	//		System.out.println("newsTitle:"+newsTitle);
-	//		System.out.println("NewsTypeId:"+newsTypeId);
-	//		System.out.println("t:"+t);
-			int userId=(Integer) request.getSession().getAttribute("UserId");
-	
-	//		System.out.println(userId);
-	
-			Connection connection=new DBCon().getCon();
-			NewsImpl newsImpl=new NewsImpl(connection);
-	//		News news=new News(newsTitle, newsContent, newsTypeId, 5, newsCover);
-			News news=new News(newsTitle, newsContent, newsTypeId, userId, newsCover);
-			String newsId=null;
-			try {
-				newsImpl.insertNews(news);
-				newsId=""+newsImpl.getLastInsertId();
-			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-//			System.out.println(newsId);
-			if (newsId!=null) {
-				String strJson="{\"url\": \""+Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId+"\",\"uploaded\": 1}";
-//				String strJson=Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId;
-//				System.out.println(strJson);
-				response.setContentType("application/json;charset=utf-8;");
-//				response.setContentType("text/plain;");
-				response.getWriter().print(strJson);
-			}
+			SensitivewordFilter sFilter=(SensitivewordFilter)this.getServletContext().getAttribute("wordFilter");
+			Set<String> set = sFilter.getSensitiveWord(newsContent, SensitivewordFilter.minMatchTYpe);
+			
+			//存在敏感词
+			if (set.size()>0) {
+				response.setContentType("text/plain;charset=UTF-8");
+				response.getWriter().print("{\"uploaded\": 1 ,\"message\":\"新闻内容中包含敏感词的个数为：" + set.size() + "。分别是：" + set.toString()+"\"}");
+			}else {
+				int newsTypeId=Integer.parseInt(request.getParameter("newsTypeId"));
+				
+				int userId=(Integer) request.getSession().getAttribute("UserId");
 		
+		//		System.out.println(userId);
 		
+				Connection connection=new DBCon().getCon();
+				NewsImpl newsImpl=new NewsImpl(connection);
+		//		News news=new News(newsTitle, newsContent, newsTypeId, 5, newsCover);
+				News news=new News(newsTitle, newsContent, newsTypeId, userId, newsCover);
+				String newsId=null;
+				try {
+					newsImpl.insertNews(news);
+					newsId=""+newsImpl.getLastInsertId();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+//						System.out.println(newsId);
+				if (newsId!=null) {
+					String strJson="{\"url\": \""+Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId+"\",\"uploaded\": 1}";
+//							String strJson=Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId;
+//							System.out.println(strJson);
+					response.setContentType("application/json;charset=utf-8;");
+//							response.setContentType("text/plain;");
+					response.getWriter().print(strJson);
+				}
+			}
+
 		}
 		
 	}
