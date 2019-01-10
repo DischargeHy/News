@@ -347,9 +347,9 @@ width:100%
 								<img src=<%=news.getNewsCover()%> width="180px" height="105px" />
 							</div>
 							<div class="contentright" style="margin-top:10px">
-								<a href="#"><p>
+								<a href="./ShowNews?newsId=<%=news.getNewsId()%>"><p>
 										<strong><font size="4px"><%=news.getNewsTitle()%></font>
-									</p></a></strong> <a href="#"><%=news.getUserName()%>·&nbsp;<%=news.getNewsContentNum()%>条评论·&nbsp;<%=news.getUpdateTime()%></a>
+									</p></a></strong> <a href="./ShowNews?newsId=<%=news.getNewsId()%>"><%=news.getUserName()%>·&nbsp;<%=news.getNewsContentNum()%>条评论·&nbsp;<%=news.getUpdateTime()%></a>
 							</div>
 						</div>
 						<hr width="600" />
@@ -374,7 +374,7 @@ width:100%
 					int num=0;
 					int page_front = 1;//展示的第一个页面
 					
-					/* if(pageCount<6){
+					if(pageCount<6){
                        	page_front=1;
                     }
                     else if(Page>4&&pageCount-Page>=4){
@@ -383,10 +383,10 @@ width:100%
                     else if(pageCount-Page<3){
                     	
                     	page_front = pageCount-5;
-                    } */
+                    }
 						for (int i = page_front; i <= pageCount; i++) {
 							num++;
-							/* if(num==7){break;}//如果页码超过7就不显示 */
+							if(num==7){break;}//如果页码超过7就不显示 
 							if (i == Page) {
 					%>
 
