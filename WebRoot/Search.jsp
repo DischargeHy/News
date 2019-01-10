@@ -90,7 +90,8 @@ a {
 .content1 {
 	width: 600px;
 	height: 110px;
-	text-align: center;
+	text-align: left;
+	
 }
 
 .contentleft {
@@ -262,7 +263,7 @@ width:100%
 		<!--搜索框结束  -->
 					
 					<div class="main-wrap" 	style="-webkit-box-shadow: #666 0px 0px 10px; margin: 0px auto;margin-top:10px;margin-bottom:20px;
-				 	moz-box-shadow: #666 0px 0px 10px; box-shadow: #666 0px 0px 10px;width:790px;"  >
+				 	moz-box-shadow: #666 0px 0px 10px; box-shadow: #666 0px 0px 10px;width:790px;height:970px;"  >
 					<div class="content">
 						<!--新闻列表开始  -->
 						<%
@@ -284,9 +285,9 @@ width:100%
 							<div class="contentleft">
 								<img src=<%=news.getNewsCover()%> width="180px" height="105px" />
 							</div>
-							<div class="contentright">
+							<div class="contentright" style="margin-top:10px">
 								<a href="#"><p>
-										<strong><%=news.getNewsTitle()%>
+										<strong><font size="4px"><%=news.getNewsTitle()%></font>
 									</p></a></strong> <a href="#"><%=news.getUserName()%>·&nbsp;<%=news.getNewsContentNum()%>条评论·&nbsp;<%=news.getUpdateTime()%></a>
 							</div>
 						</div>

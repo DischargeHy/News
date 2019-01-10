@@ -10,26 +10,6 @@
 	--ck-sample-color-green: #279863;
 }
 
-body, html {
-	padding: 0;
-	margin: 0;
-
-	font-family: sans-serif, Arial, Verdana, "Trebuchet MS", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-	font-size: 16px;
-	line-height: 22px;
-}
-
-body {
-	height: 100%;
-	color: #2D3A4A;
-	background-repeat: no-repeat;
-	background-position: 50% 100%;
-	background-size: 100% auto;
-}
-
-body * {
-	box-sizing: border-box;
-}
 
 a {
 	color: #38A5EE;
