@@ -132,21 +132,23 @@ int userType = (Integer)session.getAttribute("UserType");
 											</div>
 										</td>
                                         <td>
-                                        	<form action="../updateType" method="post"><td>
-                                        		<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>">修改</button>
-												<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
+                                        <td>
+                                        	<input type="hidden" name="edit" value="update">
+                                        	<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>">修改</button>
+										<!-- 弹窗 开始-->
 										<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=newstype.getNewsTypeId()%>">
 										  <div class="am-modal-dialog">
 										    <div class="am-modal-hd">板块修改</div>
+										    <form action="../updateType" method="post">
 										    <div class="am-modal-bd">
 										      <input type="text" class="am-modal-prompt-input" name="NewsTypeName" value="<%=newstype.getNewsTypeName()%>">
-										    	<%=newstype.getNewsTypeName() %>
 										    </div>
-												<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
-												<input type="hidden" name="edit" value="update">
 											    <div class="am-modal-footer">
-											     <input type="submit" value="提交" form="form" style="width: 100%;background-color:#F8F8F8;border: 0px;color:#0E90D2;line-height: 100%;">
+											    <input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
+											    <input type="hidden" name="edit" value="update">
+											     <input type="submit" value="提交"  style="width: 100%;background-color:#F8F8F8;border: 0px;color:#0E90D2;line-height: 100%;">
 											     <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+											     </form>
 											    </div>
 										  </div>
 										</div>
@@ -163,10 +165,10 @@ int userType = (Integer)session.getAttribute("UserType");
 												});
 										</script>
 										<!-- 弹窗 结束-->
-										</form>
 										</td><td>
 											<form action="../updateType" method="post"><td>
 												<input type="hidden" name="edit" value="delete">
+												<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
 												<button  type="button"  class="am-btn am-btn-danger"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>del">删除</button>											<!-- 弹窗 -->
 											<!-- 开始 -->
 										<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=newstype.getNewsTypeId()%>del">
@@ -192,9 +194,6 @@ int userType = (Integer)session.getAttribute("UserType");
 											</script>
 											<!-- 弹窗 结束-->
 										</td></form>
-										<!-- 弹窗 开始-->
-										<form action="../updateType" method="post" id="form">
-                                        </td> 
                                     </tr>
                                     <%} %>
                                 </tbody>

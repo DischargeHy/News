@@ -333,7 +333,7 @@ li {
 								if (user.getUserType()==2) {
 							%>
 							<!-- <input type="text" name="usertypeName" value="小编" readonly="readonly"><br/> -->
-							<font color="#00F" size="3">小编</font><br/>
+							<font color="#00F" size="3" letter-spacing="1px";>小编</font><br/>
 							<%
 								}
 							%>
