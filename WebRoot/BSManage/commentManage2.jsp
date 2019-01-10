@@ -45,7 +45,7 @@
 	<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a></div>
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
 	
 			<div class="contain">
 				<ul class="am-nav am-navbar-nav am-navbar-left">
@@ -126,10 +126,10 @@
                             <table class="am-table">
                                 <thead>
                                     <tr>
-                                        <th width="200" style="word-break:break-all">用户信息</th>
-                                        <th width="200" style="word-break:break-all"></th>
-                                        <th width="180" style="word-break:break-all">评论时间</th>
-										<th width="80" style="word-break:break-all"><div align="center">封号</div></th>
+                                        <th width="20%" style="word-break:break-all">用户信息</th>
+                                        <th width="50%" style="word-break:break-all"></th>
+                                        <th width="10%" style="word-break:break-all">评论时间</th>
+										<th width="10%" style="word-break:break-all"><div align="center">封号</div></th>
                                         <th colspan="2">操作</th>
                                     </tr>
                                 </thead>

@@ -69,7 +69,7 @@
 	<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="index.html" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a>
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
             </div>
 			<div class="contain">
 				<ul class="am-nav am-navbar-nav am-navbar-left">
@@ -201,11 +201,11 @@
 								<table class="am-table">
                                 <thead>
                                     <tr>
-                                        <th width="270" style="word-break:break-all">标题</th>
-                                        <th width="200" style="word-break:break-all">类型</th>
-                                        <th width="200" style="word-break:break-all">作者</th>
-                                        <th width="180" style="word-break:break-all">发表时间</th>
-                                        <th>操作</th>
+                                        <th width="40%" style="word-break:break-all">标题</th>
+                                        <th width="10%" style="word-break:break-all">类型</th>
+                                        <th width="10%" style="word-break:break-all">作者</th>
+                                        <th width="20%" style="word-break:break-all">发表时间</th>
+                                        <th width="20%" colspan="2">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>

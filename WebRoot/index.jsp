@@ -194,20 +194,25 @@ li {
 		</div>
 		
 		<!-- 板块导航栏显示结束 -->
-		
+<!-- 		position: fixed;
+bottom: 0; -->
 		<!--搜索框开始-->
-		<div class="search fr">
+		
+			<div class="am-col " >
 			<form action="Search.jsp" method="post">
-				<div class="text fl" >
-					<input type="text" name="Search" class="shuru" placeholder="请输入搜索内容" >
+			<div class="am-input-group" style="margin-left:860px;width:280px;height:70px;">
+					<span class="am-input-group-btn">
+					<input type="text" name="Search" class="am-form-field" placeholder="请输入搜索内容" >
+					 <input class="am-btn am-btn-primary" name="" type="submit" value="搜索" />
+					</span>
+					</div>
+				</form>
 				</div>
-				<div class="submit fl">
-					<input type="submit" class="sousuo" value="搜索" />
-				</div>
-				<div class="clear"></div>
-			</form>
+				
+			
 			<div class="clear"></div>
 		</div>
+		
 		<!--搜索框结束-->
 	</div>
 	
