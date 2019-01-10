@@ -1,3 +1,4 @@
+<%@page import="dto.Comment"%>
 <%@page import="entity.ApplyList"%>
 <%@page import="entity.User"%>
 <%@page import="java.util.ArrayList"%>
@@ -44,6 +45,7 @@ li {
 					if(request.getParameter("page")!=null){
 						Page = Integer.parseInt(request.getParameter("page"));
 						}
+					
 					if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
 							session.removeAttribute("UserAccount");//清空session	
 							session.removeAttribute("UserType");
@@ -211,9 +213,68 @@ li {
 
 					<!--回复内容开始 -->
 					<div class="info-main" style="margin-right: 100px;">
-					
+						<%
+						Comment cm=null;
+						ArrayList replylist=nm.showReplyByUserId(user.getUserId(),Page);
+						for(int i=0;i<replylist.size();i++){
+							cm=(Comment)replylist.get(i);
+						%>
+						<div>
+							回复人:<%=cm.getUserName() %>&nbsp;回复了你说:<%=cm.getCommentContent() %><br/>
+							回复你的主题是:<a href="../ShowNews?newsId=<%=cm.getNewsId()%>"><%-- <%=nm.showNewsTitleByNewsId(cm.getNewsId()) %> --%><%=cm.getNewsId()%></a>
+						</div>
+						<%
+						}
+						%>
 					</div>
 					<!--回复内容结束  -->
+					
+					<!--页码开始  -->
+					<% 
+					int pageCount = nm.ShowPageCountByUserId(user.getUserId());//总分页数
+					if (Page < 1)
+						Page = 1;//如果页码小于1，则页码置为第1页
+					if (Page >= pageCount)
+						Page = pageCount;//如果当前页码大于总分的页数，就将当前页码置为最后一页
+					%>
+					
+			<ul class="am-pagination  am-pagination-centered">
+				<li class="am-disabled"><a href="NewsReply.jsp?page=1">首页</a></li>
+				<li><a href = "NewsReply.jsp?page=<%=Page-1%>" >上一页</a></li>
+				<%
+				int num=0;
+				int page_front = 1;//展示的第一个页面
+				
+				if(pageCount<6){
+                   	page_front=1;
+                }
+                else if(Page>4&&pageCount-Page>=4){
+                	page_front = Page-3;
+                }
+                else if(pageCount-Page<3){
+                	
+                	page_front = pageCount-5;
+                }
+					for (int i = page_front; i <= pageCount; i++) {
+						num++;
+						if(num==7){break;}//如果页码超过7就不显示
+								if(i==Page){		
+							%>
+				<li ><a style="color: red;"><%=i%> </a></li>				<%	
+								}
+								else{
+							%>
+				<li ><a href="NewsReply.jsp?page=<%=i%>"><%=i%> </a></li>
+				<%
+								}	
+							} 
+							%>
+				<li><a href = "NewsReply.jsp?page=<%=Page+1%>" >下一页</a></li>
+				<li><a href="NewsReply.jsp?page=<%=pageCount%>">尾页 </a></li>
+
+			</ul>
+			<!--页码结束  -->
+					
 			</div>
 		</div>
 	</div>

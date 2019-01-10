@@ -1,5 +1,6 @@
 package db;
 
+import java.io.UnsupportedEncodingException;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -8,6 +9,7 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import dto.Comment;
 import entity.ApplyList;
 import entity.CommentReport;
 import entity.News;
@@ -869,6 +871,41 @@ public class NewsManage {
 			return pageCount;
 		}
 		
+		//根据userid决定主页面(NewsReply.jsp)要分多少页
+				public int ShowPageCountByUserId(int UserId){
+					int pageCount=0;
+					int allLine=0;
+					Connection con = conn.getCon();
+					String sqlString = "SELECT COUNT(*) as allLine FROM V_comment WHERE replyUserId=?";
+					try {
+						PreparedStatement pre = con.prepareStatement(sqlString);
+						pre.setInt(1, UserId);
+						ResultSet rs = pre.executeQuery();
+						while (rs.next()) {
+							allLine = rs.getInt("allLine");//获得查询的总行数
+							
+						}
+						rs.close();
+						sqlString="SELECT COUNT(*) as allLine FROM V_comment  where replyUserId is null and NewsId in(SELECT NewsId from News where UserId="+UserId+")";
+						System.out.println(sqlString);
+						pre = con.prepareStatement(sqlString);
+						ResultSet rs2 = pre.executeQuery();
+						while (rs2.next()) {
+							allLine += rs2.getInt("allLine");//获得查询的总行数
+						}
+						//确定要分的页数(总页码)
+						pageCount = (allLine%indexPageSize==0)?(allLine/indexPageSize):(allLine/indexPageSize+1);
+						
+					} catch (SQLException e) {
+						e.printStackTrace();
+					} finally {
+						conn.closeAll(con);
+					}
+					
+					
+					return pageCount;
+				}
+		
 		// 根据user对象修改User表（不包括密码）
 		public int updateUserNoPass(User user) {
 			int count = 0;
@@ -1109,6 +1146,7 @@ public class NewsManage {
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();
+				
 				while (rs.next()) {
 					String createTime = rs.getString("CreateTime");
 					
@@ -1170,4 +1208,75 @@ public class NewsManage {
 			return list;
 		}
 		
+		//根据用户id查询回复它的评论（回复新闻的和回复评论的）
+		public ArrayList showReplyByUserId(int UserId,int Page) {
+			ArrayList list = new ArrayList();
+			Connection con = conn.getCon();
+			
+		/*
+		 * SELECT * FROM V_comment WHERE replyUserId=6 union SELECT * FROM V_comment
+		 * where replyUserId is null and NewsId in(SELECT NewsId from News where
+		 * UserId=7) order by CommentTime DESC
+		 */
+			String sqlString = "SELECT * FROM V_comment WHERE replyUserId=" + UserId +
+					" union SELECT * FROM V_comment  where replyUserId is null and NewsId in(SELECT NewsId from News where UserId=" +
+					UserId + ") order by CommentTime DESC";
+//			System.out.println(sqlString);
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				
+				rs.absolute((Page-1)*indexPageSize+1);//指针指向对应页的第一个数据
+				int count = 0;
+				do{
+					if(count>=indexPageSize){
+						break;//当计数大于定义的每页个数时跳出循环
+					}
+					int commentId=rs.getInt("commentId");
+					String commentContent = rs.getString("commentContent");
+					Date commentTime = rs.getDate("commentTime");
+					int userId = rs.getInt("UserId");
+					int newsId = rs.getInt("NewsId");
+					int replyId = rs.getInt("replyId");
+					String state = rs.getString("state");
+					int replyCount = rs.getInt("replyCount");
+					String userName = rs.getString("UserName");
+					String userHead = rs.getString("userHead");
+					int replyUserId = rs.getInt("replyUserId");
+					String replyUserName = rs.getString("replyUserName");
+					
+					int newsContentNum=showContentNum(newsId);//调用方法查询回复数
+					Comment cm=new Comment(commentId, commentContent, commentTime, userId, newsId, replyId, state, replyCount, userName, userHead, replyUserId, replyUserName);
+					list.add(cm);
+					count++;
+				}while (rs.next());
+
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return list;
+		}
+		
+		//根据新闻ID获取新闻标题
+		public String showNewsTitleByNewsId(int NewsId) {
+			String newsTitle=null;
+			Connection con = conn.getCon();
+			String sqlString = "select NewsTitle from News where NewsId= '" + NewsId  + "'";
+			try {
+				PreparedStatement pre = con.prepareStatement(sqlString);
+				ResultSet rs = pre.executeQuery();
+				while (rs.next()) {
+					newsTitle = rs.getString("NewsTitle");
+				}
+				rs.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			} finally {
+				conn.closeAll(con);
+			}
+			return newsTitle;
+		}
 }

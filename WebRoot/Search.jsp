@@ -169,6 +169,7 @@ width:100%
 				<!--顶部导航栏  -->
 				<!-- Session信息和用户信息开始 -->
 				<% request.setCharacterEncoding("utf-8");
+					response.setCharacterEncoding("utf-8");
 					int Page=1;
 					if(request.getParameter("page")!=null){
 						Page = Integer.parseInt(request.getParameter("page"));
@@ -373,7 +374,7 @@ width:100%
 					int num=0;
 					int page_front = 1;//展示的第一个页面
 					
-					if(pageCount<6){
+					/* if(pageCount<6){
                        	page_front=1;
                     }
                     else if(Page>4&&pageCount-Page>=4){
@@ -382,10 +383,10 @@ width:100%
                     else if(pageCount-Page<3){
                     	
                     	page_front = pageCount-5;
-                    }
+                    } */
 						for (int i = page_front; i <= pageCount; i++) {
 							num++;
-							if(num==7){break;}//如果页码超过7就不显示
+							/* if(num==7){break;}//如果页码超过7就不显示 */
 							if (i == Page) {
 					%>
 
