@@ -120,11 +120,11 @@
                             <table class="am-table">
                                 <thead>
                                     <tr>
-                                        <th width="5%" style="word-break:break-all">用户头像</th>
-                                        <th width="20%" style="word-break:break-all">用户名</th>
-                                        <th width="20%" style="word-break:break-all">用户邮箱</th>
-                                        <th width="20%" style="word-break:break-all">申请时间</th>
-                                        <th width="5%" colspan="2">操作</th>
+                                        <th width="10%" style="word-break:break-all">用户头像</th>
+                                        <th width="10%" style="word-break:break-all">用户名</th>
+                                        <th width="30%" style="word-break:break-all">申请理由</th>
+                                        <th width="15%" style="word-break:break-all">申请时间</th>
+                                        <th width="10%" colspan="2">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -149,7 +149,7 @@
                                     <tr>
                                         <td width="100" style="word-break:break-all"><img src="<%=al.getUserHead()%>" width="30px" height="30px"/></td>
                                         <td width="230" style="word-break:break-all"><%=al.getUserName()%></td>
-                                        <td width="230" style="word-break:break-all"><%=al.getUserEMail()%></td>
+                                        <td width="230" style="word-break:break-all"><%=al.getReasons()%></td>
                                         <td width="190" style="word-break:break-all"><%=al.getTime()%></td>
                                         <td>
 										<form action="../updateApplyServlet" method="post">
