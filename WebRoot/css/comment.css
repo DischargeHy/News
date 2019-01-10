@@ -1,0 +1,32 @@
+@charset "UTF-8";
+
+.pinglun,#comment_area{
+	width: 800px;
+	margin: 0 auto;
+}
+.d_author,.d_post_comtent_main{
+	display: inline-block;
+	
+	
+}
+.d_author{
+	width: 200px;
+	vertical-align: top;
+	/* float: left; */
+}
+.d_author_head{
+	
+}
+.d_author_head_img{
+	width:100px;
+	height: 100px;
+	display: block;
+	margin: 5px auto;
+}
+.d_author_name{
+	text-align: center;
+}
+.d_post_comtent_main{
+	width: 600px;
+
+}

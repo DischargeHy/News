@@ -1,7 +1,7 @@
 package util.wordFilter;
 
 import java.io.IOException;
-import java.net.URISyntaxException;
+import java.net.URL;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
@@ -35,7 +35,10 @@ public class WordFilter extends HttpServlet {
 //		System.out.println(path);
 		SensitivewordFilter sFilter;
 		try {
-			sFilter = new SensitivewordFilter(WordFilter.class.getResource("SensitiveWord.txt"));
+			URL url=WordFilter.class.getResource("SensitiveWord.txt");
+//			System.out.println("sf:"+url.toString());
+			sFilter = new SensitivewordFilter(url);
+
 			config.getServletContext().setAttribute("wordFilter", sFilter);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block

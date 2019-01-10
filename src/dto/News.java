@@ -1,4 +1,4 @@
-package dao;
+package dto;
 
 import java.sql.Date;
 
@@ -13,20 +13,9 @@ public class News {
 	Integer newsTypeId;
 	Integer userId;
 	String newsCover;
-	
-	
-	
-	
-	public News(String newsTitle, String newsContent, Integer newsTypeId, Integer userId, String newsCover) {
-		super();
-		this.newsTitle = newsTitle;
-		this.newsContent = newsContent;
-		this.newsTypeId = newsTypeId;
-		this.userId = userId;
-		this.newsCover = newsCover;
-	}
+	String author;
 	public News(Integer newsId, String newsTitle, String newsContent, Date createTime, Date updateTime,
-			Integer newsStatus, Integer browse, Integer newsTypeId, Integer userId, String newsCover) {
+			Integer newsStatus, Integer browse, Integer newsTypeId, Integer userId, String newsCover, String author) {
 		super();
 		this.newsId = newsId;
 		this.newsTitle = newsTitle;
@@ -38,6 +27,7 @@ public class News {
 		this.newsTypeId = newsTypeId;
 		this.userId = userId;
 		this.newsCover = newsCover;
+		this.author = author;
 	}
 	public Integer getNewsId() {
 		return newsId;
@@ -99,6 +89,12 @@ public class News {
 	public void setNewsCover(String newsCover) {
 		this.newsCover = newsCover;
 	}
-
+	public String getAuthor() {
+		return author;
+	}
+	public void setAuthor(String author) {
+		this.author = author;
+	}
+	
 	
 }

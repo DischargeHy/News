@@ -23,12 +23,52 @@ function createXmlHttp() {
     return xmlhttp;
 }
 
-function showComments(newsId,commentId){
+function showComments(newsId){
+	var Data;
+
+	Data = "newsId="+newsId
+	
+	$.ajax({
+	    //几个参数需要注意一下
+	        type: "POST",//方法类型
+	        dataType: "json",//预期服务器返回的数据类型
+	        url: "/News/ShowComments" ,//url
+//	        data: $('#commentForm').serialize(),
+	        data: Data,
+	        success: function (result) {
+	            console.log(result);//打印服务端返回的数据(调试用)
+//	            alert("success");
+
+//	            test_ul(result);
+//	            test(result[0]);   
+//	            test_product_d(result[0],get_comment_num());
+	            
+	            for(i in result){
+	            	$('#comment_area').append(product_d(result[i],comment_num));
+	            }
+	            
+	            if (result.resultCode == 200) {
+	                alert("SUCCESS");
+	                
+	            }
+	            ;
+	        },
+	        error : function() {
+	            alert("异常！");
+	        }
+	    });
+
+}
+//newsId
+//commentId
+//num 序号
+//dom   this   为<a>标签
+function show_reply(newsId,commentId,num,dom){
 	var Data;
 	if(commentId){
-		Data = "newsId="+newsId+"&"+"commentId="+commentId
+		Data = "newsId="+newsId+"&"+"commentId="+commentId;
 	}else{
-		Data = "newsId="+newsId
+		Data = "newsId="+newsId;
 	}
 	$.ajax({
 	    //几个参数需要注意一下
@@ -39,31 +79,50 @@ function showComments(newsId,commentId){
 	        data: Data,
 	        success: function (result) {
 	            console.log(result);//打印服务端返回的数据(调试用)
-	            if (result.resultCode == 200) {
-	                alert("SUCCESS");
-
-	            }
+//	            alert("success");
+	            var d_post_comtent_main=$(dom).parent().parent();
+	            
+	            $(d_post_comtent_main).children("div:last-child").html(product_reply_ul(result,comment_num)).toggle("slow");
+	            
+	            
+//	            if (result.resultCode == 200) {
+//	                alert("SUCCESS");
+//	                
+//	            }
 	            ;
 	        },
 	        error : function() {
 	            alert("异常！");
 	        }
 	    });
-
 }
-function pinglun() {
-    $.ajax({
+
+function pinglun(replyId,who) {
+	$('body,html').animate({scrollTop: $('#commentForm').offset().top-50}, 500);
+	$('#replyId').val(replyId);
+	$('#who').html("回复ta@<a>"+who+"</a>");
+}
+
+function resetForm(){
+//	$('#replyId').removeAttr('id');
+	$('#replyId').val('');
+	$('#who').html('');
+}
+
+function submit_pinglun(){
+	$.ajax({
     //几个参数需要注意一下
         type: "POST",//方法类型
         dataType: "json",//预期服务器返回的数据类型
         url: "/News/AddComment" ,//url
         data: $('#commentForm').serialize(),
         success: function (result) {
-            console.log(result);//打印服务端返回的数据(调试用)
-            if (result.resultCode == 200) {
-                alert("SUCCESS");
-
-            }
+//            console.log(result);//打印服务端返回的数据(调试用)
+        	window.location.reload();
+//            if (result.resultCode == 200) {
+//                alert("SUCCESS");
+//
+//            }
             ;
         },
         error : function() {
@@ -72,115 +131,145 @@ function pinglun() {
     });
 }
 
-function productPinglun(json){
-	var d=$("<div class='d'></div>");  //单条评论
 
-	var d_author=$("<div class='d_author'></div");  //评论人信息
-
-	var d_author_head=$("<div class='d_author_head_div'><img class='d_author_head' src=''></div>"); //评论人头像部分
-
-	var d_author_name=$("<div class='d_author_name'></div>");   //评论人昵称部分
-
-	var d_post_comtent_main=$("<div class='d_post_comtent_main'></div>");  // 评论的主要内容 里面包括了 回复   PS:回复即评论的评论
-
-	var p_content=$("<div class='p_content'></div>"); //评论的内容部分
-
-	var p_text=$('<div class="p_text"></div>'); //评论的内容
-
-	var p_bottom=$('<div class="p_bottom"></div)');  //评论内容的底部   显示 评论时间和 该评论的回复数量
-
-	var button=$('<button class="am-btn am-btn-primary" data-am-collapse="{target: "#reply_ul"}">查看回复<i>(32)</i></button>');
-
-	var reply_content=$('<div class="reply_content"></div>');  //回复区域
-
-	var reply_ul=$('<ul class="reply_ul" id="reply_ul"></ul>');	// 无序列表 里头装的是回复
-
-	var reply_li=$('<li class="reply_li"></li>');	//单条评论
-
-	var reply_li_div_head=$('<div class="reply_li_div_head"><img src="reply_img"></div>');	//回复者头像
-
-	var reply_li_div_content=$('<div class="reply_li_div_content"></div>'); //单条回复的主要内容
-
-	var reply_text=$('<div class="reply_text"></div>'); //回复的内容
-
-	var reply_bottom=$('<div class="reply_bottom"></div>'); //回复的底部
-
-
-
-
-}
 var comment_num=0;
 function get_comment_num(){
     return comment_num++;
 }
+function test_product_d(mainComment,comment_num){
+	$('#xx').append(product_d(mainComment,comment_num));
+}
 
+function product_d(mainComment,comment_num){
+	var d=$('<div class="d"></dvi>');
+	
+	var d_author=$('<div class="d_author"></div>');
+	
+	var d_author_head=$('<div class="d_author_head"></div>');
+	
+	var d_author_head_img=$('<img class="d_author_head_img" src="">').attr("src",mainComment.userHead);
+	
+	$(d_author_head).append(d_author_head_img);
+	
+	var d_author_name=$('<div class="d_author_name"></div>').append($('<a href="#"></a>').text(mainComment.userName));
+	
+	d_author.append(d_author_head).append(d_author_name);
+	$(d).append(d_author);
+	
+	var d_post_comtent_main=$('<div class="d_post_comtent_main"></div>').attr('id','comment-'+comment_num);
+	d_post_comtent_main.append(product_p_content(mainComment,comment_num));
+	
+	$(d).append(d_author).append(d_post_comtent_main);
+	return d;
+}
+
+//
 //@param JSON mainComment  单个评论 主要内容   不包含 该评论的 回复部分
 function product_p_content(mainComment,comment_num){
     var p_content=$("<div class='p_content'></div>"); //评论的内容部分
 
-    var p_text=$('<div class="p_text">'+mainComment.commentContent+'</div>'); //评论的内容
+    var p_text=$('<div class="p_text"></div>').text(mainComment.commentContent); //评论的内容
 
-    var p_bottom=$('<div class="p_bottom">'+mainComment.commentTime+'</div>');  //评论内容的底部   显示 评论时间和 该评论的回复数量
-
+    var p_bottom=$('<div class="p_bottom"></div>');  //评论内容的底部   显示 评论时间和 该评论的回复数量
+    
+    var comment_time=$('<span class="reply-time"></span>').text(mainComment.commentTime);
+    
+//    var huifu=$("<a href='javascript:pinglun("+mainComment.commentId+",\'"+mainComment.userName+"\')' >回复</a>");
+    
+    var huifu=$("<a href=''>回复</a>");
+	var href="javascript:pinglun("+mainComment.commentId+",'"+mainComment.userName+"')";
+	$(huifu).attr('href',href);
+    
+    $(p_bottom).append(comment_time).append(huifu);
+   
+    p_content.append(p_text).append(p_bottom);
+    
     if(mainComment.replyCount>0){
-        var button=$('<button class="am-btn am-btn-primary" data-am-collapse="{target: "#reply_ul_'+comment_num+'"}">查看回复<i>(mainComment.replyCount)</i></button>'); //
+        var button=$('<button class="am-btn am-btn-primary" data-am-collapse="{target: "#reply_ul_'+comment_num+'" }  onclick="show_reply('+mainComment.newsId+','+mainComment.commentId+','+comment_num+',this)"></button>'); //
+        button.append('<i>查看回复('+mainComment.replyCount+')</i>');
+        
+        var reply_content=$('<div class="reply_content"></div>');
+        $(p_bottom).append(button).after(reply_content);
+        
     }else{
-
+    	
     }
-
+    
+    return p_content;
     //
 
-
-}
-
-function append_reply_content(){
-
 }
 
 
+
+//回复部分  多条回复
 //@param JSON secondCommentList  //单个评论的所有回复
-function product_reply_content(secondCommentList,comment_num){
-    var reply_ul=$('<ul class="reply_ul" id="reply_ul_"+comment_num+"></ul>'); // 无序列表 里头装的是回复
+function product_reply_ul(secondCommentList,comment_num){
+	
+    var reply_ul=$('<ul class="reply_ul" id=""></ul>').attr('id','reply_ul_'+comment_num); // 无序列表 里头装的是回复
     for(var li in secondCommentList){
-        reply_ul.appendChild(product_reply_li(li));
+//    	console.log(secondCommentList[li]);
+        $(reply_ul).append(product_reply_li(secondCommentList[li]));
     }
+
     return reply_ul;
 }
 
 
-
-//@param JSON secondComment // 单个回复  json 类型
+//回复部分  单条回复
+//@param JSON secondComment // 单个回复  json 类型 
 function product_reply_li(secondComment){
 	var reply_li=$('<li class="reply_li"></li>');	//单条评论
 
 	var reply_li_div_head=$('<div class="reply_li_div_head"></div>');	//回复者头像
 	
-	$("<img class='reply-head'></img>").attr('src',secondComment.userHead);  //  将图片放入 上述 div 中
+	var img=$("<img class='reply-head'></img>").attr('src',secondComment.userHead);  
+	$(reply_li_div_head).append(img);//  将图片放入 上述 div 中
 	
 	var reply_li_div_content=$('<div class="reply_li_div_content"></div>'); //单条回复的主要内容
 
 	var reply_text=$('<div class="reply_text"></div>'); //回复的内容
 	
-	$(reply_text).text(secondComment.commentContent);
+	var userName=$('<a href="#"></a>').text(secondComment.userName);   //发表回复的那个人的名字
+	
+	var replyUserName=$('<a href="#"></a>').text(secondComment.replyUserName);
+	$(reply_text).append(userName).append('<i>@</i>').append(replyUserName).append('<span class="reply-time">'+secondComment.commentContent+'</span>');
+
 	
 	var reply_bottom=$('<div class="reply_bottom"></div>'); //回复的底部
 	
-	$(reply_bottom).text(secondComment.commentTime);
+	
+	var a=$("<a href=''>回复</a>");
+	var href="javascript:pinglun("+secondComment.commentId+",'"+secondComment.userName+"')";
+	$(a).attr('href',href);
+	$(reply_bottom).append('<span class="reply-time">'+secondComment.commentTime+'</span>');
+	$(reply_bottom).append(a);
 	
 	
-	
-	reply_li_div_content.appendChild(reply_text);
-    reply_li_div_content.appendChild(reply_bottom);
+	$(reply_li_div_content).append(reply_text);
+    $(reply_li_div_content).append(reply_bottom);
 
-    reply_li.appendChild(reply_li_div_head);
-    reply_li.appendChild(reply_li_div_content);
+    $(reply_li).append(reply_li_div_head);
+    $(reply_li).append(reply_li_div_content);
 
 	return reply_li;
 }
 
 
-function test(){
+
+
+
+function test(json){
+	var x=product_reply_li(json);
+	$("#xx").append(x);
+//	console.log(x);
 	
+}
+
+function test_ul(json){
+	var x=product_reply_content(json,get_comment_num());
+	$("#xx").append(x);
+//	console.log(x);
 }
 
 

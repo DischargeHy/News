@@ -225,7 +225,15 @@ li {
 	<div class="am-g am-g-fixed blog-fixed center">
 		<!-- 板块新闻展示开始 -->
 		<div class="am-u-md-8 am-u-sm-12">
-			
+			<h2 style="text-align: center;">${news.newsTitle}</h2>
+			<h5 style="text-align: center;">作者：${news.author}</h5>
+			<script src="${pageContext.request.contextPath}/ck5/document/ckeditor.js"></script>
+			<jsp:include page="/WEB-INF/template/newsContent.jsp"></jsp:include>
+			<!-- 评论部分    开始-->
+			<iframe src="${pageContext.request.contextPath}/ShowComment?newsId=${news.getNewsId()}" width="800px;" height="800px;">
+				
+			</iframe>
+			<!-- 评论部分    结束 -->
 		</div>
 		<!-- 板块新闻展示结束 -->
 		

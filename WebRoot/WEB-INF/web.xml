@@ -124,4 +124,14 @@
     <servlet-name>AdviseServlet</servlet-name>
     <url-pattern>/AdviseServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowComment</display-name>
+    <servlet-name>ShowComment</servlet-name>
+    <servlet-class>servlet.comment.ShowComment</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowComment</servlet-name>
+    <url-pattern>/ShowComment</url-pattern>
+  </servlet-mapping>
 </web-app>

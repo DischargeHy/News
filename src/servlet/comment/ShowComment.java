@@ -1,30 +1,21 @@
-package servlet.news;
+package servlet.comment;
 
 import java.io.IOException;
-import java.sql.SQLException;
-
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-import dto.NewsImpl;
-import db.DBCon;
-import dto.News;
- 
 /**
- * Servlet implementation class ShowNews
+ * Servlet implementation class ShowComment
  */
-@WebServlet("/ShowNews")
-public class ShowNews extends HttpServlet {
+public class ShowComment extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public ShowNews() {
+    public ShowComment() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,17 +25,10 @@ public class ShowNews extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		int newsId=Integer.parseInt(request.getParameter("newsId"));
-		NewsImpl newsImpl= new NewsImpl(new DBCon().getCon());
-		News news=null;
-		try {
-			news=newsImpl.selectNewsByNewsId(newsId);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		request.setAttribute("news", news);
-		request.getRequestDispatcher("/WEB-INF/jsp/NewsDetail.jsp").forward(request, response);
+//		System.out.println("ShowCommentServlet");
+		String newsId=request.getParameter("newsId");
+		request.setAttribute("newsId", newsId);
+		request.getRequestDispatcher("/WEB-INF/template/showComment.jsp").forward(request, response);
 	}
 
 	/**

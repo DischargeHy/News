@@ -45,14 +45,26 @@ public class AddComment extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-		System.out.println("addComment");
+//		System.out.println("addComment");
 		
-		int userId=(Integer)request.getSession().getAttribute("UserId");
+		int userId=(Integer)request.getSession().getAttribute("UserId");;
 		int newsId=Integer.parseInt(request.getParameter("newsId"));
+
 		String commentContent=request.getParameter("commentContent");
 		
-		Comment comment=new Comment(commentContent, userId, newsId);
+		String replyIdString=request.getParameter("replyId");
+		Comment comment=null;
+
+		try {
+			int replyId=Integer.parseInt(replyIdString);
+			comment=new Comment(commentContent, userId, newsId,replyId);
+		} catch (Exception e) {
+			// TODO: handle exception
+			comment=new Comment(commentContent, userId, newsId);
+			
+		}
 		CommentImpl commentImpl=new CommentImpl(new DBCon().getCon());
+		
 		
 		String jsonString;
 		try {
