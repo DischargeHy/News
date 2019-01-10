@@ -355,7 +355,7 @@ public class NewsManage {
 			int page_int = Integer.parseInt(page);
 			limit+= (page_int-1)*6;
 			Connection con = conn.getCon();
-			String sqlString = "select * from `NewsExamineView` limit " + limit +",6";
+			String sqlString = "select * from `NewsExamineView` order by updateTime DESC limit "  + limit +",6";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();
@@ -1140,7 +1140,7 @@ public class NewsManage {
 			Connection con = conn.getCon();
 			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");//设置日期格式
 			String Today=df.format(new java.sql.Date(System.currentTimeMillis()));//获取今天的日期
-			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsStatus=1 and CreateTime like '" + Today + "%' order by CreateTime desc limit 4";
+			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsStatus=1 and CreateTime like '" + Today + "%' order by CreateTime desc limit 2,4";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();

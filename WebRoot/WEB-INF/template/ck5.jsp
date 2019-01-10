@@ -7,11 +7,14 @@
 <script src="${pageContext.request.contextPath}/ck5/document/ckeditor.js"></script>
 <script src="${pageContext.request.contextPath}/ck5/document/translations/zh-cn.js"></script>
 
+
 <div style="text-align: center;">
-<label>新闻标题<input id="newsTitle" name="newsTitle" size="80" type="text" value="${news.getNewsTitle() }"/></label>
-<label>新闻类型</label>
+<br>
+<label style="height:30px;font-size:15px">新闻标题:&nbsp;&nbsp;&nbsp;<input id="newsTitle" name="newsTitle" size="80" type="text" value="${news.getNewsTitle() }" style="height:30px"/></label>&nbsp;&nbsp;
+<label style="height:30px;font-size:15px">新闻类型:&nbsp;&nbsp;</label>
+
 <!-- 新闻类型 -->
-<select id="newsType" name="newsTypeName">
+<select id="newsType" name="newsTypeName" style="height:30px" >
 	<%
 		News news=(News)request.getAttribute("news");
 	
@@ -29,6 +32,7 @@
 	%>
 </select>
 </div>
+<br>
 <main>
 	<div class="centered">
 		<div class="document-editor">
@@ -44,17 +48,40 @@
 
 <script src="${pageContext.request.contextPath}/js/ck5/document-common.js"></script>
 <script src="${pageContext.request.contextPath}/js/newsEdit.js"></script>
-<div style="text-align: center;">
-<button onclick="publishConfirm()" >发布新闻</button>
-<span id="publishMessage" style="color: red;"></span>
-</div>
+
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ck5.css" type="text/css" />
 
 <div style="text-align: center;">
-	<input type="file" id="newsCover" name="newsCover" accept="image/png,image/gif,image/jpeg"/>
-	<button onclick="newsCover()">上传图片作为封面</button>
+	
 <div style="width: 400px;">
 </div>
+<br>
+<br>
 <img alt="新闻封面" src="<%if(news!=null){out.print(news.getNewsCover());}
 						else{ %>${pageContext.request.contextPath}/img/java.png<%} %>" style="max-width: 300px;" id="fengmian">
+	<div class="center" >
+	
+	<br>
+	
+	<center>
+	请插入新闻封面：
+	<label >
+	<input type="file" id="newsCover" name="newsCover" accept="image/png,image/gif,image/jpeg"  />
+	
+	</label>
+	<button onclick="newsCover()" type="button"  style="height:30px; width:140px;" class="am-btn am-btn-sm am-btn-danger am-radius">上传图片作为封面</button>
+	</center>
+	
+	</div>
+	
+	
+	
+	</div>
+	<div style="text-align: center;">
+	<br>
+	<button onclick="publishConfirm()" type="button"  style="height:35px; width:100px;" class="am-btn am-btn-danger am-radius">发布新闻</button><br>
+	<span id="publishMessage" style="color: red;"></span>
+	<br>
+	<br>
+	</div>
 </div>
