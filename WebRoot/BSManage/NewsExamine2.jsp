@@ -36,7 +36,7 @@
 	<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="index.html" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a>
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
             </div>
 	
 			<div class="contain">
@@ -119,13 +119,13 @@
                             <table class="am-table">
                                 <thead>
                                     <tr>
-                                        <th width="400" style="word-break:break-all">新闻详情</th>
+                                        <th width="50%" style="word-break:break-all">新闻详情</th>
                                         
-                                        <th width="250" style="word-break:break-all">作者信息</th>
+                                        <th width="20%" style="word-break:break-all">作者信息</th>
                                         
-                                        <th width="180" style="word-break:break-all">发表时间&nbsp;/&nbsp;更新时间</th>
+                                        <th width="20%" style="word-break:break-all">发表时间&nbsp;/&nbsp;更新时间</th>
                                        
-                                        <th>操作</th>
+                                        <th width="10%" colspan="2">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>

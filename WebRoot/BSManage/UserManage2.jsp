@@ -50,7 +50,7 @@
 %>
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="#" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a>
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
 				</div>
 	
 			<div class="contain">
@@ -156,10 +156,10 @@
 								<table class="am-table">
                                 <thead>
                                     <tr>
-                                        <th width="100" style="word-break:break-all">用户头像</th>
-                                        <th width="230" style="word-break:break-all">用户账号</th>
-                                        <th width="230" style="word-break:break-all">用户名</th>
-                                        <th width="230" style="word-break:break-all">用户邮箱</th>
+                                        <th width="5%" style="word-break:break-all">用户头像</th>
+                                        <th width="20%" style="word-break:break-all">用户账号</th>
+                                        <th width="20%" style="word-break:break-all">用户名</th>
+                                        <th width="30%" style="word-break:break-all">用户邮箱</th>
                                         <th>权限管理</th>
                                     </tr>
                                 </thead>

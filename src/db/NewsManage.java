@@ -87,7 +87,7 @@ public class NewsManage {
 		int page_int = Integer.parseInt(page);
 		String NewsListTable = "NewsListStatu" + NewsStatus + "View";
 		limit+= (page_int-1)*6;
-		String sqlString = "select * from " + NewsListTable + " WHERE UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%' limit " + limit + ",6";
+		String sqlString = "select * from " + NewsListTable + " WHERE UserId =" + UserId1 + " and NewsTitle like '%" + NewsTitle + "%'  limit " + limit + ",6";
 		try {
  			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();

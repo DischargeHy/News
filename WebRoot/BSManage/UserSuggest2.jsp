@@ -41,8 +41,7 @@
 	<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a></div>
-	
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
 			<div class="contain">
 				<ul class="am-nav am-navbar-nav am-navbar-left">
 					<li><h4 class="page-title">用户反馈查看</h4></li>
