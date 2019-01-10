@@ -38,7 +38,7 @@
 	<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="../houtai/html/index.html" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a>            </div>
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
 	
 			<div class="contain">
 				<ul class="am-nav am-navbar-nav am-navbar-left">
@@ -120,11 +120,11 @@
                             <table class="am-table">
                                 <thead>
                                     <tr>
-                                        <th width="100" style="word-break:break-all">用户头像</th>
-                                        <th width="230" style="word-break:break-all">用户名</th>
-                                        <th width="230" style="word-break:break-all">用户邮箱</th>
-                                        <th width="190" style="word-break:break-all">申请时间</th>
-                                        <th colspan="2">操作</th>
+                                        <th width="10%" style="word-break:break-all">用户头像</th>
+                                        <th width="10%" style="word-break:break-all">用户名</th>
+                                        <th width="30%" style="word-break:break-all">申请理由</th>
+                                        <th width="15%" style="word-break:break-all">申请时间</th>
+                                        <th width="10%" colspan="2">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -149,7 +149,7 @@
                                     <tr>
                                         <td width="100" style="word-break:break-all"><img src="<%=al.getUserHead()%>" width="30px" height="30px"/></td>
                                         <td width="230" style="word-break:break-all"><%=al.getUserName()%></td>
-                                        <td width="230" style="word-break:break-all"><%=al.getUserEMail()%></td>
+                                        <td width="230" style="word-break:break-all"><%=al.getReasons()%></td>
                                         <td width="190" style="word-break:break-all"><%=al.getTime()%></td>
                                         <td>
 										<form action="../updateApplyServlet" method="post">
@@ -221,21 +221,36 @@
                         </div>
                     </div>
 					<div class="fy" style="float:right; margin-right:20px;">
-           				<ul class="pagination">
+           			<ul class="pagination">
+           			<li><a id="down" href="../BSManage/UserApply2.jsp?page=1">首页</a></li>
            			<%if(p1>=1){ %>
-                        <li><a id="up" href="BSManage/UserApply.jsp?page=<%=p1%>">上一页</a></li>
-                    <%} %>
-                    <%for(int i = 1 ; i <= page_num ; i++){%>
+                        <li><a id="up" href="../BSManage/UserApply2.jsp?page=<%=p1%>">上一页</a></li>
+                    <%} 
+           			int num = 0;
+                	int page_front = 1;
+                	int Page = Integer.parseInt(request.getParameter("page"));
+                    if(page_num<8){
+                       	page_front=1;
+                    }
+                    else if(Page>4&&page_num-Page>=4){
+                    	page_front = Page-4;
+                    }
+                    else if(page_num-Page<4){
+                    	
+                    	page_front = page_num-7;
+                    }
+           			for(int i = page_front ; i <= page_num ; i++){%>
                         <%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
-		        			<li><a href="BSManage/UserApply.jsp?page=<%=i%>"><%=i %></a></li>
+		        			<li><a href="../BSManage/UserApply2.jsp?page=<%=i%>"><%=i %></a></li>
 		        		<%}
 		        		else{%>
 		        			<li><a style="color: red"><%=i %></a></li>
 		        		<%}%>
                     <%} %>
                     <%if(p2<=page_num){ %>
-                        <li><a id="down" href="BSManage/UserApply.jsp?page=<%=p2 %>">下一页</a></li>
+                        <li><a id="down" href="../BSManage/UserApply2.jsp?page=<%=p2 %>">下一页</a></li>
                     <%} %>
+                    <li><a id="down" href="../BSManage/UserApply2.jsp?page=<%=page_num %>">尾页</a></li>
                     </ul>
                   </div>
 			</div>

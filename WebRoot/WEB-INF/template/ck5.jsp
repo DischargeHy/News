@@ -51,9 +51,10 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ck5.css" type="text/css" />
 
 <div style="text-align: center;">
-<input type="file" id="newsCover" name="newsCover" accept="image/png,image/gif,image/jpeg"/>
-<button onclick="newsCover()">上传图片作为封面</button>
-<div style="width: 400px;"></div>
+	<input type="file" id="newsCover" name="newsCover" accept="image/png,image/gif,image/jpeg"/>
+	<button onclick="newsCover()">上传图片作为封面</button>
+<div style="width: 400px;">
+</div>
 <img alt="新闻封面" src="<%if(news!=null){out.print(news.getNewsCover());}
 						else{ %>${pageContext.request.contextPath}/img/java.png<%} %>" style="max-width: 300px;" id="fengmian">
 </div>

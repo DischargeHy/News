@@ -41,8 +41,7 @@
 	<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a></div>
-	
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
 			<div class="contain">
 				<ul class="am-nav am-navbar-nav am-navbar-left">
 					<li><h4 class="page-title">用户反馈查看</h4></li>
@@ -143,7 +142,7 @@
 								%>
                                     <tr>
                                         <td width="180" style="word-break:break-all">
-                                       		 反馈用户：<%=s.getUserName()%><br>用户邮箱：</td>
+                                       		 反馈用户：<%=s.getUserName()%><br>用户邮箱：<%=s.getUserEmail() %></td>
                                        	<td width="350">反馈内容：<%=s.getText()%></td>
                                         <td width="180" style="word-break:break-all"><%=s.getSuggestTime()%></td>
 										<td width="80" style="word-break:break-all"><div align="center" >
@@ -157,10 +156,24 @@
                     </div>
 					 <div class="fy" style="float:right; margin-right:20px;">
            			<ul class="pagination">
+           			<li><a id="up" href="UserSuggest2.jsp?page=1">首页</a></li>
            			<%if(p1>=1){ %>
                         <li><a id="up" href="UserSuggest2.jsp?page=<%=p1%>">上一页</a></li>
-                    <%} %>
-                    <%for(int i = 1 ; i <= page_num ; i++){%>
+                    <%} 
+           			int num = 0;
+                	int page_front = 1;
+                	int Page = Integer.parseInt(request.getParameter("page"));
+                    if(page_num<8){
+                       	page_front=1;
+                    }
+                    else if(Page>4&&page_num-Page>=4){
+                    	page_front = Page-4;
+                    }
+                    else if(page_num-Page<4){
+                    	
+                    	page_front = page_num-7;
+                    }
+           			for(int i = page_front ; i <= page_num ; i++){%>
                         <%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
 		        			<li><a href="UserSuggest2.jsp?page=<%=i%>"><%=i %></a></li>
 		        		<%}
@@ -171,6 +184,7 @@
                     <%if(p2<=page_num){ %>
                         <li><a id="down" href="UserSuggest2.jsp?page=<%=p2 %>">下一页</a></li>
                     <%} %>
+                    <li><a id="up" href="UserSuggest2.jsp?page=<%=page_num%>">尾页</a></li>
                     </ul>
                   </div>
 			</div>

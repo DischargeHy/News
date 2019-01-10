@@ -24,6 +24,8 @@
 <link rel="stylesheet" href="./assets3/assets/css/amazeui.min.css">
 <link rel="stylesheet" href="./assets3/assets/css/app.css">
 <link rel="stylesheet" href="./assets3/assets/css/style.css">
+<script src="../assets3/AmazeUI-2.4.2/assets/js/jquery.min.js" type="text/javascript"></script>
+<script src="../assets3/AmazeUI-2.4.2/assets/js/amazeui.js" type="text/javascript"></script>
 <style>
 li {
 	list-style: none;
@@ -36,61 +38,130 @@ li {
 		<article>
 			<div class="mt-logo">
 				<!--顶部导航栏  -->
+				<!-- Session信息和用户信息开始 -->
+				<% request.setCharacterEncoding("utf-8");
+					int Page=1;
+					if(request.getParameter("page")!=null){
+						Page = Integer.parseInt(request.getParameter("page"));
+						}
+					if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
+							session.removeAttribute("UserAccount");//清空session	
+							session.removeAttribute("UserType");
+							session.removeAttribute("UserId");
+					}
+					String UserType = null;
+					String UserAccount = null;
+					String UserId = null;
+					if (session.getAttribute("UserId") != null) {
+						UserId = session.getAttribute("UserId").toString();
+						UserType = session.getAttribute("UserType").toString();
+						UserAccount = (String) session.getAttribute("UserAccount");
+					}else{
+						
+					}
+					NewsManage nm=new NewsManage();
+					ArrayList list=null;
+					User user=null;
+					if(UserId!=null){		
+						list=nm.showUserByUserId(UserId);//根据session中用户的ID查询用户信息
+						user=(User)list.get(0);
+					}else{
+						response.sendRedirect("../Login.jsp");
+					}
+				%>
+				<!-- Session信息和用户信息结束 -->
 				<header>
 					<div class="top center">
 						<div class="left fl">
 							<ul>
 								<li><a href="./index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
-								<li><a href="">问题反馈</a></li>
+								<%if(UserId==null){
+								%>
+								<!--未登录反馈开始  -->
+								<li><a data-am-modal="{target: '#my-alert'}">问题反馈</a></li>
+								<!-- <button type="button" class="am-btn am-btn-primary" data-am-modal="{target: '#my-alert'}">Alert</button> -->
+								<!--弹窗开始  -->
+								<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+									<div class="am-modal-dialog">
+										<div class="am-modal-hd">反馈失败</div>
+										<div class="am-modal-bd">未登录用户无法进行反馈！</div>
+										<div class="am-modal-footer">
+											<span class="am-modal-btn">确定</span>
+										</div>
+									</div>
+								</div>
+								<!--弹窗结束  -->
+								<!--未登录反馈结束  -->
+								<%
+								} else{
+								%>
+								<!--用户登录反馈开始  -->
+								<li><a id="doc-prompt-toggle">问题反馈</a></li>
+									<!--弹窗开始  -->
+									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+										<form action="../AdviseServlet" method="post" id="adviceform">
+										<div class="am-modal-dialog">
+											<div class="am-modal-hd">请输入您的建议</div>
+
+											<div class="am-modal-bd">
+												<input type="text" placeholder="请输入您的建议" name="txt_advice" form="adviceform" class="am-modal-prompt-input"> 
+												<input type="hidden" name="userId" value="<%=UserId%>" form="adviceform">
+											<div class="am-modal-footer">
+												<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 50px; font-size: 16px;"> <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+											</div>
+										</div>
+										</form>
+									</div> <script type="text/javascript">
+										$(function() {
+											$('#doc-prompt-toggle')
+													.on(
+															'click',
+															function() {
+																$('#my-prompt')
+																		.modal(
+																				{
+																					relatedTarget : this,
+																					onConfirm : function(
+																							e) {
+																						alert('你输入的是：'
+																								+ e.data
+																								|| '')
+																					},
+																				});
+															});
+										});
+									</script> 
+									<!-- 弹窗结束 -->
+								<!--登录用户反馈结束  -->
+								<% 	
+								}%>
+								
 								<div class="clear"></div>
 							</ul>
 						</div>
 						<div class="right fr">
 
 							<div class="fr">
-								<%
-									request.setCharacterEncoding("utf-8");
-
-									if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
-										session.removeAttribute("UserAccount");//清空session	
-										session.removeAttribute("UserType");
-										session.removeAttribute("UserId");
-									}
-									String UserType = null;
-									String UserAccount = null;
-									String UserId = null;
-									
-									NewsManage nm=new NewsManage();
-									ArrayList list=null;
-									User user=null;
-							
-									
-									if (session.getAttribute("UserId") != null) {
-										UserId = session.getAttribute("UserId").toString();
-										UserType = session.getAttribute("UserType").toString();
-										UserAccount = (String) session.getAttribute("UserAccount");
-										
-										list=nm.showUserByUserId(UserId);
-										user=(User)list.get(0);
-										
+								<%								
+									if(UserId!=null){		
 										//如果是管理员点击个人中心
 										if (UserType.equals("3")) {
 											response.sendRedirect("../BSManage/NewsManage.jsp?page=1");
 										}
 								%>
 								<ul>
-									<li><a href="./UManage/UserMessageManage.jsp"><img class="am-circle" src="./img/java.png" width="25px" height="25px" style="margin-top: -2px;margin-right: 10px;"><%=UserAccount%></a></li>
+									<li><a href="../UManage/UserMessageManage.jsp"><img class="am-circle" src="<%=user.getUserHead()%>" width="25px" height="25px" style="margin-top: -2px; margin-right: 10px;"><%=UserAccount%></a></li>
 									<li>|</li>
-									<li><a href="./index.jsp?logout=1">登出</a></li>
+									<li><a href="../index.jsp?logout=1">登出</a></li>
 								</ul>
 								<%
 									} else {
 								%>
 								<ul>
-									<li><a href="./Login.jsp">登录</a></li>
+									<li><a href="../Login.jsp">登录</a></li>
 									<li>|</li>
-									<li><a href="./Register.jsp">注册</a></li>
+									<li><a href="../Register.jsp">注册</a></li>
 								</ul>
 								<%
 						}
@@ -106,6 +177,7 @@ li {
 		</article>
 	</header>
 	<!--头部结束 -->
+	
 
 	<div class="center">
 		<div class="col-main">
@@ -115,14 +187,13 @@ li {
 					<li><a href="./UManage/UserMessageManage.jsp" style="font-size: 15px;"><i class="am-icon-home am-icon-fw"></i> 个人中心</a></li>
 					<li><a href="./UManage/UserMessageManage.jsp" style="font-size: 13px;"><i class="am-icon-user am-icon-fw"></i> 个人资料</a></li>
 					<li><a href="./UManage/UserPassManage.jsp" style="font-size: 13px;"> <i class="am-icon-book am-icon-fw"></i> 密码管理</a></li>
-					<li><a href="#" style="font-size: 13px;"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
+					<li><a href="./UManage/NewsReply.jsp" style="font-size: 13px;"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
 					<%
 						//当小编打开个人中心时才显示评论管理选项
-						if (UserType.equals("2")) {
+						if (user.getUserType()==2) {
 					%>
 					<li><a href="${pageContext.request.contextPath}/EditNews" style="font-size: 13px;"><i class="am-icon-pencil am-icon-fw"></i> 发布新闻</a></li>
-					<li><a href="#" style="font-size: 13px;"><i class="am-icon-list am-icon-fw"></i> 我的新闻</a></li>
-					<li><a href="../UManage/UserCommentManage.jsp" style="font-size: 13px;"><i class="am-icon-dashcube am-icon-fw"></i> 评论管理</a></li>
+					<li><a href="./BSManage/NewsManage2.jsp?page=1" style="font-size: 13px;"><i class="am-icon-list am-icon-fw"></i> 我的新闻</a></li>
 					<%
 						}
 					%>
@@ -139,10 +210,7 @@ li {
 				<hr />
 				<!--发布新闻主要内容开始  -->
 				<div>
-<<<<<<< HEAD
 					<jsp:include page="/WEB-INF/template/ck5.jsp"></jsp:include>
-=======
->>>>>>> branch 'master' of https://github.com/DischargeHy/News
 				</div>
 				<!-- 发布新闻主要内容结束 -->
 				<br />

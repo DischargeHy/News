@@ -7,8 +7,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!-- <script type="text/javascript" src="../UJS/Apply.js"></script>
-申请小编显示判断JS -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
 <title>信息</title>
@@ -41,51 +39,116 @@ li {
 		<article>
 			<div class="mt-logo">
 				<!--顶部导航栏  -->
+				<!-- Session信息和用户信息开始 -->
+				<% request.setCharacterEncoding("utf-8");
+					int Page=1;
+					if(request.getParameter("page")!=null){
+						Page = Integer.parseInt(request.getParameter("page"));
+						}
+					if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
+							session.removeAttribute("UserAccount");//清空session	
+							session.removeAttribute("UserType");
+							session.removeAttribute("UserId");
+					}
+					String UserType = null;
+					String UserAccount = null;
+					String UserId = null;
+					if (session.getAttribute("UserId") != null) {
+						UserId = session.getAttribute("UserId").toString();
+						UserType = session.getAttribute("UserType").toString();
+						UserAccount = (String) session.getAttribute("UserAccount");
+					}
+					NewsManage nm=new NewsManage();
+					ArrayList list=null;
+					User user=null;
+					if(UserId!=null){		
+						list=nm.showUserByUserId(UserId);//根据session中用户的ID查询用户信息
+						user=(User)list.get(0);
+					}
+				%>
+				<!-- Session信息和用户信息结束 -->
 				<header>
 					<div class="top center">
 						<div class="left fl">
 							<ul>
 								<li><a href="../index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
-								<li><a href="">问题反馈</a></li>
+								<%if(UserId==null){
+								%>
+								<!--未登录反馈开始  -->
+								<li><a data-am-modal="{target: '#my-alert'}">问题反馈</a></li>
+								<!-- <button type="button" class="am-btn am-btn-primary" data-am-modal="{target: '#my-alert'}">Alert</button> -->
+								<!--弹窗开始  -->
+								<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+									<div class="am-modal-dialog">
+										<div class="am-modal-hd">反馈失败</div>
+										<div class="am-modal-bd">未登录用户无法进行反馈！</div>
+										<div class="am-modal-footer">
+											<span class="am-modal-btn">确定</span>
+										</div>
+									</div>
+								</div>
+								<!--弹窗结束  -->
+								<!--未登录反馈结束  -->
+								<%
+								} else{
+								%>
+								<!--用户登录反馈开始  -->
+								<li><a id="doc-prompt-toggle">问题反馈</a></li>
+									<!--弹窗开始  -->
+									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+										<form action="../AdviseServlet" method="post" id="adviceform">
+										<div class="am-modal-dialog">
+											<div class="am-modal-hd">请输入您的建议</div>
+
+											<div class="am-modal-bd">
+												<input type="text" placeholder="请输入您的建议" name="txt_advice" form="adviceform" class="am-modal-prompt-input"> 
+												<input type="hidden" name="userId" value="<%=UserId%>" form="adviceform">
+											<div class="am-modal-footer">
+												<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 50px; font-size: 16px;"> <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+											</div>
+										</div>
+										</form>
+									</div> <script type="text/javascript">
+										$(function() {
+											$('#doc-prompt-toggle')
+													.on(
+															'click',
+															function() {
+																$('#my-prompt')
+																		.modal(
+																				{
+																					relatedTarget : this,
+																					onConfirm : function(
+																							e) {
+																						alert('你输入的是：'
+																								+ e.data
+																								|| '')
+																					},
+																				});
+															});
+										});
+									</script> 
+									<!-- 弹窗结束 -->
+								<!--登录用户反馈结束  -->
+								<% 	
+								}%>
+								
 								<div class="clear"></div>
 							</ul>
 						</div>
 						<div class="right fr">
 
 							<div class="fr">
-								<%
-									request.setCharacterEncoding("utf-8");
-
-									if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
-										session.removeAttribute("UserAccount");//清空session	
-										session.removeAttribute("UserType");
-										session.removeAttribute("UserId");
-									}
-									String UserType = null;
-									String UserAccount = null;
-									String UserId = null;
-									
-									NewsManage nm=new NewsManage();
-									ArrayList list=null;
-									User user=null;
-							
-									
-									if (session.getAttribute("UserId") != null) {
-										UserId = session.getAttribute("UserId").toString();
-										UserType = session.getAttribute("UserType").toString();
-										UserAccount = (String) session.getAttribute("UserAccount");
-										
-										list=nm.showUserByUserId(UserId);
-										user=(User)list.get(0);
-										
+								<%								
+									if(UserId!=null){		
 										//如果是管理员点击个人中心
 										if (UserType.equals("3")) {
 											response.sendRedirect("../BSManage/NewsManage.jsp?page=1");
 										}
 								%>
 								<ul>
-									<li><a href="../UManage/UserMessageManage.jsp"><img class="am-circle" src="../img/java.png" width="25px" height="25px" style="margin-top: -2px;margin-right: 10px;"><%=UserAccount%></a></li>
+									<li><a href="../UManage/UserMessageManage.jsp"><img class="am-circle" src="<%=user.getUserHead()%>" width="25px" height="25px" style="margin-top: -2px; margin-right: 10px;"><%=UserAccount%></a></li>
 									<li>|</li>
 									<li><a href="../index.jsp?logout=1">登出</a></li>
 								</ul>
@@ -122,14 +185,13 @@ li {
 					<li><a href="../UManage/UserMessageManage.jsp" style="font-size: 15px;"><i class="am-icon-home am-icon-fw"></i> 个人中心</a></li>
 					<li><a href="../UManage/UserMessageManage.jsp" style="font-size: 13px;"><i class="am-icon-user am-icon-fw"></i> 个人资料</a></li>
 					<li><a href="../UManage/UserPassManage.jsp" style="font-size: 13px;"> <i class="am-icon-book am-icon-fw"></i> 密码管理</a></li>
-					<li><a href="#" style="font-size: 13px;"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
+					<li><a href="../UManage/NewsReply.jsp" style="font-size: 13px;"><i class="am-icon-comments-o am-icon-fw"></i> 查看回复</a></li>
 					<%
 						//当小编打开个人中心时才显示评论管理选项
-						if (UserType.equals("2")) {
+						if (user.getUserType()==2) {
 					%>
 					<li><a href="${pageContext.request.contextPath}/EditNews" style="font-size: 13px;"><i class="am-icon-pencil am-icon-fw"></i> 发布新闻</a></li>
-					<li><a href="#" style="font-size: 13px;"><i class="am-icon-list am-icon-fw"></i> 我的新闻</a></li>
-					<li><a href="../UManage/UserCommentManage.jsp" style="font-size: 13px;"><i class="am-icon-dashcube am-icon-fw"></i> 评论管理</a></li>
+					<li><a href="../BSManage/NewsManage2.jsp?page=1" style="font-size: 13px;"><i class="am-icon-list am-icon-fw"></i> 我的新闻</a></li>
 					<%
 						}
 					%>
@@ -153,12 +215,11 @@ li {
 					<!--用户类型开始  -->
 					<div class="am-form-group">
 						<label for="user-name2" class="am-form-label">用户类型</label>
-<<<<<<< HEAD
-						<div class="am-form-label" style="letter-spacing: 4px;font-size:15px;margin-right:40px;color:#00F;font-weight:520 ">
-=======
-						<div class="am-form-label" style="letter-spacing: 1px;font-size:15px;text-align:left;width:260px;margin-left:1em;">
+
+						<div class="am-form-label" style="font-size:15px;width:250px;height:30px;text-align:left;margin-left:1em;margin-top:-3px;font-weight:520 ">
+
 						
->>>>>>> branch 'master' of https://github.com/DischargeHy/News
+
 							<%
 								if (user.getUserType()==1) {
 							%>
@@ -167,12 +228,11 @@ li {
 								ApplyList al = nm.showApplyListByUserId(user.getUserId());
 									if (al == null) {
 							%>
-							<!-- <input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;"> -->
-							普通用户
+							<font  size="3">普通用户</font>
 							
-							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 3px;">申请成为小编</button>
+							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggleA" style="margin-left: 10px; ">申请成为小编</button>
 							<!-- 弹窗开始 -->
-							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-promptA">
 								<div class="am-modal-dialog">
 									<div class="am-modal-hd">请输入申请理由</div>
 
@@ -187,11 +247,11 @@ li {
 							</div>
 							<script type="text/javascript">
 								$(function() {
-									$('#doc-prompt-toggle')
+									$('#doc-prompt-toggleA')
 											.on(
 													'click',
 													function() {
-														$('#my-prompt')
+														$('#my-promptA')
 																.modal(
 																		{
 																			relatedTarget : this,
@@ -210,25 +270,21 @@ li {
 								} else {
 										if (al.getState().equals("申请中")) {
 							%>
-							<!-- <input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;"><br/> -->
-<<<<<<< HEAD
-							小编申请审核中<br/>
-=======
 							<font color="#FF0000" size="3">小编申请审核中</font>
->>>>>>> branch 'master' of https://github.com/DischargeHy/News
+
 							<%
 								} else if (al.getState().equals("申请失败")) {
 							%>
-<<<<<<< HEAD
-							<input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;">
-							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 4px;">重新申请</button>
-=======
+
 							<!-- <input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;"> -->
-							<font color="#FF0000" size="3">小编申请审核中</font>
-							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" >重新申请</button>
->>>>>>> branch 'master' of https://github.com/DischargeHy/News
+							<!-- <button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; margin-top: 4px;">重新申请</button> -->
+
+							<!-- <input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;"> -->
+							<font color="#FF0000" size="3">小编申申请失败</font>
+							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggleA" >重新申请</button>
+
 							<!-- 弹窗开始 -->
-							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-promptA">
 								<div class="am-modal-dialog">
 									<div class="am-modal-hd">请输入申请理由</div>
 
@@ -243,11 +299,11 @@ li {
 							</div>
 							<script type="text/javascript">
 								$(function() {
-									$('#doc-prompt-toggle')
+									$('#doc-prompt-toggleA')
 											.on(
 													'click',
 													function() {
-														$('#my-prompt')
+														$('#my-promptA')
 																.modal(
 																		{
 																			relatedTarget : this,
@@ -277,7 +333,7 @@ li {
 								if (user.getUserType()==2) {
 							%>
 							<!-- <input type="text" name="usertypeName" value="小编" readonly="readonly"><br/> -->
-							小编<br/>
+							<font color="#00F" size="3" letter-spacing="1px";>小编</font><br/>
 							<%
 								}
 							%>
@@ -296,7 +352,7 @@ li {
 							<!--账号开始  -->
 							<div class="am-form-group">
 								<label for="user-name2" class="am-form-label">账号</label>
-								<div class="am-form-label" style="letter-spacing: 2px;font-size:14px;margin-right:40px">
+								<div class="am-form-label" style="letter-spacing: 1px;font-size:14px;text-align:left;margin-left:1em;">
 									<%=user.getUserAccount()%>
 									<input type="hidden"  placeholder="UserAccount" readonly="readonly" name="txt_uAccount" value="<%=user.getUserAccount()%>" />
 

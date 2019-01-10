@@ -90,7 +90,8 @@ a {
 .content1 {
 	width: 600px;
 	height: 110px;
-	text-align: center;
+	text-align: left;
+	
 }
 
 .contentleft {
@@ -166,55 +167,116 @@ width:100%
 		<article>
 			<div class="mt-logo">
 				<!--顶部导航栏  -->
+				<!-- Session信息和用户信息开始 -->
+				<% request.setCharacterEncoding("utf-8");
+					int Page=1;
+					if(request.getParameter("page")!=null){
+						Page = Integer.parseInt(request.getParameter("page"));
+						}
+					if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
+							session.removeAttribute("UserAccount");//清空session	
+							session.removeAttribute("UserType");
+							session.removeAttribute("UserId");
+					}
+					String UserType = null;
+					String UserAccount = null;
+					String UserId = null;
+					if (session.getAttribute("UserId") != null) {
+						UserId = session.getAttribute("UserId").toString();
+						UserType = session.getAttribute("UserType").toString();
+						UserAccount = (String) session.getAttribute("UserAccount");
+					}
+					NewsManage nm=new NewsManage();
+					ArrayList list=null;
+					User user=null;
+					if(UserId!=null){		
+						list=nm.showUserByUserId(UserId);//根据session中用户的ID查询用户信息
+						user=(User)list.get(0);
+					}
+				%>
+				<!-- Session信息和用户信息结束 -->
 				<header>
 					<div class="top center">
 						<div class="left fl">
 							<ul>
 								<li><a href="index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
-								<li><a href="">问题反馈</a>
-									</li>
+								<%if(UserId==null){
+								%>
+								<!--未登录反馈开始  -->
+								<li><a data-am-modal="{target: '#my-alert'}">问题反馈</a></li>
+								<!-- <button type="button" class="am-btn am-btn-primary" data-am-modal="{target: '#my-alert'}">Alert</button> -->
+								<!--弹窗开始  -->
+								<div class="am-modal am-modal-alert" tabindex="-1" id="my-alert">
+									<div class="am-modal-dialog">
+										<div class="am-modal-hd">反馈失败</div>
+										<div class="am-modal-bd">未登录用户无法进行反馈！</div>
+										<div class="am-modal-footer">
+											<span class="am-modal-btn">确定</span>
+										</div>
+									</div>
+								</div>
+								<!--弹窗结束  -->
+								<!--未登录反馈结束  -->
+								<%
+								} else{
+								%>
+								<!--用户登录反馈开始  -->
+								<li><a id="doc-prompt-toggle">问题反馈</a></li>
+									<!--弹窗开始  -->
+									<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+										<form action="AdviseServlet" method="post" id="adviceform">
+										<div class="am-modal-dialog">
+											<div class="am-modal-hd">请输入您的建议</div>
+
+											<div class="am-modal-bd">
+												<input type="text" placeholder="请输入您的建议" name="txt_advice" form="adviceform" class="am-modal-prompt-input"> 
+												<input type="hidden" name="userId" value="<%=UserId%>" form="adviceform">
+											<div class="am-modal-footer">
+												<input name="operate" type="submit" value="确认" style="width: 100%; background-color: #F8F8F8; border: 0px; color: #0E90D2; line-height: 50px; font-size: 16px;"> <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+											</div>
+										</div>
+										</form>
+									</div> <script type="text/javascript">
+										$(function() {
+											$('#doc-prompt-toggle')
+													.on(
+															'click',
+															function() {
+																$('#my-prompt')
+																		.modal(
+																				{
+																					relatedTarget : this,
+																					onConfirm : function(
+																							e) {
+																						alert('你输入的是：'
+																								+ e.data
+																								|| '')
+																					},
+																				});
+															});
+										});
+									</script> 
+									<!-- 弹窗结束 -->
+								<!--登录用户反馈结束  -->
+								<% 	
+								}%>
+								
 								<div class="clear"></div>
 							</ul>
 						</div>
 						<div class="right fr">
 
 							<div class="fr">
-								<%
-									request.setCharacterEncoding("utf-8");
-									int Page=1;
-									if(request.getParameter("page")!=null){
-										Page = Integer.parseInt(request.getParameter("page"));
-									}
-									if (request.getParameter("logout") != null) {//如果进入页面logout有值传入
-										session.removeAttribute("UserAccount");//清空session	
-										session.removeAttribute("UserType");
-										session.removeAttribute("UserId");
-									}
-									String UserType = null;
-									String UserAccount = null;
-									String UserId = null;
-									
-									NewsManage nm=new NewsManage();
-									ArrayList list=null;//用于存放用户信息
-									User user=null;
-							
-									
-									if (session.getAttribute("UserId") != null) {
-										UserId = session.getAttribute("UserId").toString();
-										UserType = session.getAttribute("UserType").toString();
-										UserAccount = (String) session.getAttribute("UserAccount");
-										
-										list=nm.showUserByUserId(UserId);
-										user=(User)list.get(0);
-										
+								<%								
+									if(UserId!=null){		
 										//如果是管理员点击个人中心
 										if (UserType.equals("3")) {
-											response.sendRedirect("BSManage/NewsManage2.jsp?page=1");
+											response.sendRedirect("../BSManage/NewsManage.jsp?page=1");
 										}
 								%>
 								<ul>
-									<li><a href="./UManage/UserMessageManage.jsp"><img class="am-circle" src="<%=user.getUserHead()%>" width="25px" height="25px" style="margin-top: -2px;margin-right: 10px;"><%=UserAccount%></a></li>
+									<li><a href="./UManage/UserMessageManage.jsp"><img class="am-circle" src="<%=user.getUserHead()%>" width="25px" height="25px" style="margin-top: -2px; margin-right: 10px;"><%=UserAccount%></a></li>
 									<li>|</li>
 									<li><a href="./index.jsp?logout=1">登出</a></li>
 								</ul>
@@ -262,7 +324,7 @@ width:100%
 		<!--搜索框结束  -->
 					
 					<div class="main-wrap" 	style="-webkit-box-shadow: #666 0px 0px 10px; margin: 0px auto;margin-top:10px;margin-bottom:20px;
-				 	moz-box-shadow: #666 0px 0px 10px; box-shadow: #666 0px 0px 10px;width:790px;"  >
+				 	moz-box-shadow: #666 0px 0px 10px; box-shadow: #666 0px 0px 10px;width:790px;height:970px;"  >
 					<div class="content">
 						<!--新闻列表开始  -->
 						<%
@@ -284,9 +346,9 @@ width:100%
 							<div class="contentleft">
 								<img src=<%=news.getNewsCover()%> width="180px" height="105px" />
 							</div>
-							<div class="contentright">
+							<div class="contentright" style="margin-top:10px">
 								<a href="#"><p>
-										<strong><%=news.getNewsTitle()%>
+										<strong><font size="4px"><%=news.getNewsTitle()%></font>
 									</p></a></strong> <a href="#"><%=news.getUserName()%>·&nbsp;<%=news.getNewsContentNum()%>条评论·&nbsp;<%=news.getUpdateTime()%></a>
 							</div>
 						</div>

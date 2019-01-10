@@ -25,7 +25,7 @@
     <br>
     <form class="am-form" id="log-form" action="LoginServlet" method="post">
       <div class="am-input-group am-radius am-animation-slide-left">       
-        <input type="text" id="doc-vld-email-2-1" name="txt_uAccount" class="am-radius" data-validation-message="请输入正确的用户名" placeholder="用户名" minlength="2" maxlength="16" required/>
+        <input type="text" id="doc-vld-email-2-1" name="txt_uAccount" class="am-radius" data-validation-message="请输入正确的用户名" placeholder="用户账号" minlength="2" maxlength="16" required/>
         <span class="am-input-group-label log-icon am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
       </div>
       <br>

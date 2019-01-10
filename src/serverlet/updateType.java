@@ -30,11 +30,14 @@ public class updateType extends HttpServlet {
 		String edit = request.getParameter("edit");
 		BSManage bs = new BSManage();
 		int num = 0;
+		System.out.println(request.getParameter("NewsTypeName"));
+		System.out.println(NewsTypeId);
 		PrintWriter out = response.getWriter();  
 		if(edit.equals("update")){
 			try {
-				if(NewsTypeName.length()>=3&&NewsTypeName.length()<=7) {
-				num = bs.updateNewsType(NewsTypeId, NewsTypeName);}
+				if(NewsTypeName.length()>=2&&NewsTypeName.length()<=7) {
+				num = bs.updateNewsType(NewsTypeId, NewsTypeName);
+				}
 				else {
 					num=0;
 				}
@@ -64,7 +67,7 @@ public class updateType extends HttpServlet {
 		}
 		else if(edit.equals("insert")) {
 			try {
-				if(NewsTypeName.length()>=3&&NewsTypeName.length()<=7) {
+				if(NewsTypeName.length()>=2&&NewsTypeName.length()<=7) {
 				num = bs.insertNewsType(NewsTypeName);}
 				if(num!=0) {
 					out.print("<script>alert('add success!');location.href='BSManage/NewsTypeManage2.jsp';</script>");

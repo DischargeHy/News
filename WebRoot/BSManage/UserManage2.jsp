@@ -50,7 +50,7 @@
 %>
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="#" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a>
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
 				</div>
 	
 			<div class="contain">
@@ -156,10 +156,10 @@
 								<table class="am-table">
                                 <thead>
                                     <tr>
-                                        <th width="100" style="word-break:break-all">用户头像</th>
-                                        <th width="230" style="word-break:break-all">用户账号</th>
-                                        <th width="230" style="word-break:break-all">用户名</th>
-                                        <th width="230" style="word-break:break-all">用户邮箱</th>
+                                        <th width="5%" style="word-break:break-all">用户头像</th>
+                                        <th width="20%" style="word-break:break-all">用户账号</th>
+                                        <th width="20%" style="word-break:break-all">用户名</th>
+                                        <th width="30%" style="word-break:break-all">用户邮箱</th>
                                         <th>权限管理</th>
                                     </tr>
                                 </thead>
@@ -229,11 +229,25 @@
                     </div>
 					 <div class="fy" style="float:right; margin-right:20px;">
            			<ul class="pagination">
+           			<li><a id="up" href="../BSManage/UserManage2.jsp?page=1&search=<%=search%>&type=<%=type%>">首页</a></li>
                         <%if(p1>=1){ %>
                         <li><a id="up" href="../BSManage/UserManage2.jsp?page=<%=p1%>&search=<%=search%>&type=<%=type%>">上一页</a></li>
-	                    <%} %>
-	                    <%for(int i = 1 ; i <= page_num ; i++){%>
-	                        <%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
+	                    <%} 
+                        int num = 0;
+                    	int page_front = 1;
+                    	int Page = Integer.parseInt(request.getParameter("page"));
+	                    if(page_num<8){
+	                       	page_front=1;
+	                    }
+	                    else if(Page>4&&page_num-Page>=4){
+	                    	page_front = Page-4;
+	                    }
+	                    else if(page_num-Page<4){
+	                    	
+	                    	page_front = page_num-7;
+	                    }
+                        for(int i = page_front ; i <= page_num ; i++){
+	                        if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
 			        			<li><a href="../BSManage/UserManage2.jsp?page=<%=i%>&search=<%=search%>&type=<%=type%>"><%=i %></a></li>
 			        		<%}
 			        		else{%>
@@ -243,6 +257,7 @@
 	                    <%if(p2<=page_num){ %>
 	                        <li><a id="down" href="../BSManage/UserManage2.jsp?page=<%=p2 %>&search=<%=search%>&type=<%=type%>">下一页</a></li>
 	                    <%} %>
+	                    <li><a id="up" href="../BSManage/UserManage2.jsp?page=<%=page_num%>&search=<%=search%>&type=<%=type%>">尾页</a></li>
                     </ul>
                   </div>
 			</div>

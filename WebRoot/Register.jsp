@@ -27,7 +27,7 @@
       <div class="am-input-group am-radius am-animation-slide-left">       
         <input type="text" id="doc-vld-email-2-1" name="txt_uAccount" class="am-radius" data-validation-message="请输入正确账号" placeholder="账号" minlength="2" maxlength="16" required/>
         <span class="am-input-group-label log-icon am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
-		<input type="text" id="doc-vld-email-2-1" name="txt_uName" class="am-radius" data-validation-message="请输入正确用户名" placeholder="用户名" required/>
+		<input type="text" id="doc-vld-email-2-1" name="txt_uName" class="am-radius" data-validation-message="请输入正确用户名" placeholder="用户昵称" required/>
         <span class="am-input-group-label log-icon am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
       </div>
       <br>
@@ -42,7 +42,7 @@
       </div>
       <br>
       <div class="am-input-group am-radius am-animation-slide-left">       
-        <input type="text" id="doc-vld-email-2-1" name="txt_uemail" class="am-radius" data-validation-message="请输入正确邮箱" placeholder="邮箱" required/>
+        <input type="email" id="doc-vld-email-2-1" name="txt_uemail" class="am-radius" data-validation-message="请输入正确邮箱" placeholder="邮箱" required/>
         <span class="am-input-group-label log-icon am-radius"><i class="am-icon-user am-icon-sm am-icon-fw"></i></span>
       </div>
       

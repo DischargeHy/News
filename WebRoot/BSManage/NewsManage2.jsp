@@ -69,7 +69,7 @@
 	<!-- Begin page -->
 		<header class="am-topbar am-topbar-fixed-top">		
 			<div class="am-topbar-left am-hide-sm-only">
-                <a href="index.html" class="logo"><span>Admin<span>to</span></span><i class="zmdi zmdi-layers"></i></a>
+                <a href="../" class="logo"><span>Home<span>Page</span></span><i class="zmdi zmdi-layers"></i></a></div>
             </div>
 			<div class="contain">
 				<ul class="am-nav am-navbar-nav am-navbar-left">
@@ -201,11 +201,11 @@
 								<table class="am-table">
                                 <thead>
                                     <tr>
-                                        <th width="270" style="word-break:break-all">标题</th>
-                                        <th width="200" style="word-break:break-all">类型</th>
-                                        <th width="200" style="word-break:break-all">作者</th>
-                                        <th width="180" style="word-break:break-all">发表时间</th>
-                                        <th>操作</th>
+                                        <th width="40%" style="word-break:break-all">标题</th>
+                                        <th width="10%" style="word-break:break-all">类型</th>
+                                        <th width="10%" style="word-break:break-all">作者</th>
+                                        <th width="20%" style="word-break:break-all">发表时间</th>
+                                        <th width="20%" colspan="2">操作</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -332,12 +332,29 @@
                         </div>
                     </div>
            <div class="fy" style="float:right; margin-right:20px;">
-           	<ul class="pagination">
+           		<ul class="pagination">
+           			<li><a id="first" href="../BSManage/NewsManage2.jsp?page=1&search=<%=search%>&NewsStatus=<%=NewsStatus%>&NewsType=<%=NewsType%>">首页</a></li>
            			<%if(p1>=1){ %>
                         <li><a id="up" href="../BSManage/NewsManage2.jsp?page=<%=p1%>&search=<%=search%>&NewsStatus=<%=NewsStatus%>&NewsType=<%=NewsType%>">上一页</a></li>
-                    <%} %>
-                    <%for(int i = 1 ; i <= page_num ; i++){%>
-                        <%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
+                    <%} int num = 0;
+                    	int page_front = 1;
+                    	int Page = Integer.parseInt(request.getParameter("page"));
+                    if(page_num<8){
+                       	page_front=1;
+                    }
+                    else if(Page>4&&page_num-Page>=4){
+                    	page_front = Page-4;
+                    }
+                    else if(page_num-Page<4){
+                    	
+                    	page_front = page_num-7;
+                    }
+                    for(int i = page_front ; i <= page_num ; i++){
+                    	num++;
+                    	if(num==9){
+                    		break;
+                    	}
+                    	if(Page!=i){%><!-- 不是当前页页码则是超链接跳转 -->
 		        			<li><a href="../BSManage/NewsManage2.jsp?page=<%=i%>&search=<%=search%>&NewsStatus=<%=NewsStatus%>&NewsType=<%=NewsType%>"><%=i %></a></li>
 		        		<%}
 		        		else{%>
@@ -347,7 +364,8 @@
                     <%if(p2<=page_num){ %>
                         <li><a id="down" href="../BSManage/NewsManage2.jsp?page=<%=p2 %>&search=<%=search%>&NewsStatus=<%=NewsStatus%>&NewsType=<%=NewsType%>">下一页</a></li>
                     <%} %>
-                    </ul>
+                    <li><a id="first" href="../BSManage/NewsManage2.jsp?page=<%=page_num %>&search=<%=search%>&NewsStatus=<%=NewsStatus%>&NewsType=<%=NewsType%>">尾页</a></li>
+                 </ul>
                   </div>
 			</div>
 		</div>
