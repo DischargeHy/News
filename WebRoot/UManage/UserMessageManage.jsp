@@ -7,8 +7,6 @@
 <html>
 <head>
 <meta charset="utf-8">
-<!-- <script type="text/javascript" src="../UJS/Apply.js"></script>
-申请小编显示判断JS -->
 <meta name="viewport" content="width=device-width, initial-scale=1.0,maximum-scale=1.0, user-scalable=0">
 
 <title>信息</title>
@@ -59,8 +57,6 @@ li {
 						UserId = session.getAttribute("UserId").toString();
 						UserType = session.getAttribute("UserType").toString();
 						UserAccount = (String) session.getAttribute("UserAccount");
-					}else{
-						
 					}
 					NewsManage nm=new NewsManage();
 					ArrayList list=null;
@@ -68,8 +64,6 @@ li {
 					if(UserId!=null){		
 						list=nm.showUserByUserId(UserId);//根据session中用户的ID查询用户信息
 						user=(User)list.get(0);
-					}else{
-						response.sendRedirect("../Login.jsp");
 					}
 				%>
 				<!-- Session信息和用户信息结束 -->
@@ -162,9 +156,9 @@ li {
 									} else {
 								%>
 								<ul>
-									<li><a href="../Login.jsp">登录</a></li>
+									<li><a href="./Login.jsp">登录</a></li>
 									<li>|</li>
-									<li><a href="../Register.jsp">注册</a></li>
+									<li><a href="./Register.jsp">注册</a></li>
 								</ul>
 								<%
 						}
@@ -234,12 +228,11 @@ li {
 								ApplyList al = nm.showApplyListByUserId(user.getUserId());
 									if (al == null) {
 							%>
-							<!-- <input type="text" name="usertypeName" value="普通用户" readonly="readonly" style="width: 80px; float: left;"> -->
 							<font  size="3">普通用户</font>
 							
-							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" style="margin-left: 10px; ">申请成为小编</button>
+							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggleA" style="margin-left: 10px; ">申请成为小编</button>
 							<!-- 弹窗开始 -->
-							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-promptA">
 								<div class="am-modal-dialog">
 									<div class="am-modal-hd">请输入申请理由</div>
 
@@ -254,11 +247,11 @@ li {
 							</div>
 							<script type="text/javascript">
 								$(function() {
-									$('#doc-prompt-toggle')
+									$('#doc-prompt-toggleA')
 											.on(
 													'click',
 													function() {
-														$('#my-prompt')
+														$('#my-promptA')
 																.modal(
 																		{
 																			relatedTarget : this,
@@ -277,10 +270,6 @@ li {
 								} else {
 										if (al.getState().equals("申请中")) {
 							%>
-							<!-- <input type="text" name="usertypeName" value="小编申请审核中..." readonly="readonly" style="width: 145px; float: left;"><br/> -->
-
-						
-
 							<font color="#FF0000" size="3">小编申请审核中</font>
 
 							<%
@@ -292,10 +281,10 @@ li {
 
 							<!-- <input type="text" name="usertypeName" value="小编申请失败" readonly="readonly" style="width: 115px; float: left;"> -->
 							<font color="#FF0000" size="3">小编申申请失败</font>
-							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggle" >重新申请</button>
+							<button type="button" class="am-btn am-btn-danger am-btn-xs" id="doc-prompt-toggleA" >重新申请</button>
 
 							<!-- 弹窗开始 -->
-							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt">
+							<div class="am-modal am-modal-prompt" tabindex="-1" id="my-promptA">
 								<div class="am-modal-dialog">
 									<div class="am-modal-hd">请输入申请理由</div>
 
@@ -310,11 +299,11 @@ li {
 							</div>
 							<script type="text/javascript">
 								$(function() {
-									$('#doc-prompt-toggle')
+									$('#doc-prompt-toggleA')
 											.on(
 													'click',
 													function() {
-														$('#my-prompt')
+														$('#my-promptA')
 																.modal(
 																		{
 																			relatedTarget : this,

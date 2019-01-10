@@ -320,66 +320,6 @@ bottom: 0; -->
 					%>
 				</ul>
 			</div>
-
-			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g" >
-				<h2 class="blog-title">
-					<span>友情链接</span>
-				</h2>
-				<hr>
-				
-				<div class="am-u-sm-12 blog-clear-padding " >
-				
-			
-					<a href="" class="blog-tag">海外网</a>
-					 <a href="" class="blog-tag">中国网</a> 
-					 <a href="" class="blog-tag">光明网</a> 
-					 <a href="" class="blog-tag">北青网</a>
-					  <a href="" class="blog-tag">闽南网</a>
-					   <a href="" class="blog-tag">乐居网</a>
-					    <a href="" class="blog-tag">海外网</a>
-					     <a href="" class="blog-tag">中国网</a>
-					     <a href="" class="blog-tag">光明网</a> 
-					     <a href="" class="blog-tag">北青网</a> 
-					     <a href="" class="blog-tag">闽南网</a> 
-					     <a href="" class="blog-tag">乐居网</a>
-					     <a href="" class="blog-tag">海外网</a> 
-					     <a href="" class="blog-tag">中国网</a>
-					<a href="" class="blog-tag">光明网</a> 
-					<a href="" class="blog-tag">北青网</a> 
-					<a href="" class="blog-tag">闽南网</a> 
-					<a href="" class="blog-tag">乐居网</a> 
-					<a href="" class="blog-tag">法制网</a> 
-					<a href="" class="blog-tag">汽车网</a>
-			
-				
-				
-				</div>
-				
-			</div>
-			<div class="blog-clear-margin blog-sidebar-widget blog-bor am-g ">
-				<h2 class="blog-title">
-					<span>更多</span>
-				</h2>
-				<hr>
-				<div class="am-u-sm-12 blog-clear-padding" >
-				
-					<a href="" class="blog-tag"> 关于米窝</a> 
-					<a href="" class="blog-tag"> 加入米窝</a> 
-					<a href="" class="blog-tag"> 媒体报道</a> 
-					<a href="" class="blog-tag"> 媒体合作</a> 
-					<a href="" class="blog-tag"> 产品合作</a> 
-					<a href="" class="blog-tag"> 合作说明</a> 
-					<a href="" class="blog-tag"> 产品说明</a> 
-					<a href="" class="blog-tag"> 广告投放</a> 
-					<a href="" class="blog-tag"> 联系我们</a> 
-					<a href="" class="blog-tag"> 用户协议</a> 
-					<a href="" class="blog-tag"> 隐私政策</a> 
-					<a href="" class="blog-tag"> 侵权投诉</a> 
-					<a href="" class="blog-tag"> 廉洁举报</a> 
-					<a href="" class="blog-tag"> 企业认证</a>
-					
-				</div>
-			</div>
 		</div>
 		<!--右侧新闻+链接结束  -->
 	</div>
