@@ -135,6 +135,37 @@ int userType = (Integer)session.getAttribute("UserType");
                                         	<form action="../updateType" method="post"><td>
                                         		<button  type="button"  class="am-btn am-btn-primary"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>">修改</button>
 												<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
+										<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=newstype.getNewsTypeId()%>">
+										  <div class="am-modal-dialog">
+										    <div class="am-modal-hd">板块修改</div>
+										    <div class="am-modal-bd">
+										      <input type="text" class="am-modal-prompt-input" name="NewsTypeName" value="<%=newstype.getNewsTypeName()%>">
+										    	<%=newstype.getNewsTypeName() %>
+										    </div>
+												<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
+												<input type="hidden" name="edit" value="update">
+											    <div class="am-modal-footer">
+											     <input type="submit" value="提交" form="form" style="width: 100%;background-color:#F8F8F8;border: 0px;color:#0E90D2;line-height: 100%;">
+											     <span class="am-modal-btn" data-am-modal-cancel>取消</span>
+											    </div>
+										  </div>
+										</div>
+										<script type="text/javascript">
+											$(function() {
+												  $('#doc-prompt-toggle<%=newstype.getNewsTypeId()%>').on('click', function() {
+												    $('#my-prompt<%=newstype.getNewsTypeId()%>').modal({
+												      relatedTarget: this,
+												      onConfirm: function(e) {
+												        alert('你输入的是：' + e.data || '')
+												      },
+												    });
+												  });
+												});
+										</script>
+										<!-- 弹窗 结束-->
+										</form>
+										</td><td>
+											<form action="../updateType" method="post"><td>
 												<input type="hidden" name="edit" value="delete">
 												<button  type="button"  class="am-btn am-btn-danger"  id="doc-prompt-toggle<%=newstype.getNewsTypeId()%>del">删除</button>											<!-- 弹窗 -->
 											<!-- 开始 -->
@@ -161,34 +192,8 @@ int userType = (Integer)session.getAttribute("UserType");
 											</script>
 											<!-- 弹窗 结束-->
 										</td></form>
+										<!-- 弹窗 开始-->
 										<form action="../updateType" method="post" id="form">
-                                    	<div class="am-modal am-modal-prompt" tabindex="-1" id="my-prompt<%=newstype.getNewsTypeId()%>">
-										  <div class="am-modal-dialog">
-										    <div class="am-modal-hd">板块更改</div>
-										    <div class="am-modal-bd">
-										      <input type="text" class="am-modal-prompt-input" name="NewsTypeName" value="<%=newstype.getNewsTypeName()%>">
-										    </div>
-												<input type="hidden" name="NewsTypeId" value="<%=newstype.getNewsTypeId()%>">
-												<input type="hidden" name="edit" value="update">
-											    <div class="am-modal-footer">
-											     <input type="submit" value="提交" form="form" style="width: 100%;background-color:#F8F8F8;border: 0px;color:#0E90D2;line-height: 100%;">
-											     <span class="am-modal-btn" data-am-modal-cancel>取消</span>
-											    </div>
-										  </div>
-										</div>
-										</form>
-										<script type="text/javascript">
-											$(function() {
-												  $('#doc-prompt-toggle<%=newstype.getNewsTypeId()%>').on('click', function() {
-												    $('#my-prompt<%=newstype.getNewsTypeId()%>').modal({
-												      relatedTarget: this,
-												      onConfirm: function(e) {
-												        alert('你输入的是：' + e.data || '')
-												      },
-												    });
-												  });
-												});
-										</script>
                                         </td> 
                                     </tr>
                                     <%} %>
