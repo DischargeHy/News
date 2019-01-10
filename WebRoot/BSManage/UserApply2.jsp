@@ -221,21 +221,36 @@
                         </div>
                     </div>
 					<div class="fy" style="float:right; margin-right:20px;">
-           				<ul class="pagination">
+           			<ul class="pagination">
+           			<li><a id="down" href="../BSManage/UserApply2.jsp?page=1">首页</a></li>
            			<%if(p1>=1){ %>
-                        <li><a id="up" href="BSManage/UserApply.jsp?page=<%=p1%>">上一页</a></li>
-                    <%} %>
-                    <%for(int i = 1 ; i <= page_num ; i++){%>
+                        <li><a id="up" href="../BSManage/UserApply2.jsp?page=<%=p1%>">上一页</a></li>
+                    <%} 
+           			int num = 0;
+                	int page_front = 1;
+                	int Page = Integer.parseInt(request.getParameter("page"));
+                    if(page_num<8){
+                       	page_front=1;
+                    }
+                    else if(Page>4&&page_num-Page>=4){
+                    	page_front = Page-4;
+                    }
+                    else if(page_num-Page<4){
+                    	
+                    	page_front = page_num-7;
+                    }
+           			for(int i = page_front ; i <= page_num ; i++){%>
                         <%if(Integer.parseInt(request.getParameter("page"))!=i){%><!-- 不是当前页页码则是超链接跳转 -->
-		        			<li><a href="BSManage/UserApply.jsp?page=<%=i%>"><%=i %></a></li>
+		        			<li><a href="../BSManage/UserApply2.jsp?page=<%=i%>"><%=i %></a></li>
 		        		<%}
 		        		else{%>
 		        			<li><a style="color: red"><%=i %></a></li>
 		        		<%}%>
                     <%} %>
                     <%if(p2<=page_num){ %>
-                        <li><a id="down" href="BSManage/UserApply.jsp?page=<%=p2 %>">下一页</a></li>
+                        <li><a id="down" href="../BSManage/UserApply2.jsp?page=<%=p2 %>">下一页</a></li>
                     <%} %>
+                    <li><a id="down" href="../BSManage/UserApply2.jsp?page=<%=page_num %>">尾页</a></li>
                     </ul>
                   </div>
 			</div>
