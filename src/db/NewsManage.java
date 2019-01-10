@@ -29,7 +29,7 @@ public class NewsManage {
 	public ArrayList showNewsType() {
 		ArrayList list = new ArrayList();
 		Connection con = conn.getCon();
-		String sqlString = "select * from NewsType";
+		String sqlString = "select * from NewsType order by NewsTypeId";
 		try {
 			PreparedStatement pre = con.prepareStatement(sqlString);
 			ResultSet rs = pre.executeQuery();

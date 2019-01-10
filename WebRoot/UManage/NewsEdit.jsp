@@ -74,7 +74,7 @@ li {
 					<div class="top center">
 						<div class="left fl">
 							<ul>
-								<li><a href="../index.jsp" style="margin-left: -30px;">首页</a></li>
+								<li><a href="./index.jsp" style="margin-left: -30px;">首页</a></li>
 								<li>|</li>
 								<%if(UserId==null){
 								%>
