@@ -9,9 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import dao.News;
-import dao.NewsImpl;
+
+import dto.NewsImpl;
 import db.DBCon;
+import dto.News;
  
 /**
  * Servlet implementation class ShowNews
@@ -43,7 +44,7 @@ public class ShowNews extends HttpServlet {
 			e.printStackTrace();
 		}
 		request.setAttribute("news", news);
-		request.getRequestDispatcher("/WEB-INF/jsp/showNews.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/jsp/NewsDetail.jsp").forward(request, response);
 	}
 
 	/**
