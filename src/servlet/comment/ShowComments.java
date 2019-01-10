@@ -48,11 +48,13 @@ public class ShowComments extends HttpServlet {
 
 		
 		String newsIdString=request.getParameter("newsId");
+//		System.out.println("newsIdString : "+newsIdString);
 		String commentIdString=request.getParameter("commentId");
 //		System.out.println("showComment");
 		CommentImpl commentImpl=new CommentImpl(new DBCon().getCon());
 		if (newsIdString!=null) {
 			JSON.DEFFAULT_DATE_FORMAT = "yyyy-MM-dd";
+			response.setContentType("application/json;charset=UTF-8");
 			int newsId=Integer.parseInt(newsIdString);
 			if (commentIdString!=null) {
 				//查看次级评论

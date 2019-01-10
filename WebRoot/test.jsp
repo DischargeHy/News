@@ -68,7 +68,7 @@
 </nav>
 
 
-<button onclick="showComments('86')">shwoComments('86')</button>
+<button onclick="showComments('190')">shwoComments('86')</button>
 <button onclick="show_reply('86','60')">show_reply('86','60')</button>
 
 <div id="comment_area"></div>

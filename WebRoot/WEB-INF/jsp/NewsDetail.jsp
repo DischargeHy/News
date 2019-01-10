@@ -230,12 +230,9 @@ li {
 			<script src="${pageContext.request.contextPath}/ck5/document/ckeditor.js"></script>
 			<jsp:include page="/WEB-INF/template/newsContent.jsp"></jsp:include>
 			<!-- 评论部分    开始-->
-			<div id="comment_area"></div>
-			<script type="text/javascript" src="${pageContext.request.contextPath}/js/comment.js"></script>
-			<script src="${pageContext.request.contextPath}/js/jquery-3.2.1.min.js"></script>
-			<script type="text/javascript">
-				showComments(${news.newsId});
-			</script>
+			<iframe src="${pageContext.request.contextPath}/ShowComment?newsId=${news.getNewsId()}" width="800px;" height="800px;">
+				
+			</iframe>
 			<!-- 评论部分    结束 -->
 		</div>
 		<!-- 板块新闻展示结束 -->

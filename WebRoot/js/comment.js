@@ -82,9 +82,7 @@ function show_reply(newsId,commentId,num,dom){
 //	            alert("success");
 	            var d_post_comtent_main=$(dom).parent().parent();
 	            
-	            $(d_post_comtent_main).children("div:last-child").html(product_reply_ul(result,comment_num));
-
-	            
+	            $(d_post_comtent_main).children("div:last-child").html(product_reply_ul(result,comment_num)).toggle("slow");
 	            
 	            
 //	            if (result.resultCode == 200) {
@@ -99,9 +97,20 @@ function show_reply(newsId,commentId,num,dom){
 	    });
 }
 
-function pinglun() {
-	alert("添加评论");
-   /* $.ajax({
+function pinglun(replyId,who) {
+	$('body,html').animate({scrollTop: $('#commentForm').offset().top-50}, 500);
+	$('#replyId').val(replyId);
+	$('#who').html("回复ta@<a>"+who+"</a>");
+}
+
+function resetForm(){
+//	$('#replyId').removeAttr('id');
+	$('#replyId').val('');
+	$('#who').html('');
+}
+
+function submit_pinglun(){
+	$.ajax({
     //几个参数需要注意一下
         type: "POST",//方法类型
         dataType: "json",//预期服务器返回的数据类型
@@ -109,18 +118,19 @@ function pinglun() {
         data: $('#commentForm').serialize(),
         success: function (result) {
 //            console.log(result);//打印服务端返回的数据(调试用)
-            
-            if (result.resultCode == 200) {
-                alert("SUCCESS");
-
-            }
+        	window.location.reload();
+//            if (result.resultCode == 200) {
+//                alert("SUCCESS");
+//
+//            }
             ;
         },
         error : function() {
             alert("异常！");
         }
-    });*/
+    });
 }
+
 
 var comment_num=0;
 function get_comment_num(){
@@ -164,7 +174,11 @@ function product_p_content(mainComment,comment_num){
     
     var comment_time=$('<span class="reply-time"></span>').text(mainComment.commentTime);
     
-    var huifu=$('<a href="javascript:pinglun('+mainComment.commentId+')">回复</a>');
+//    var huifu=$("<a href='javascript:pinglun("+mainComment.commentId+",\'"+mainComment.userName+"\')' >回复</a>");
+    
+    var huifu=$("<a href=''>回复</a>");
+	var href="javascript:pinglun("+mainComment.commentId+",'"+mainComment.userName+"')";
+	$(huifu).attr('href',href);
     
     $(p_bottom).append(comment_time).append(huifu);
    
@@ -218,14 +232,16 @@ function product_reply_li(secondComment){
 	
 	var userName=$('<a href="#"></a>').text(secondComment.userName);   //发表回复的那个人的名字
 	
-	var replyUserName=$('<a href="#"></a>').text("@"+secondComment.replyUserName);
-	$(reply_text).append(userName).append(replyUserName).append('<span class="reply-time">'+secondComment.commentContent+'</span>');
+	var replyUserName=$('<a href="#"></a>').text(secondComment.replyUserName);
+	$(reply_text).append(userName).append('<i>@</i>').append(replyUserName).append('<span class="reply-time">'+secondComment.commentContent+'</span>');
 
 	
 	var reply_bottom=$('<div class="reply_bottom"></div>'); //回复的底部
 	
 	
-	var a=$('<a href="javascript:pinglun('+secondComment.commentId+')">回复</a>');
+	var a=$("<a href=''>回复</a>");
+	var href="javascript:pinglun("+secondComment.commentId+",'"+secondComment.userName+"')";
+	$(a).attr('href',href);
 	$(reply_bottom).append('<span class="reply-time">'+secondComment.commentTime+'</span>');
 	$(reply_bottom).append(a);
 	
