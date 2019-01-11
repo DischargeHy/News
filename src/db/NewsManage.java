@@ -1003,11 +1003,18 @@ public class NewsManage {
 			if(search==null) {
 				search="*";
 			}
+			try {
+				search=java.net.URLDecoder.decode(search, "gb2312");
+				System.out.println(search);
+			} catch (UnsupportedEncodingException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 			String sqlString = "select * from News,`User` where News.UserId=`User`.UserId and NewsTitle like '%" + search  + "%' and NewsStatus=1 order by CreateTime desc";
 			try {
 				PreparedStatement pre = con.prepareStatement(sqlString);
 				ResultSet rs = pre.executeQuery();
-
+				
 				rs.absolute((Page-1)*indexPageSize+1);//指针指向对应页的第一个数据
 				int count = 0;
 				do{

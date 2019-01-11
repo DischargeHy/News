@@ -39,6 +39,22 @@ public class NewsImpl {
 		}
 	}
 	
+	public boolean updateNews(News news) throws SQLException {
+		
+		PreparedStatement preparedStatement=connection.prepareStatement("UPDATE `News` SET `newsStatus`=0,`newsTitle`=?, `newsContent`=?,`newsTypeId`=?,`userId`=?,`newsCover`=? "
+				+ " WHERE newsId=?");
+		preparedStatement.setString(1, news.getNewsTitle());
+		preparedStatement.setString(2, news.getNewsContent());
+		preparedStatement.setInt(3, news.getNewsTypeId());
+		preparedStatement.setInt(4, news.getUserId());
+		preparedStatement.setString(5, news.getNewsCover());
+		preparedStatement.setInt(6, news.getNewsId());
+		preparedStatement.execute();
+
+		
+		return true;
+	}
+	
 	public News selectNewsByNewsId(int newsId) throws SQLException {
 		
 		PreparedStatement ps=connection.prepareStatement("SELECT newsId, newsTitle, newsContent, createTime, "

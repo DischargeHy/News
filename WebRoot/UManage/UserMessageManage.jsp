@@ -534,7 +534,11 @@ li {
 									<script>
 										var img = document.getElementById('img')
 										file.addEventListener('change',function() {
-											touxiang();
+											var newsCover=document.getElementById("file").files[0];
+											if(!newsCover){
+												touxiang();
+											}
+											
 										})
 									</script>
 								</div>

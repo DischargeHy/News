@@ -9,7 +9,7 @@ public class DBCon {
 		Connection con=null;
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			con=DriverManager.getConnection("jdbc:mysql://115.159.1.55:3306/News?serverTimezone=UTC","root","MYsql6062..");
+			con=DriverManager.getConnection("jdbc:mysql://127.0.0.1:3308/news?serverTimezone=UTC","root","1234");
 		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

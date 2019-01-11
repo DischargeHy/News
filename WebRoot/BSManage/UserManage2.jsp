@@ -30,7 +30,7 @@
 	String UserPage = request.getParameter("page");
 	String search = null;
 	if(request.getParameter("search")!=null){
-		search =request.getParameter("search");
+		search = new String(request.getParameter("search").getBytes("ISO-8859-1"), "UTF-8");
 	}
 	int page_num = 0;//总页数
 	int allPage = 0;//总行数
@@ -64,7 +64,7 @@
 					<li class="hidden-xs am-hide-sm-only">
                         <form role="search" class="app-search" method="post" action="NewsManage2.jsp" id="searchForm" name="searchForm">
 							<input type="hidden" value="<%=type %>" name="type">
-                            <input id="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(request.getParameter("search"));}%>" type="text" placeholder="请输入搜索内容" class="form-control" onchange="changeHref1(<%=type%>)">
+                            <input id="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(search);}%>" type="text" placeholder="请输入搜索内容" class="form-control" onchange="changeHref1(<%=type%>)">
                             <a id="aForm" href="../BSManage/UserManage2.jsp?page=1&search=<%if(search==null||search.equals("")){out.print("null");}else{out.print(search);}%>&type=<%=type%>"><img src="../houtai/assets/img/search.png"></a>
                         </form>
                     </li>

@@ -17,6 +17,15 @@ public class News {
 	
 	
 	
+	public News(Integer newsId, String newsTitle, String newsContent, Integer newsTypeId, Integer userId, String newsCover) {
+		super();
+		this.newsId = newsId;
+		this.newsTitle = newsTitle;
+		this.newsContent = newsContent;
+		this.newsTypeId = newsTypeId;
+		this.userId = userId;
+		this.newsCover = newsCover;
+	}
 	public News(String newsTitle, String newsContent, Integer newsTypeId, Integer userId, String newsCover) {
 		super();
 		this.newsTitle = newsTitle;

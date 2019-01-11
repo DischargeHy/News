@@ -39,7 +39,7 @@ function publish(message){
 	        data: $('#editNews').serialize()+"&newsContent="+newsContent,
 	        success: function (result) {
 //	            console.log(result);//打印服务端返回的数据(调试用)
-	        	if(result.upload==1){
+	        	if(result.uploaded==1){
 	        		window.location.href=result.url;
 	        	}else{
 	        		message.innerHTML=result.message;
@@ -113,7 +113,7 @@ function publishConfirm(){
 //上传新闻封面
 function newsCover(){
 	var xmlhttp = createXmlHttp();
-	var newsCover=document.getElementById("newsCover").files[0];
+	var newsCover=document.getElementById("file_img").files[0];
 	// 实例化一个表单数据对象 
 	var formData = new FormData(); 
 	formData.append("newsCover", newsCover); 
@@ -137,6 +137,8 @@ function newsCover(){
 		        result_json=eval("(" + result + ")");
 //		        alert(result_json.url);
 		        document.getElementById("fengmian").src = result_json.url;
+		        document.getElementById("newsCover").value = result_json.url;
+
 	        }
 	    }else{
 	    	//发布失败

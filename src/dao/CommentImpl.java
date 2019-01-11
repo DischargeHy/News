@@ -59,7 +59,7 @@ public class CommentImpl {
 	}
 	
 	public boolean reportComment(int commentId) throws SQLException {
-		String sql="UPDATE `Comment` SET state=1 WHERE commentId=?";
+		String sql="UPDATE `Comment` SET state='1' WHERE commentId=?";
 		PreparedStatement preparedStatement=connection.prepareStatement(sql);
 		preparedStatement.setInt(1, commentId);
 		

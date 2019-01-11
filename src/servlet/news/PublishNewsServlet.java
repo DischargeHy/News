@@ -53,6 +53,7 @@ public class PublishNewsServlet extends HttpServlet {
 			String newsContent=request.getParameter("newsContent");
 			String newsCover=request.getParameter("newsCover");
 			String newsTitle=request.getParameter("newsTitle");
+			String newsIdString=request.getParameter("newsId");
 			
 			SensitivewordFilter sFilter=(SensitivewordFilter)this.getServletContext().getAttribute("wordFilter");
 			Set<String> set = sFilter.getSensitiveWord(newsContent, SensitivewordFilter.minMatchTYpe);
@@ -70,25 +71,47 @@ public class PublishNewsServlet extends HttpServlet {
 		
 				Connection connection=new DBCon().getCon();
 				NewsImpl newsImpl=new NewsImpl(connection);
-		//		News news=new News(newsTitle, newsContent, newsTypeId, 5, newsCover);
-				News news=new News(newsTitle, newsContent, newsTypeId, userId, newsCover);
-				String newsId=null;
-				try {
-					newsImpl.insertNews(news);
-					newsId=""+newsImpl.getLastInsertId();
-				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+				
+				//存在newsId则更新
+				if(newsIdString==null||newsIdString.equals("")) {
+					System.out.println("插入");
+					News news=new News(newsTitle, newsContent, newsTypeId, userId, newsCover);
+					String newsId=null;
+					try {
+						newsImpl.insertNews(news);
+						newsId=""+newsImpl.getLastInsertId();
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+//							System.out.println(newsId);
+					if (newsId!=null) {
+						String strJson="{\"url\": \""+Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+Integer.parseInt(newsIdString)+"\",\"uploaded\": 1}";
+//								String strJson=Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId;
+//								System.out.println(strJson);
+						response.setContentType("application/json;charset=utf-8;");
+//								response.setContentType("text/plain;");
+						response.getWriter().print(strJson);
+					}
+				}else {
+					System.out.println("更新");
+					News news=new News(Integer.parseInt(newsIdString),newsTitle, newsContent, newsTypeId, userId, newsCover);
+					try {
+						newsImpl.updateNews(news);
+						String strJson="{\"url\": \""+Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+Integer.parseInt(newsIdString)+"\",\"uploaded\": 1}";
+//						String strJson=Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId;
+//						System.out.println(strJson);
+						response.setContentType("application/json;charset=utf-8;");
+//						response.setContentType("text/plain;");
+						response.getWriter().print(strJson);
+					} catch (SQLException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
 				}
-//						System.out.println(newsId);
-				if (newsId!=null) {
-					String strJson="{\"url\": \""+Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId+"\",\"uploaded\": 1}";
-//							String strJson=Url.getWEBUrlByProject(request)+"/ShowNews?newsId="+newsId;
-//							System.out.println(strJson);
-					response.setContentType("application/json;charset=utf-8;");
-//							response.setContentType("text/plain;");
-					response.getWriter().print(strJson);
-				}
+
+				
 			}
 
 		}

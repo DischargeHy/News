@@ -145,10 +145,6 @@ li {
 							<div class="fr">
 								<%								
 									if(UserId!=null){		
-										//如果是管理员点击个人中心
-										if (UserType.equals("3")) {
-											response.sendRedirect("../BSManage/NewsManage.jsp?page=1");
-										}
 								%>
 								<ul>
 									<li><a href="../UManage/UserMessageManage.jsp"><img class="am-circle" src="<%=user.getUserHead()%>" width="25px" height="25px" style="margin-top: -2px; margin-right: 10px;"><%=UserAccount%></a></li>

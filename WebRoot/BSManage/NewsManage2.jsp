@@ -33,7 +33,7 @@
 			String NewsType = "0";
 			String search = null;
 			if(request.getParameter("search")!=null){
-				search = request.getParameter("search");
+				search = new String(request.getParameter("search").getBytes("ISO-8859-1"), "UTF-8");
 			}
 			if(request.getParameter("NewsStatus")!=null){
 				NewsStatus = request.getParameter("NewsStatus");
@@ -48,7 +48,7 @@
 					allPage = nm.getNewsPage(userId, NewsStatus);
 				}
 				else{
-					String NewsTitle = request.getParameter("search");//通过搜索给出数据
+					String NewsTitle = search;//通过搜索给出数据
 					list = nm.showNewsList(userId, NewsTitle,NewsPage, NewsStatus);
 					allPage = nm.getNewsPage(userId, NewsTitle,NewsStatus);
 				}
@@ -59,7 +59,7 @@
 					allPage = nm.getNewsPageAll(NewsType);
 				}
 				else{
-					String NewsTitle = request.getParameter("search");//通过搜索给出数据（管理员）
+					String NewsTitle = search;//通过搜索给出数据（管理员）
 					list = nm.showNewsList(NewsTitle, NewsPage, NewsType);
 					allPage = nm.getNewsPage(NewsTitle, NewsType);
 				}
@@ -84,11 +84,11 @@
 							<input type="hidden" value="<%=NewsStatus%>" name="NewsStatus">
 							<input type="hidden" value="<%=NewsType%>" name="NewsType">
 							<%if(userType==3){ %>
-                            <input id="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(request.getParameter("search"));}%>" type="text" placeholder="请输入搜索内容" class="form-control" onchange="changeHref1(<%=NewsType%>)">
+                            <input id="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(search);}%>" type="text" placeholder="请输入搜索内容" class="form-control" onchange="changeHref1(<%=NewsType%>)">
                             <a id="aForm" href="../BSManage/NewsManage2.jsp?page=1&search=<%if(search==null||search.equals("")){out.print("null");}else{out.print(search);}%>&NewsType=<%=NewsType%>"><img src="../houtai/assets/img/search.png"></a>
                             <%} 
 							else{ %>
-                            <input id="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(request.getParameter("search"));}%>" type="text" placeholder="请输入搜索内容" class="form-control" onchange="changeHref2(<%=NewsStatus%>)">
+                            <input id="search" value="<%if(request.getParameter("search")==null){out.print("");}else{out.print(search);}%>" type="text" placeholder="请输入搜索内容" class="form-control" onchange="changeHref2(<%=NewsStatus%>)">
                       		<a id="aForm" href="../BSManage/NewsManage2.jsp?page=1&search=<%if(search==null||search.equals("")){out.print("null");}else{out.print(search);}%>&NewsStatus=<%=NewsStatus%>"><img src="../houtai/assets/img/search.png"></a>
                       		 <%} %>
                                

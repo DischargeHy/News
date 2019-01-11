@@ -210,23 +210,28 @@ li {
 					<hr />
 					<!-- 标题结束 -->
 				</div>
-
+				<br>
 					<!--回复内容开始 -->
-					<div class="info-main" style="margin-right: 100px;">
+					<div class="info-main" style="margin-right: 10%;margin-left:10%;" >
 						<%
 						Comment cm=null;
 						ArrayList replylist=nm.showReplyByUserId(user.getUserId(),Page);
 						for(int i=0;i<replylist.size();i++){
 							cm=(Comment)replylist.get(i);
 						%>
-						<div>
-							回复人:<%=cm.getUserName() %>&nbsp;回复了你说:<%=cm.getCommentContent() %><br/>
-							回复你的主题是:<a href="../ShowNews?newsId=<%=cm.getNewsId()%>"><%-- <%=nm.showNewsTitleByNewsId(cm.getNewsId()) %> --%><%=cm.getNewsId()%></a>
+						<div style="font-size: 18px">
+							回复人:<%=cm.getUserName() %>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;回复了你说:<%=cm.getCommentContent() %><br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							回复你的主题是:&nbsp;&nbsp;&nbsp;<a href="../ShowNews?newsId=<%=cm.getNewsId()%>" style="font-size: 18px"><%=nm.showNewsTitleByNewsId(cm.getNewsId()) %></a>
+							
 						</div>
+						<br>
+						<hr>
+						<br>
 						<%
 						}
 						%>
 					</div>
+					<br>
 					<!--回复内容结束  -->
 					
 					<!--页码开始  -->

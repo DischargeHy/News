@@ -162,14 +162,24 @@ width:100%
 
 
 <body >
+<%
+							request.setCharacterEncoding("utf-8");
+							String Search = "";
+							if (request.getParameter("Search") != null) {
+								session.setAttribute("Search", request.getParameter("Search"));
+								Search = request.getParameter("Search");
+							}else{
+								Search = session.getAttribute("Search").toString();
+							}
+						%>
 <!--头部开始 -->
 	<header>
 		<article>
 			<div class="mt-logo">
 				<!--顶部导航栏  -->
 				<!-- Session信息和用户信息开始 -->
-				<% request.setCharacterEncoding("utf-8");
-					response.setCharacterEncoding("utf-8");
+				<% 
+					
 					int Page=1;
 					if(request.getParameter("page")!=null){
 						Page = Integer.parseInt(request.getParameter("page"));
@@ -311,8 +321,8 @@ width:100%
 			<div class="am-col" style="margin-top: 30px; margin-bottom: 30px;">
 				<div class="am-input-group">
 					<form action="Search.jsp" method="post">
-						<input type="text" name="Search" placeholder=" 搜一下"
-							class="am-form-field" style="height: 45px; width: 650px;">
+						<input type="text" name="Search" placeholder=" 搜一下" 
+							class="am-form-field" style="height: 45px; width: 650px;" value=<%=session.getAttribute("Search") %>>
 						<span class="am-input-group-btn"> <input
 							class="am-btn am-btn-primary" name="" type="submit" value="搜一下"
 							style="height: 45px; width: 80px" />
@@ -328,11 +338,8 @@ width:100%
 				 	moz-box-shadow: #666 0px 0px 10px; box-shadow: #666 0px 0px 10px;width:790px;height:970px;"  >
 					<div class="content">
 						<!--新闻列表开始  -->
-						<%
-							String Search = "";
-							if (request.getParameter("Search") != null) {
-								Search = request.getParameter("Search");
-							}
+						
+						<% 
 							int pageCount = nm.ShowPageCountBynewsTitle(Search);//总分页数
 							if (Page < 1)
 								Page = 1;//如果页码小于1，则页码置为第1页
@@ -367,8 +374,8 @@ width:100%
 			 <div style=" display: inline-block;" >
 
 				<ul class="am-pagination  am-pagination-centered ">
-					<li class="am-disabled"><a href="Search.jsp?Search=<%=Search%>&page=1"> 首页</a></li>
-					<li><a href="Search.jsp?Search=<%=Search %>&page=<%=Page-1%>" >上一页</a></li>
+					<li class="am-disabled"><a href="Search.jsp?page=1"> 首页</a></li>
+					<li><a href="Search.jsp?page=<%=Page-1%>" >上一页</a></li>
 					
 					<%
 					int num=0;
@@ -394,13 +401,13 @@ width:100%
 					<%
 						} else {
 					%>
-					<li ><a href="Search.jsp?Search=<%=Search%>&page=<%=i%>"><%=i%></a></li>
+					<li ><a href="Search.jsp?page=<%=i%>"><%=i%></a></li>
 					<%
 						}
 						}
 					%>
-					<li><a href="Search.jsp?Search=<%=Search %>&page=<%=Page+1%>" >下一页</a></li>
-					<li ><a href="Search.jsp?Search=<%=Search%>&page=<%=pageCount%>">尾页 </a></li>
+					<li><a href="Search.jsp?page=<%=Page+1%>" >下一页</a></li>
+					<li ><a href="Search.jsp?page=<%=pageCount%>">尾页 </a></li>
 				</ul>
 
 			</div> 

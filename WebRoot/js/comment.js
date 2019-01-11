@@ -133,12 +133,13 @@ function submit_pinglun(){
         	window.location.reload();
 //            if (result.resultCode == 200) {
 //                alert("SUCCESS");
-//
+// 
 //            }
             ;
         },
         error : function() {
-            alert("异常！");
+//            alert("异常！");
+        	alert("评论失败，需要登录")
         }
     });
 }

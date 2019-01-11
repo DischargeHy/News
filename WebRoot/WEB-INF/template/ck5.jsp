@@ -59,20 +59,18 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ck5.css" type="text/css" />
 
 
-<div style="margin-right: 50px;text-align: center;">
-	选择封面图片<input type="file" id="newsCover" name="newsCover" accept="image/png,image/gif,image/jpeg" style="margin: 0 auto;"/>
 
 <div style="width: 400px;">
 </div>
 <br>
 <br>
-<img alt="新闻封面" src="<%if(news!=null){out.print(news.getNewsCover());}
-						else{ %>${pageContext.request.contextPath}/img/java.png<%} %>" style="max-width: 300px;" id="fengmian">
+
 	<div class="center" >
-	
+	<input type="hidden" id="newsId" name="newsId" value="${news.getNewsId()}">
 	<br>
-	<center>
-	请插入新闻封面：<label ><input type="file" id="newsCover" name="newsCover" accept="image/png,image/gif,image/jpeg"  /></label>
+	<center><img alt="新闻封面" src="<%if(news!=null){out.print(news.getNewsCover());}
+						else{ %>${pageContext.request.contextPath}/img/java.png<%} %>" style="max-width: 300px;" id="fengmian">
+	设置新闻封面：<label ><input type="file" id="file_img" name="file_img" accept="image/png,image/gif,image/jpeg"  /></label>
 	</center>
 	
 	</div>
@@ -82,6 +80,7 @@
 	<br>
 	<br>
 </div>
+<input type="hidden" id="newsCover" name="newsCover" value="${news.getNewsCover()}">
 
 </form>
 <div style="text-align: center;">
@@ -89,7 +88,7 @@
 	<span id="publishMessage" style="color: red;"></span>
 </div>	
 <script type="text/javascript">
-var img = document.getElementById('newsCover').addEventListener('change',function() {
+var img = document.getElementById('file_img').addEventListener('change',function() {
 	newsCover();
 })
 </script>

@@ -135,7 +135,7 @@ li {
 									if(UserId!=null){		
 										//如果是管理员点击个人中心
 										if (UserType.equals("3")) {
-											response.sendRedirect("BSManage/NewsManage.jsp?page=1");
+											response.sendRedirect("BSManage/NewsManage2.jsp?page=1");
 										}
 								%>
 								<ul>
