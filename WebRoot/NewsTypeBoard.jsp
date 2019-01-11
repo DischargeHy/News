@@ -257,7 +257,23 @@ li {
 			<ul class="am-pagination  am-pagination-centered">
 				<li class="am-disabled"><a href="NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=1">首页</a></li>
 				<li><a href = "NewsTypeBoard.jsp?NewsTypeId=<%=NewsTypeId %>&page=<%=Page-1%>" >上一页</a></li>
-				<%for(int i=1;i<=pageCount;i++){ 
+				<%
+				int num=0;
+				int page_front = 1;//展示的第一个页面
+				
+				if(pageCount<6){
+                   	page_front=1;
+                }
+                else if(Page>4&&pageCount-Page>=4){
+                	page_front = Page-3;
+                }
+                else if(pageCount-Page<3){
+                	
+                	page_front = pageCount-5;
+                }
+					for (int i = page_front; i <= pageCount; i++) {
+						num++;
+						if(num==7){break;}//如果页码超过7就不显示
 								if(i==Page){		
 							%>
 				<li ><a style="color: red;"><%=i%> </a></li>				<%	

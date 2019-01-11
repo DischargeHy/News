@@ -169,6 +169,7 @@ width:100%
 				<!--顶部导航栏  -->
 				<!-- Session信息和用户信息开始 -->
 				<% request.setCharacterEncoding("utf-8");
+					response.setCharacterEncoding("utf-8");
 					int Page=1;
 					if(request.getParameter("page")!=null){
 						Page = Integer.parseInt(request.getParameter("page"));
@@ -337,7 +338,6 @@ width:100%
 								Page = 1;//如果页码小于1，则页码置为第1页
 							if (Page >= pageCount)
 								Page = pageCount;//如果当前页码大于总分的页数，就将当前页码置为最后一页
-
 							ArrayList list2 = nm.showNewsListByNewsTitle(Search, Page);/*通过新闻名来模糊查询新闻内容  */
 							for (int i = 0; i < list2.size(); i++) {
 								News news = (News) list2.get(i);
@@ -347,9 +347,9 @@ width:100%
 								<img src=<%=news.getNewsCover()%> width="180px" height="105px" />
 							</div>
 							<div class="contentright" style="margin-top:10px">
-								<a href="#"><p>
+								<a href="./ShowNews?newsId=<%=news.getNewsId()%>"><p>
 										<strong><font size="4px"><%=news.getNewsTitle()%></font>
-									</p></a></strong> <a href="#"><%=news.getUserName()%>·&nbsp;<%=news.getNewsContentNum()%>条评论·&nbsp;<%=news.getUpdateTime()%></a>
+									</p></a></strong> <a href="./ShowNews?newsId=<%=news.getNewsId()%>"><%=news.getUserName()%>·&nbsp;<%=news.getNewsContentNum()%>条评论·&nbsp;<%=news.getUpdateTime()%></a>
 							</div>
 						</div>
 						<hr width="600" />
@@ -369,8 +369,24 @@ width:100%
 				<ul class="am-pagination  am-pagination-centered ">
 					<li class="am-disabled"><a href="Search.jsp?Search=<%=Search%>&page=1"> 首页</a></li>
 					<li><a href="Search.jsp?Search=<%=Search %>&page=<%=Page-1%>" >上一页</a></li>
+					
 					<%
-						for (int i = 1; i <= pageCount; i++) {
+					int num=0;
+					int page_front = 1;//展示的第一个页面
+					
+					if(pageCount<6){
+                       	page_front=1;
+                    }
+                    else if(Page>4&&pageCount-Page>=4){
+                    	page_front = Page-3;
+                    }
+                    else if(pageCount-Page<3){
+                    	
+                    	page_front = pageCount-5;
+                    }
+						for (int i = page_front; i <= pageCount; i++) {
+							num++;
+							if(num==7){break;}//如果页码超过7就不显示 
 							if (i == Page) {
 					%>
 

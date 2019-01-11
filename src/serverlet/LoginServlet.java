@@ -71,7 +71,7 @@ public class LoginServlet extends HttpServlet {
 				if(UserPass.equals(RealUserPass)){
 					//判断是否为封禁账号
 					if (user.getUserType() == 4) {
-						out.println("<script>alert('Your account is blocked,Cannot log in!');window.location.href='Login.jsp'</script>");
+						out.println("<script>alert('Your account is blocked,Cannot log in!');history.back(-1)</script>");
 					} else {
 						HttpSession session = request.getSession();
 						session.setAttribute("UserId", user.getUserId());
@@ -86,10 +86,10 @@ public class LoginServlet extends HttpServlet {
 						}
 					}
 				}else{
-					out.println("<script>alert('Password error');window.location.href='Login.jsp'</script>");
+					out.println("<script>alert('Password error');history.back(-1)</script>");
 				}
 			} else {
-				out.println("<script>alert('this User is not exist');window.location.href='Login.jsp'</script>");
+				out.println("<script>alert('this User is not exist');history.back(-1)</script>");
 			}
 		}
 	}
