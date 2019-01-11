@@ -49,13 +49,21 @@
 </div>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/css/ck5.css" type="text/css" />
 
-<div style="text-align: center;">
-	<input type="file" id="newsCover" name="newsCover" accept="image/png,image/gif,image/jpeg"/>
-	<button onclick="newsCover()">上传图片作为封面</button>
+<div style="margin-right: 50px;text-align: center;">
+	选择封面图片<input type="file" id="newsCover" name="newsCover" accept="image/png,image/gif,image/jpeg" style="margin: 0 auto;"/>
+	
 <div style="width: 400px;">
 </div>
 <img alt="新闻封面" src="<%if(news!=null){out.print(news.getNewsCover());}
 						else{ %>${pageContext.request.contextPath}/img/java.png<%} %>" style="max-width: 300px;" id="fengmian">
 </div>
 </form>
-<button onclick="publishConfirm()" style="display: bloack; margin: 0 auto;">发布新闻</button>
+<script type="text/javascript">
+var img = document.getElementById('newsCover').addEventListener('change',function() {
+	newsCover();
+})
+</script>
+<!-- <button onclick="newsCover()">上传图片作为封面</button> -->
+<div style="text-align: center; margin-top: 30px;">
+<button onclick="publishConfirm()">发布新闻</button>
+</div>

@@ -539,7 +539,7 @@ li {
 									</script>
 								</div>
 							</div>
-							
+							<input type="hidden" name="userHead" id="userHead" value="">
 							<!-- 修改头像结束 -->
 							<script type="text/javascript">
 							//上传头像
@@ -569,6 +569,7 @@ li {
 									        result_json=eval("(" + result + ")");
 //									        alert(result_json.url);
 									        document.getElementById("img").src = result_json.url;
+									        document.getElementById("userHead").value=result_json.url;
 								        }
 								    }else{
 								    	//发布失败
